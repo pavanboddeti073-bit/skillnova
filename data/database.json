@@ -95,6 +95,108 @@
         "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
         "Google Antigravity ఎలా ఉపయోగించాలి?"
       ]
+    },
+    {
+      "id": "msg-1791983553186-u",
+      "role": "user",
+      "content": "hii",
+      "timestamp": "06:42 PM"
+    },
+    {
+      "id": "msg-1791983553186-a",
+      "role": "assistant",
+      "content": "**SkillNova AI Engineering Response:**\n\nRegarding: \"*hii*\"\n\n**Actionable Advice for BEGINNER level:**\n1. **Isolate the Scope**: Break down complex problems into one module or function at a time.\n2. **Check Verified Tools**: Review our Tools Explorer for free tiers and documentation before building custom solutions.\n3. **Defensive Implementation**: Always write error boundaries, validate user input, and check environment variables.\n4. **Document Assumptions**: Maintain a clean README with setup steps and testing commands.",
+      "timestamp": "06:42 PM",
+      "suggestedFollowUps": [
+        "Show me hackathon-winning project ideas",
+        "How to structure an ATS-friendly tech resume",
+        "Explain difference between LLMs and Traditional ML"
+      ]
+    },
+    {
+      "id": "msg-1791983569662-u",
+      "role": "user",
+      "content": "Where do I start as a beginner?",
+      "timestamp": "06:42 PM"
+    },
+    {
+      "id": "msg-1791983569662-a",
+      "role": "assistant",
+      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
+      "timestamp": "06:42 PM",
+      "suggestedFollowUps": [
+        "How do I write a CR-TCO prompt?",
+        "Show me a beginner tutorial for Antigravity",
+        "How do I host a full-stack project for free?"
+      ]
+    },
+    {
+      "id": "msg-1791983762482-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "06:46 PM"
+    },
+    {
+      "id": "msg-1791983762482-a",
+      "role": "assistant",
+      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
+      "timestamp": "06:46 PM",
+      "suggestedFollowUps": [
+        "How do I write a CR-TCO prompt?",
+        "Show me a beginner tutorial for Antigravity",
+        "How do I host a full-stack project for free?"
+      ]
+    },
+    {
+      "id": "msg-1791983762494-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "06:46 PM"
+    },
+    {
+      "id": "msg-1791983762494-a",
+      "role": "assistant",
+      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
+      "timestamp": "06:46 PM",
+      "suggestedFollowUps": [
+        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
+        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
+        "Google Antigravity ఎలా ఉపయోగించాలి?"
+      ]
+    },
+    {
+      "id": "msg-1791983785813-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "06:46 PM"
+    },
+    {
+      "id": "msg-1791983785813-a",
+      "role": "assistant",
+      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
+      "timestamp": "06:46 PM",
+      "suggestedFollowUps": [
+        "How do I write a CR-TCO prompt?",
+        "Show me a beginner tutorial for Antigravity",
+        "How do I host a full-stack project for free?"
+      ]
+    },
+    {
+      "id": "msg-1791983785828-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "06:46 PM"
+    },
+    {
+      "id": "msg-1791983785828-a",
+      "role": "assistant",
+      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
+      "timestamp": "06:46 PM",
+      "suggestedFollowUps": [
+        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
+        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
+        "Google Antigravity ఎలా ఉపయోగించాలి?"
+      ]
     }
   ],
   "resumeHistory": [

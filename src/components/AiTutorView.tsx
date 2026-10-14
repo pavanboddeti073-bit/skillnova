@@ -194,6 +194,7 @@ Click one of the suggested topics below or type your question in English or Telu
               {!isUser && (
                 <div className="flex items-center gap-2 pt-0.5 px-1">
                   <button
+                    type="button"
                     onClick={() => handleCopyMessage(msg.id, msg.content)}
                     className="text-[11px] text-slate-400 hover:text-slate-700 flex items-center gap-1"
                   >
@@ -209,6 +210,7 @@ Click one of the suggested topics below or type your question in English or Telu
                   {msg.suggestedFollowUps.map((chip, idx) => (
                     <button
                       key={idx}
+                      type="button"
                       onClick={() => handleSendMessage(chip)}
                       className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 transition-colors"
                     >
@@ -239,6 +241,7 @@ Click one of the suggested topics below or type your question in English or Telu
         {quickActionChips.map((chip, idx) => (
           <button
             key={idx}
+            type="button"
             onClick={() => handleSendMessage(chip.query)}
             className="px-3 py-1 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 text-slate-700 text-xs font-medium transition-all"
           >
@@ -251,6 +254,7 @@ Click one of the suggested topics below or type your question in English or Telu
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          e.stopPropagation();
           handleSendMessage();
         }}
         className="p-2 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center gap-2"
@@ -283,9 +287,10 @@ Click one of the suggested topics below or type your question in English or Telu
       {/* Transparency & Disclaimer Footer */}
       <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-500 text-[11px] flex items-center justify-between">
         <span>
-          🛡️ <strong>Demo Mode:</strong> Pre-programmed with verified student responses. Add <code className="bg-slate-200 px-1 py-0.5 rounded text-slate-800">VITE_GEMINI_API_KEY</code> for live cloud model execution.
+          🚀 <strong>Full-Stack AI Engine:</strong> Live backend chat with persistent memory. Configure <code className="bg-slate-200 px-1 py-0.5 rounded text-slate-800">GEMINI_API_KEY</code> in <code className="bg-slate-200 px-1 py-0.5 rounded text-slate-800">.env</code> for Google Gemini 1.5 cloud execution.
         </span>
         <button
+          type="button"
           onClick={() => setMessages(messages.slice(0, 1))}
           className="text-slate-400 hover:text-slate-700 hover:underline flex items-center gap-1"
         >

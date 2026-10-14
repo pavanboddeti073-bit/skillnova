@@ -73,10 +73,46 @@ const STORAGE_KEY = 'skillnova_user_data_v1';
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+const VALID_TABS: TabType[] = [
+  'dashboard',
+  'studio',
+  'tools',
+  'tutorials',
+  'prompt-lab',
+  'wizard',
+  'academy',
+  'tutor',
+  'career'
+];
+
+const getInitialTab = (): TabType => {
+  if (typeof window !== 'undefined') {
+    const hash = window.location.hash.replace('#', '') as TabType;
+    if (VALID_TABS.includes(hash)) return hash;
+    try {
+      const saved = localStorage.getItem('skillnova_active_tab') as TabType;
+      if (VALID_TABS.includes(saved)) return saved;
+    } catch {}
+  }
+  return 'dashboard';
+};
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<SupportedLanguage>(siteConfig.defaultLanguage);
   const [level, setLevelState] = useState<SkillLevel>('beginner');
-  const [activeTab, setActiveTab] = useState<TabType>('dashboard');
+  const [activeTab, setActiveTabState] = useState<TabType>(getInitialTab);
+
+  const setActiveTab = (tab: TabType) => {
+    setActiveTabState(tab);
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('skillnova_active_tab', tab);
+        if (window.location.hash !== `#${tab}`) {
+          window.history.pushState(null, '', `#${tab}`);
+        }
+      } catch {}
+    }
+  };
   
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [selectedTutorial, setSelectedTutorial] = useState<GuidedTutorial | null>(null);
@@ -128,6 +164,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setServerOnline(false);
       }
     }).catch(() => setServerOnline(false));
+  }, []);
+
+  // Listen to browser navigation / hashchange events
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (typeof window !== 'undefined') {
+        const hash = window.location.hash.replace('#', '') as TabType;
+        if (VALID_TABS.includes(hash)) {
+          setActiveTabState(hash);
+        }
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   // Sync to local storage
