@@ -1,7 +1,9 @@
 import React from 'react';
-import { Sparkles, Heart, ShieldCheck, ExternalLink } from 'lucide-react';
+import { Sparkles, ShieldCheck } from 'lucide-react';
 import { siteConfig } from '../config/siteConfig';
 import { useApp } from '../context/AppContext';
+
+const CURRENT_YEAR = new Date().getFullYear();
 
 interface FooterProps {
   onOpenPrivacyModal: () => void;
@@ -60,7 +62,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
           <p>
-            © {new Date().getFullYear()} {siteConfig.name}. Designed for college students, beginners & hackathon teams.
+            © {CURRENT_YEAR} {siteConfig.name}. Designed for college students, beginners & hackathon teams.
           </p>
 
           <div className="flex items-center gap-4">

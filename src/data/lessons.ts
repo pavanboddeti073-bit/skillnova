@@ -1,4 +1,4 @@
-import { Lesson } from '../types';
+import type { Lesson } from '../types/index.ts';
 
 export const academyLessons: Lesson[] = [
   {

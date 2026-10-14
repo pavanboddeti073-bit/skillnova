@@ -1,4 +1,4 @@
-import { ChatMessage, SupportedLanguage, SkillLevel } from '../types';
+import type { ChatMessage, SupportedLanguage, SkillLevel } from '../types/index.ts';
 
 export interface TutorResponse {
   content: string;

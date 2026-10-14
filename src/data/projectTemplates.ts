@@ -1,4 +1,4 @@
-import { GeneratedProjectPlan } from '../types';
+import type { GeneratedProjectPlan } from '../types/index.ts';
 
 export const prebuiltProjectPlans: GeneratedProjectPlan[] = [
   {

@@ -1,4 +1,4 @@
-import { GuidedTutorial } from '../types';
+import type { GuidedTutorial } from '../types/index.ts';
 
 export const guidedTutorials: GuidedTutorial[] = [
   {

@@ -1,4 +1,4 @@
-import { ResumeAnalysis } from '../types';
+import type { ResumeAnalysis } from '../types/index.ts';
 
 export function analyzeStudentResume(resumeText: string): ResumeAnalysis {
   const sanitized = resumeText.trim();

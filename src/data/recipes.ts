@@ -1,4 +1,4 @@
-import { BuildRecipe } from '../types';
+import type { BuildRecipe } from '../types/index.ts';
 
 export const buildRecipes: BuildRecipe[] = [
   {
@@ -600,6 +600,6 @@ export const buildRecipes: BuildRecipe[] = [
       'Minimal "Hello World" ran successfully in an isolated test.',
       'Secrets are stored in environment variables, not committed to git.'
     ],
-    exportTemplate: `# Tool Assessment Log: [TOOL_NAME]\n\n- **Official Site:** [URL]\n- **Verified Pricing Tier:** [Open Source / Free Tier / Trial / Paid]\n- **Verification Date:** [Today\'s Date]\n- **Best Use Case:** [Why we are using it]\n- **Minimal Run Command:** [Command]\n- **Gotchas / Limitations:** [What to watch out for]`
+    exportTemplate: `# Tool Assessment Log: [TOOL_NAME]\n\n- **Official Site:** [URL]\n- **Verified Pricing Tier:** [Open Source / Free Tier / Trial / Paid]\n- **Verification Date:** [Today's Date]\n- **Best Use Case:** [Why we are using it]\n- **Minimal Run Command:** [Command]\n- **Gotchas / Limitations:** [What to watch out for]`
   }
 ];

@@ -4,10 +4,7 @@ import {
   ShieldAlert, 
   Trash2, 
   CheckCircle2, 
-  FileText, 
-  AlertTriangle,
-  HeartHandshake,
-  ExternalLink
+  AlertTriangle
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { siteConfig } from '../config/siteConfig';
@@ -18,7 +15,7 @@ interface DataPrivacyModalProps {
 }
 
 export const DataPrivacyModal: React.FC<DataPrivacyModalProps> = ({ isOpen, onClose }) => {
-  const { language, clearAllUserData, showToast } = useApp();
+  const { clearAllUserData } = useApp();
 
   if (!isOpen) return null;
 

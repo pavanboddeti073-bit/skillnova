@@ -1,4 +1,4 @@
-import { PromptTemplate } from '../types';
+import type { PromptTemplate } from '../types/index.ts';
 
 export const promptTemplates: PromptTemplate[] = [
   {

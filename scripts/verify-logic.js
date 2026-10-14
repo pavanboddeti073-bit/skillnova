@@ -94,6 +94,37 @@ assert.ok(tutorResponseTe.content.length > 50);
 assert.ok(tutorResponseTe.suggestedFollowUps.length > 0);
 console.log('  -> AI Tutor returned verified educational answers in English and Telugu.');
 
+// 8. Prompt Templates Integrity
+console.log('✓ Checking Prompt Templates...');
+assert.ok(promptTemplates.length >= 6, 'Expected at least 6 prompt templates');
+promptTemplates.forEach(pt => {
+  assert.ok(pt.id, 'Prompt template missing ID');
+  assert.ok(pt.title, 'Prompt template missing title');
+  assert.ok(pt.task.length > 10, 'Prompt template task too short');
+  assert.ok(pt.role.length > 5, 'Prompt template role too short');
+});
+console.log(`  -> ${promptTemplates.length} structured CR-TCO prompt templates verified.`);
+
+// 9. Project Templates Integrity
+console.log('✓ Checking Prebuilt Project Plans...');
+assert.ok(prebuiltProjectPlans.length >= 3, 'Expected at least 3 project plans');
+prebuiltProjectPlans.forEach(pp => {
+  assert.ok(pp.id, 'Project plan missing ID');
+  assert.ok(pp.goalSummary, 'Project plan missing goal summary');
+  assert.ok(pp.milestones.length >= 3, `Project plan ${pp.id} has fewer than 3 milestones`);
+});
+console.log(`  -> ${prebuiltProjectPlans.length} project plans verified with milestones.`);
+
+// 10. Career Resources Integrity
+console.log('✓ Checking Career Programs...');
+assert.ok(verifiedCareerResources.length >= 7, 'Expected at least 7 career programs');
+verifiedCareerResources.forEach(cr => {
+  assert.ok(cr.id, 'Career resource missing ID');
+  assert.ok(cr.officialUrl.startsWith('http'), `Invalid URL for career resource ${cr.id}`);
+  assert.ok(cr.lastCheckedAt, `Missing lastCheckedAt for ${cr.id}`);
+});
+console.log(`  -> ${verifiedCareerResources.length} verified student career opportunities checked.`);
+
 console.log('\n=============================================');
 console.log('🎉 ALL AUTOMATED VERIFICATION CHECKS PASSED!');
 console.log('=============================================\n');

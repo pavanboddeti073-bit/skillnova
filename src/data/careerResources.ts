@@ -1,4 +1,4 @@
-import { CareerResource } from '../types';
+import type { CareerResource } from '../types/index.ts';
 
 export const verifiedCareerResources: CareerResource[] = [
   {
