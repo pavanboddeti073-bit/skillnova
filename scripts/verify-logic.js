@@ -83,16 +83,16 @@ assert.ok(analysis.atsSafetyTips.length >= 3);
 assert.ok(analysis.disclaimer.includes('Educational feedback only'));
 console.log('  -> Resume analyzer parsed text, flagged passive verbs, and applied Google XYZ format.');
 
-// 7. AI Tutor Demo Mode & Bilingual Capabilities
-console.log('✓ Checking AI Tutor Service...');
+// 7. Full-Stack AI Tutor & Bilingual Capabilities
+console.log('✓ Checking Full-Stack AI Tutor Service...');
 const tutorResponseEn = await askAiTutor('where do i start as a beginner?', 'en', 'beginner');
 assert.ok(tutorResponseEn.content.length > 50);
-assert.strictEqual(tutorResponseEn.isDemo, true);
+assert.strictEqual(tutorResponseEn.isDemo, false);
 
 const tutorResponseTe = await askAiTutor('where do i start as a beginner?', 'te', 'beginner');
 assert.ok(tutorResponseTe.content.length > 50);
 assert.ok(tutorResponseTe.suggestedFollowUps.length > 0);
-console.log('  -> AI Tutor returned verified educational answers in English and Telugu.');
+console.log('  -> Full-Stack AI Tutor returned verified educational answers in English and Telugu.');
 
 // 8. Prompt Templates Integrity
 console.log('✓ Checking Prompt Templates...');

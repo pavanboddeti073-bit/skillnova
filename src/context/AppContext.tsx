@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { SupportedLanguage, SkillLevel, Tool, GuidedTutorial, GeneratedProjectPlan } from '../types';
+import type { SupportedLanguage, SkillLevel, Tool, GuidedTutorial, GeneratedProjectPlan } from '../types/index.ts';
 import { siteConfig } from '../config/siteConfig';
+import { apiClient } from '../services/api';
 
 export type TabType = 
   | 'dashboard'
@@ -27,6 +28,7 @@ interface AppContextType {
   setLevel: (level: SkillLevel) => void;
   activeTab: TabType;
   setActiveTab: (tab: TabType) => void;
+  serverOnline: boolean;
   
   // Navigation helpers
   openStudioRecipe: (slug: 'presentation' | 'documentation' | 'website' | 'creative-media' | 'learn-tool') => void;
@@ -87,9 +89,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [savedPrompts, setSavedPrompts] = useState<SavedPrompt[]>([]);
   const [savedPlans, setSavedPlans] = useState<GeneratedProjectPlan[]>([]);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [serverOnline, setServerOnline] = useState<boolean>(true);
 
-  // Load from local storage
+  // Load from local storage and backend API
   useEffect(() => {
+    // 1. Initial localStorage load
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
@@ -105,6 +109,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     } catch (e) {
       console.warn('Failed to parse saved user data from localStorage', e);
     }
+
+    // 2. Hydrate from Full-Stack Backend Database
+    apiClient.getHealth().then(health => {
+      if (health) {
+        setServerOnline(true);
+        apiClient.getUserProgress().then(progress => {
+          if (progress) {
+            if (progress.completedLessons.length > 0) {
+              setCompletedLessons(prev => Array.from(new Set([...prev, ...progress.completedLessons])));
+            }
+            if (progress.favoriteTools.length > 0) {
+              setFavoriteTools(prev => Array.from(new Set([...prev, ...progress.favoriteTools])));
+            }
+          }
+        });
+      } else {
+        setServerOnline(false);
+      }
+    }).catch(() => setServerOnline(false));
   }, []);
 
   // Sync to local storage
@@ -161,6 +184,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       showToast(next.includes(toolId) ? 'Added to favorite tools' : 'Removed from favorites');
       return next;
     });
+    apiClient.toggleFavorite(toolId);
   };
 
   const toggleStudioStep = (recipeId: string, stepNumber: number) => {
@@ -173,6 +197,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       syncStorage({ completedStudioSteps: next });
       return next;
     });
+    apiClient.toggleStudioStep(`${recipeId}-step-${stepNumber}`);
   };
 
   const savePrompt = (title: string, prompt: string) => {
@@ -185,7 +210,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const next = [newEntry, ...savedPrompts];
     setSavedPrompts(next);
     syncStorage({ savedPrompts: next });
-    showToast('Prompt saved to your local library!');
+    showToast('Prompt saved to your library!');
+    apiClient.savePrompt(newEntry.title, prompt);
   };
 
   const deletePrompt = (id: string) => {
@@ -193,6 +219,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSavedPrompts(next);
     syncStorage({ savedPrompts: next });
     showToast('Prompt removed');
+    apiClient.deletePrompt(id);
   };
 
   const savePlan = (plan: GeneratedProjectPlan) => {
@@ -216,7 +243,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCompletedStudioSteps({});
     setSavedPrompts([]);
     setSavedPlans([]);
-    showToast('All local student data has been completely erased.');
+    apiClient.eraseAllData();
+    showToast('All student data has been completely erased.');
   };
 
   const openStudioRecipe = (slug: 'presentation' | 'documentation' | 'website' | 'creative-media' | 'learn-tool') => {
@@ -252,6 +280,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setLevel,
         activeTab,
         setActiveTab,
+        serverOnline,
         openStudioRecipe,
         openToolDetail,
         selectedTool,

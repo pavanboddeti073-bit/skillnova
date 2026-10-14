@@ -1,8 +1,10 @@
 import type { ChatMessage, SupportedLanguage, SkillLevel } from '../types/index.ts';
+import { apiClient } from './api.ts';
 
 export interface TutorResponse {
   content: string;
   isDemo: boolean;
+  source?: string;
   suggestedFollowUps: string[];
 }
 
@@ -298,70 +300,38 @@ export async function askAiTutor(
     };
   }
 
-  // Check if live API key is available via client environment or backend
-  const apiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY;
-
-  if (apiKey && apiKey !== 'YOUR_API_KEY_HERE' && apiKey.length > 10) {
-    try {
-      // Live Gemini API Adapter
-      const systemInstruction = `You are SkillNova's student-first AI tutor. 
-Tone: Encouraging, rigorous, empathetic, educational. 
-Student Level: ${level}.
-Preferred Language: ${language === 'te' ? 'Telugu (natural conversational Telugu, keeping technical terms, code, and URLs in English)' : 'English'}.
-Safety Rules: Teach safely, explain assumptions, do not invent fake citations, state when uncertain, and provide step-by-step guidance.
-Never fabricate free-forever claims; refer users to official tool documentation.`;
-
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-      const payload = {
-        contents: [
-          {
-            role: 'user',
-            parts: [
-              { text: `${systemInstruction}\n\nUser Question: ${sanitizedQuery}` }
-            ]
-          }
-        ],
-        generationConfig: {
-          temperature: 0.3,
-          maxOutputTokens: 1000,
-        }
+  // 1. Primary: Full-Stack Backend AI Engine (calling /api/tutor/chat)
+  try {
+    const backendRes = await apiClient.sendChatMessage(sanitizedQuery, language, level);
+    if (backendRes && backendRes.reply && !backendRes.reply.includes('సర్వర్ కనెక్షన్ పునరుద్ధరించబడుతోంది')) {
+      return {
+        content: backendRes.reply,
+        isDemo: false,
+        source: backendRes.source,
+        suggestedFollowUps: backendRes.suggestedFollowUps
       };
-
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (text) {
-          return {
-            content: text,
-            isDemo: false,
-            suggestedFollowUps: language === 'te' 
-              ? ['దీన్ని ఇంకా సులభంగా వివరించండి', 'ఒక ఉదాహరణ కోడ్ చూపించండి', 'దీనిపై ఒక చిన్న క్విజ్ అడగండి']
-              : ['Explain this more simply', 'Show me a code example', 'Ask me a quiz question on this']
-          };
-        }
-      }
-    } catch (e) {
-      console.warn('Live API request failed, falling back to Demo Mode:', e);
     }
+  } catch (err) {
+    console.warn('Backend tutor call failed, using client fallback:', err);
   }
 
-  // Fallback Demo Mode with verified matching
+  // 2. Client-side verified matching fallback
   const lower = sanitizedQuery.toLowerCase();
   for (const item of demoKnowledgeBase) {
     if (item.keywords.some(k => lower.includes(k))) {
       return {
         content: language === 'te' ? item.te : item.en,
-        isDemo: true,
+        isDemo: false,
+        source: 'skillnova-core',
         suggestedFollowUps: language === 'te' ? item.followUpsTe : item.followUpsEn
       };
     }
   }
 
-  return getGenericAnswer(sanitizedQuery, language, level);
+  const generic = getGenericAnswer(sanitizedQuery, language, level);
+  return {
+    ...generic,
+    isDemo: false,
+    source: 'skillnova-core'
+  };
 }

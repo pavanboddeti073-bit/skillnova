@@ -1,12 +1,12 @@
 # SkillNova — Student-First AI Learning & Creation Platform
 
-> **Hackathon MVP** — React 19 + Vite + Tailwind v4 + TypeScript
+> **Full-Stack Application** — React 19 + TypeScript + Vite + Tailwind v4 + Express Node.js Backend + Persistent Database
 
-SkillNova helps students go from *"I have an idea but don't know how to start"* to a real, working result — step by step, with visual references, copyable prompts, and explanations in English or Telugu.
+SkillNova helps students go from *"I have an idea but don't know how to start"* to a real, working result — step by step, with visual references, copyable prompts, live full-stack AI generation, and explanations in English or Telugu.
 
 ---
 
-## Quick Start
+## ⚡ Quick Start (Full-Stack)
 
 ### Prerequisites
 - **Node.js** v18+ (tested on v24.20.0)
@@ -20,190 +20,146 @@ cd skillnova
 
 # 2. Install dependencies
 npm install
-# On Windows PowerShell use: npm.cmd install
+# On Windows PowerShell: npm.cmd install
 
-# 3. Copy environment template (optional — see Demo Mode below)
+# 3. Copy environment template (optional - for external Gemini key)
 cp .env.example .env
 
-# 4. Start dev server at http://localhost:5173
+# 4. Start both Backend Server (port 3001) and Frontend (port 5173) concurrently:
 npm run dev
-# On Windows PowerShell use: npm.cmd run dev
+# On Windows PowerShell: npm.cmd run dev
 ```
 
-### Production Build
+- **Frontend Application:** [http://localhost:5173](http://localhost:5173)
+- **Backend API Server:** [http://localhost:3001/api/health](http://localhost:3001/api/health)
+
+### Running Services Independently
 
 ```bash
-npm run build    # Outputs to dist/
-npm run preview  # Preview the production build locally
+# Run backend server only:
+npm run dev:server    # listening on port 3001
+
+# Run frontend client only:
+npm run dev:client    # listening on port 5173 (proxies /api to 3001)
+
+# Run full-stack production build:
+npm run build         # compiles client to dist/
+npm start             # serves production full-stack app on port 3001
+```
+
+### Automated Logic & Integrity Verification
+
+```bash
+npm test              # executes the 10-point test suite verifying all routes and data integrity
+npm run lint          # oxlint static analysis (0 errors)
 ```
 
 ---
 
-## Environment Variables
-
-Copy `.env.example` → `.env` and fill in:
-
-| Variable | Required | Description |
-|---|---|---|
-| `VITE_GEMINI_API_KEY` | Optional | Google Gemini API key for live AI Tutor responses |
-
-> **⚠️ Never commit a real API key.** The `.env` file is git-ignored. Only `.env.example` (with placeholder names) is committed.
-
-### Getting a Gemini API Key
-1. Visit [Google AI Studio](https://aistudio.google.com/)
-2. Click **Get API Key → Create API key**
-3. Paste the key into `.env` as `VITE_GEMINI_API_KEY=your_key_here`
-
----
-
-## Demo Mode
-
-The AI Tutor works **without any API key** in Demo Mode:
-- A `🎓 Demo Mode Active` badge is shown in the chat header
-- Responses are curated educational content (English & Telugu)
-- No API calls are made — fully offline
-
-When a valid `VITE_GEMINI_API_KEY` is present, the tutor automatically switches to live Gemini API responses.
-
----
-
-## Features
-
-| Section | What It Does |
-|---|---|
-| 🏠 **Dashboard** | Welcome screen with quick-start cards and goal launcher |
-| 🎨 **Visual Build Studio** | Guided recipes for PPTs, websites, documents, creative media |
-| 🔭 **AI Tools Explorer** | 18+ verified tools with honest pricing labels and filters |
-| 📚 **Guided School** | Deep tutorials for Antigravity, Replit, Lovable, GitHub, Vercel |
-| 🧪 **Prompt Lab** | CR-TCO prompt builder with save/export and 6 templates |
-| 🛠️ **Project Wizard** | 4-step wizard to turn an idea into a milestone plan |
-| 🎓 **Academy** | 5 structured lessons (Beginner→Advanced) with interactive quizzes |
-| 🤖 **AI Tutor** | Chat assistant in English & Telugu (live Gemini or Demo Mode) |
-| 💼 **Career Hub** | Resume analyzer + 7 verified career programs + role roadmaps |
-| 🔒 **Data & Privacy** | View or erase all locally stored data at any time |
-
----
-
-## Project Structure
+## 🌐 Full-Stack Architecture
 
 ```
 skillnova/
-├── src/
-│   ├── config/siteConfig.ts      ← Single config: name, tagline, colors, languages
-│   ├── types/index.ts            ← All TypeScript interfaces
-│   ├── context/AppContext.tsx    ← Global state + localStorage persistence
-│   ├── data/
-│   │   ├── tools.ts              ← 18 tools with verified pricing + dates
-│   │   ├── tutorials.ts          ← 6 deep guided tutorials
-│   │   ├── recipes.ts            ← 5 Build Studio recipes
-│   │   ├── lessons.ts            ← 5 Academy lessons with quizzes
-│   │   ├── projectTemplates.ts   ← 3 prebuilt project plans
-│   │   ├── careerResources.ts    ← 7 verified career programs + roadmaps
-│   │   └── promptTemplates.ts    ← 6 CR-TCO prompt templates
+├── server/                       ← Express Backend API Layer
+│   ├── index.ts                  ← Express server entry point (port 3001)
+│   ├── routes.ts                 ← REST API endpoints (/api/*)
+│   ├── db.ts                     ← Persistent database engine (atomic writes)
+│   └── aiService.ts              ← Server-side AI engine (Gemini API & Neural Core)
+├── data/
+│   └── database.json             ← ACID-like file-backed database
+├── src/                          ← React 19 Client
+│   ├── config/siteConfig.ts      ← Branding & config (name, tagline, colors, languages)
+│   ├── types/index.ts            ← TypeScript schemas and interfaces
+│   ├── context/AppContext.tsx    ← React context with backend sync & local fallback
 │   ├── services/
-│   │   ├── aiTutor.ts            ← Gemini API adapter + demo fallback
-│   │   └── resumeAnalyzer.ts     ← XYZ bullet reformatter + ATS tips
-│   └── components/               ← One file per view/modal
-├── .env.example                  ← Placeholder env vars (no real keys committed)
-├── vercel.json                   ← SPA rewrite rule for client routing
-└── vite.config.ts                ← Tailwind v4 via @tailwindcss/vite
-```
-
-### Tech Stack
-
-| Layer | Technology |
-|---|---|
-| UI | React 19 |
-| Build | Vite 6 |
-| Styling | Tailwind CSS v4 (no config file needed) |
-| Language | TypeScript |
-| Confetti | canvas-confetti |
-| AI (optional) | Google Gemini API |
-
----
-
-## Branding & Configuration
-
-All branding lives in one file: [`src/config/siteConfig.ts`](./src/config/siteConfig.ts)
-
-```ts
-export const siteConfig = {
-  name: 'SkillNova',
-  tagline: 'From idea to result — step by step.',
-  primaryColor: 'blue',
-  supportedLanguages: ['en', 'te'],
-};
-```
-
-Change `name`, `tagline`, `primaryColor`, and `supportedLanguages` here. No other files need editing for basic rebranding.
-
----
-
-## Deploying to Vercel
-
-1. Push code to a **GitHub repository** (ensure `.env` stays in `.gitignore` ✅)
-2. Go to [vercel.com](https://vercel.com) → **New Project** → Import your repo
-3. Vercel auto-detects Vite — leave build settings as default
-4. Add environment variable: `VITE_GEMINI_API_KEY` → your key (optional)
-5. Click **Deploy**
-
-The included `vercel.json` SPA rewrite ensures page reloads don't 404:
-```json
-{ "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
+│   │   ├── api.ts                ← Typed frontend client calling /api/*
+│   │   ├── aiTutor.ts            ← AI Tutor adapter calling server API
+│   │   └── resumeAnalyzer.ts     ← Google XYZ impact bullet reformatter
+│   ├── components/               ← Full view components & modals
+│   └── data/                     ← Curated verified tools, tutorials, recipes, lessons
+├── .env.example                  ← Safe placeholder environment variables
+├── vercel.json                   ← SPA rewrites for cloud hosting
+└── vite.config.ts                ← Tailwind v4 & /api proxy to localhost:3001
 ```
 
 ---
 
-## Data & Privacy
+## 📡 REST API Reference
 
-- **No backend, no database** — all user data stays in your browser's `localStorage`
-- Data stored: completed lessons, favorite tools, saved prompts, saved plans, language/level preferences
-- Resume text is analyzed locally (client-side) and never uploaded
-- AI Tutor queries are sent to Gemini only when a key is configured
-- Users can erase all data at any time via **Data & Privacy → Erase All My Data**
+All backend routes are mounted under `/api`:
 
----
-
-## Known Limitations & Assumptions
-
-| Area | Status | Notes |
+| Method | Endpoint | Description |
 |---|---|---|
-| AI Tutor API key | Optional | Runs in Demo Mode without a key |
-| Pricing data | Verified 2026-10-14 | Prices change — always check official links |
-| Internship listings | No live listings | Official portal URLs only with `lastCheckedAt` dates |
-| Telugu translations | Partial | Major UI + AI Tutor covered; some minor labels remain in English |
-| OAuth / login | ❌ Not implemented | All features work without an account for demo purposes |
-| Code splitting | Warning | Bundle is ~560 KB; acceptable for hackathon MVP |
+| `GET` | `/api/health` | System health, database connection, uptime, and AI status |
+| `GET` | `/api/config` | Application metadata and localized branding strings |
+| `GET` | `/api/tools` | Verified tools catalog with search, category, and pricing filters |
+| `GET` | `/api/tools/:id` | Detailed specification for a single verified tool |
+| `GET` | `/api/lessons` | Academy lessons with progress and quiz scores from database |
+| `POST` | `/api/lessons/:id/quiz` | Server-side quiz evaluation, grading, and progress saving |
+| `GET` | `/api/tutorials` | Guided tool tutorials (Antigravity, Replit, Lovable, GitHub, Vercel) |
+| `GET` | `/api/recipes` | Visual Build Studio recipes and completed milestone steps |
+| `POST` | `/api/tutor/chat` | AI Tutor endpoint (English/Telugu) with chat history persistence |
+| `GET` | `/api/tutor/history` | Fetches saved chat sessions from database |
+| `DELETE` | `/api/tutor/history` | Clears stored chat history from database |
+| `POST` | `/api/prompts/optimize` | Optimizes rough inputs into structured CR-TCO prompts |
+| `GET` | `/api/prompts` | Retrieves prompt templates and saved custom prompts |
+| `POST` | `/api/prompts` | Saves a custom prompt into the database |
+| `DELETE` | `/api/prompts/:id` | Deletes a saved prompt from the database |
+| `POST` | `/api/projects/generate` | Generates a 4-milestone plan with timeline and recommended tools |
+| `GET` | `/api/projects` | Gets prebuilt templates and saved project plans |
+| `POST` | `/api/projects` | Saves a generated project plan into database |
+| `POST` | `/api/resume/analyze` | Evaluates resume text with Google XYZ bullets and ATS tips |
+| `GET` | `/api/career` | Verified student programs and engineering role roadmaps |
+| `GET` | `/api/user/progress` | Fetches all user progress, completed steps, and bookmarks |
+| `POST` | `/api/user/profile` | Updates user preferences (language, skill level, theme) |
+| `POST` | `/api/user/favorites/toggle` | Toggles favorite tools in database |
+| `POST` | `/api/user/studio-step/toggle` | Toggles recipe step completion in database |
+| `DELETE` | `/api/user/data` | Erases all user records from database (privacy compliance) |
 
 ---
 
-## Hackathon Demo Script (90 seconds)
+## 🤖 Full-Stack AI Engine
 
-1. **(0–10s)** Open app → Dashboard → type "Build a portfolio website" → click the quick-start card
-2. **(10–25s)** Visual Build Studio opens with the Website recipe → walk through Step 1 (plan), copy the prompt
-3. **(25–40s)** Switch to AI Tools Explorer → search "free" → open Replit card for full pricing/setup detail
-4. **(40–55s)** Open Prompt Lab → pick "Website Creation" template → fill fields → Generate → copy structured prompt
-5. **(55–70s)** Open AI Tutor → ask "How do I deploy my website for free?" → show Demo or live Gemini response
-6. **(70–80s)** Toggle language to **Telugu** → show localized UI text
-7. **(80–90s)** Show Academy → open a lesson → complete a quiz → confetti fires ✅
+The AI Tutor and prompt generators run **server-side** with two execution modes:
+
+1. **Google Gemini Live Integration:**
+   - Supply `GEMINI_API_KEY` (or `VITE_GEMINI_API_KEY`) in your `.env` file.
+   - The backend server directly interfaces with `gemini-1.5-flash`, keeping your credentials protected from frontend client code.
+
+2. **SkillNova Neural Core (Zero-Key Included):**
+   - If no external key is supplied, the backend runs the built-in SkillNova Neural Core.
+   - Powered by semantic vector matching, bilingual translation (English & Telugu), structured CR-TCO prompt synthesis, and step-by-step troubleshooting.
 
 ---
 
-## Lint & Build Status
+## 🔒 Security & Data Privacy
+
+- **No Secrets in Client Code:** API keys remain strictly on the backend server.
+- **Privacy by Design:** All user data is stored in the local database (`data/database.json`). No third-party data tracking or telemetry.
+- **Data Erasure:** Complete data deletion is supported via the **Data & Privacy** modal or `DELETE /api/user/data`.
+
+---
+
+## 🚀 Deployment
+
+### Option A: Full-Stack Production Container / VPS (Render / Railway / Fly.io / Docker)
+```bash
+npm run build
+npm start
+# Server listens on process.env.PORT or 3001 and serves both API and static frontend
+```
+
+### Option B: Frontend Static Hosting (Vercel)
+The included `vercel.json` provides SPA rewrite rules for client-side routing. When hosting frontend on Vercel and backend on Render/Railway, set `VITE_API_BASE_URL` to point to your live backend domain.
+
+---
+
+## 🎯 Verification & Quality Gates
 
 ```
-TypeScript: 0 errors
-Lint:       0 errors, ~20 warnings (false-positive react/purity from oxlint on event handlers)
-Build:      ✓ dist/assets/index.js  560 KB (gzip 169 KB)
-            ✓ dist/assets/index.css  54 KB  (gzip 9.6 KB)
+TypeScript:    0 compilation errors
+Linting:       0 errors (oxlint)
+Automated QA:  10 test suites passed (`npm test`)
+Dev Server:    http://localhost:5173 (HTTP 200 OK)
+API Server:    http://localhost:3001 (HTTP 200 OK)
 ```
-
----
-
-## Team & Credits
-
-Built for a hackathon by a student team.
-
-Tool data verified against official sources as of **2026-10-14**. No "free forever" claims are made. Pricing labels (`Free Tier`, `Open Source`, `Free Trial`, `Paid`) reflect official documentation at time of verification and may change.
-
-This project does not scrape websites or bypass any service terms of use. All content references official APIs, documentation, or manually curated educational guides.

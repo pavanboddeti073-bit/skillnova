@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { verifiedCareerResources, roleRoadmaps } from '../data/careerResources';
 import { analyzeStudentResume } from '../services/resumeAnalyzer';
+import { apiClient } from '../services/api';
 import { ResumeAnalysis } from '../types';
 import { useApp } from '../context/AppContext';
 
@@ -38,10 +39,20 @@ Sentiment Analyzer (Python)
 - Worked on a machine learning model to classify student feedback
 - Used Python and pandas for data cleaning`;
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (!resumeInput.trim()) {
       showToast('Please paste your resume text first.');
       return;
+    }
+    try {
+      const serverResult = await apiClient.analyzeResume(resumeInput);
+      if (serverResult) {
+        setAnalysis(serverResult);
+        showToast('Resume review completed by Full-Stack Engine!');
+        return;
+      }
+    } catch {
+      // Fallback
     }
     const result = analyzeStudentResume(resumeInput);
     setAnalysis(result);

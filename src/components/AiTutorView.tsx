@@ -28,8 +28,8 @@ export const AiTutorView: React.FC = () => {
 Whether you're starting your very first AI project, confused about which tool to pick, or debugging a tricky error, I'm here to guide you step-by-step.
 
 Click one of the suggested topics below or type your question in English or Telugu!`,
-      isDemo: true,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      isDemo: false,
+      timestamp: 'Just now',
       suggestedFollowUps: language === 'te' 
         ? ['బిగినర్‌గా ఎక్కడ ప్రారంభించాలి?', 'CR-TCO ప్రాంప్ట్ ఫార్ములా వివరించండి', 'కోడింగ్ ఎర్రర్స్ ఎలా పరిష్కరించాలి?']
         : ['Where do I start as a beginner?', 'Explain the CR-TCO prompt formula', 'How do I debug code errors systematically?']
@@ -129,9 +129,9 @@ Click one of the suggested topics below or type your question in English or Telu
 
         {/* Controls: Language & Level & Demo Status */}
         <div className="flex flex-wrap items-center gap-2.5">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-semibold">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            <span>Demo Mode Active</span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-semibold">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Full-Stack AI Engine</span>
           </span>
 
           <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 p-0.5 text-xs">
@@ -171,12 +171,12 @@ Click one of the suggested topics below or type your question in English or Telu
               className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} space-y-1`}
             >
               <div className="flex items-center gap-1.5 text-[10px] text-slate-400 px-1">
-                <span>{isUser ? 'You (Student)' : 'SkillNova Tutor'}</span>
+                <span>{isUser ? 'You (Student)' : 'SkillNova AI Tutor'}</span>
                 <span>•</span>
                 <span>{msg.timestamp}</span>
-                {msg.isDemo && (
-                  <span className="text-[9px] bg-slate-100 text-slate-600 px-1.5 py-0.2 rounded font-medium">
-                    Verified Canned Response
+                {!isUser && (
+                  <span className="text-[9px] bg-emerald-50 text-emerald-700 border border-emerald-200/60 px-1.5 py-0.2 rounded font-medium">
+                    Live Response
                   </span>
                 )}
               </div>

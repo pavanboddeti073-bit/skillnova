@@ -1,0 +1,108 @@
+{
+  "profile": {
+    "language": "en",
+    "level": "beginner",
+    "theme": "light",
+    "updatedAt": "2026-10-14T13:02:20.083Z"
+  },
+  "completedLessons": [
+    "lesson-ai-fundamentals"
+  ],
+  "quizScores": {
+    "lesson-ai-fundamentals": {
+      "score": 2,
+      "total": 2,
+      "completedAt": "2026-10-14T13:04:32.945Z"
+    }
+  },
+  "favoriteTools": [
+    "google-antigravity",
+    "replit",
+    "lovable"
+  ],
+  "completedStudioSteps": [
+    "recipe-website-step-1"
+  ],
+  "savedPrompts": [
+    {
+      "id": "sp-default-1",
+      "title": "Full-Stack Bug Fixer (CR-TCO)",
+      "category": "coding",
+      "prompt": "[ROLE]: Senior Full-Stack Engineer\n[CONTEXT]: Debugging an API endpoint\n[TASK]: Identify root cause and provide fix\n[CONSTRAINTS]: No breaking changes\n[OUTPUT]: Unified diff + explanation",
+      "createdAt": "2026-10-14T13:02:20.083Z"
+    }
+  ],
+  "savedPlans": [],
+  "chatHistory": [
+    {
+      "id": "msg-init-system",
+      "role": "assistant",
+      "content": "Hello! I am your SkillNova AI Engineering Tutor. How can I assist you with your projects, coding, or learning today?",
+      "timestamp": "Just now",
+      "suggestedFollowUps": [
+        "How do I host a fullstack app for free?",
+        "Teach me prompt engineering basics",
+        "Help me choose between Antigravity and Replit"
+      ]
+    },
+    {
+      "id": "msg-1791982996331-u",
+      "role": "user",
+      "content": "How do I deploy my website for free?",
+      "timestamp": "06:33 PM"
+    },
+    {
+      "id": "msg-1791982996331-a",
+      "role": "assistant",
+      "content": "**Student Free-Tier Hosting Blueprint (Zero Cost):**\n\n1. **Frontend**: **Vercel** or **Cloudflare Pages** — Generous free bandwidth, automated GitHub CI/CD, and free global CDN.\n2. **Backend**: **Render** (Free tier web services) or **Vercel Serverless API routes**.\n3. **Database**: **Supabase** (Free PostgreSQL instance) or **Neon Serverless Postgres**.\n4. **Critical Rule**: Always store sensitive credentials in Environment Variables in the host dashboard, never in client code or Git repository.",
+      "timestamp": "06:33 PM",
+      "suggestedFollowUps": [
+        "How does vercel.json rewrite work?",
+        "How to prevent API keys from leaking on GitHub?",
+        "What are the free limits on Supabase?"
+      ]
+    },
+    {
+      "id": "msg-1791983428295-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "06:40 PM"
+    },
+    {
+      "id": "msg-1791983428295-a",
+      "role": "assistant",
+      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
+      "timestamp": "06:40 PM",
+      "suggestedFollowUps": [
+        "How do I write a CR-TCO prompt?",
+        "Show me a beginner tutorial for Antigravity",
+        "How do I host a full-stack project for free?"
+      ]
+    },
+    {
+      "id": "msg-1791983428311-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "06:40 PM"
+    },
+    {
+      "id": "msg-1791983428311-a",
+      "role": "assistant",
+      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
+      "timestamp": "06:40 PM",
+      "suggestedFollowUps": [
+        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
+        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
+        "Google Antigravity ఎలా ఉపయోగించాలి?"
+      ]
+    }
+  ],
+  "resumeHistory": [
+    {
+      "id": "res-1791983065134",
+      "score": 75,
+      "summary": "2 technical skills detected",
+      "createdAt": "2026-10-14T13:04:25.134Z"
+    }
+  ]
+}

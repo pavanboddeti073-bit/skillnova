@@ -29,7 +29,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPrivacyModal }) => {
     activeTab, 
     setActiveTab, 
     completedLessons,
-    favoriteTools
+    favoriteTools,
+    serverOnline
   } = useApp();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -106,12 +107,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPrivacyModal }) => {
           {/* Right Controls: Language, Level, Progress, Mobile Toggle */}
           <div className="flex items-center gap-2">
             
+            {/* Full-Stack API Status */}
+            <div 
+              title={serverOnline ? "SkillNova Backend Engine: Online" : "SkillNova Backend Engine: Connecting..."}
+              className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border transition-all ${
+                serverOnline 
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
+                  : 'bg-amber-50 text-amber-800 border-amber-200'
+              }`}
+            >
+              <span className={`w-2 h-2 rounded-full ${serverOnline ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
+              <span>{serverOnline ? 'Full-Stack' : 'Connecting'}</span>
+            </div>
+
             {/* Progress Badge */}
             <div 
               title={`${completedLessons.length} lessons completed, ${favoriteTools.length} tools saved`}
-              className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-200"
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-medium border border-blue-200"
             >
-              <Award className="w-3.5 h-3.5 text-emerald-600" />
+              <Award className="w-3.5 h-3.5 text-blue-600" />
               <span>{totalProgressCount} XP</span>
             </div>
 
