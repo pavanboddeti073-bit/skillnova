@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { promptTemplates } from '../data/promptTemplates';
 import { PromptTemplate } from '../types';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 
 export const PromptLabView: React.FC = () => {
   const { language, savePrompt, savedPrompts, deletePrompt, showToast } = useApp();

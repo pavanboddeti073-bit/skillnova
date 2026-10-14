@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { guidedTutorials } from '../data/tutorials';
 import { GuidedTutorial } from '../types';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 
 export const GuidedSchoolView: React.FC = () => {
   const { language, selectedTutorial, showToast } = useApp();

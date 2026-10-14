@@ -14,7 +14,7 @@ import {
   Award,
   Bookmark
 } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import { siteConfig } from '../config/siteConfig';
 import { verifiedTools } from '../data/tools';
 import { academyLessons } from '../data/lessons';

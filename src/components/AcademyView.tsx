@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import { academyLessons } from '../data/lessons';
 import { Lesson, SkillLevel } from '../types';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import confetti from 'canvas-confetti';
 
 export const AcademyView: React.FC = () => {

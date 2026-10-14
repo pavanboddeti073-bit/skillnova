@@ -7,7 +7,7 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { verifiedTools } from '../data/tools';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import { Tool } from '../types';
 
 export const ToolsExplorerView: React.FC = () => {

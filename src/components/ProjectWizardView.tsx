@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Compass, 
   Sparkles, 
@@ -16,7 +16,7 @@ import {
   Wrench,
   AlertTriangle
 } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import { prebuiltProjectPlans } from '../data/projectTemplates';
 import { GeneratedProjectPlan, ProjectWizardAnswer, SkillLevel } from '../types';
 import confetti from 'canvas-confetti';
@@ -38,13 +38,15 @@ export const ProjectWizardView: React.FC = () => {
   const [activePlan, setActivePlan] = useState<GeneratedProjectPlan>(prebuiltProjectPlans[0]);
   const [completedMilestones, setCompletedMilestones] = useState<number[]>([]);
   const [copiedPromptMilestone, setCopiedPromptMilestone] = useState<number | null>(null);
+  const [prevLauncherGoal, setPrevLauncherGoal] = useState(launcherGoal);
 
-  // Sync if launcherGoal changed
-  useEffect(() => {
+  // Sync if launcherGoal changed without cascading render in effect
+  if (launcherGoal !== prevLauncherGoal) {
+    setPrevLauncherGoal(launcherGoal);
     if (launcherGoal) {
       setFormData(prev => ({ ...prev, goal: launcherGoal }));
     }
-  }, [launcherGoal]);
+  }
 
   const handleNextStep = () => {
     if (stepIndex < 3) {

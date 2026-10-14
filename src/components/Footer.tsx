@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sparkles, ShieldCheck } from 'lucide-react';
 import { siteConfig } from '../config/siteConfig';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 
 const CURRENT_YEAR = new Date().getFullYear();
 

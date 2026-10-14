@@ -1,77 +1,11 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { SupportedLanguage, SkillLevel, Tool, GuidedTutorial, GeneratedProjectPlan } from '../types/index.ts';
 import { siteConfig } from '../config/siteConfig';
 import { apiClient } from '../services/api';
+import { AppContext, STORAGE_KEY } from './contextStore';
+import type { TabType, SavedPrompt, AppContextType } from './contextStore';
 
-export type TabType = 
-  | 'dashboard'
-  | 'studio'
-  | 'tools'
-  | 'tutorials'
-  | 'prompt-lab'
-  | 'wizard'
-  | 'academy'
-  | 'tutor'
-  | 'career';
-
-interface SavedPrompt {
-  id: string;
-  title: string;
-  prompt: string;
-  createdAt: string;
-}
-
-interface AppContextType {
-  language: SupportedLanguage;
-  setLanguage: (lang: SupportedLanguage) => void;
-  level: SkillLevel;
-  setLevel: (level: SkillLevel) => void;
-  activeTab: TabType;
-  setActiveTab: (tab: TabType) => void;
-  serverOnline: boolean;
-  
-  // Navigation helpers
-  openStudioRecipe: (slug: 'presentation' | 'documentation' | 'website' | 'creative-media' | 'learn-tool') => void;
-  openToolDetail: (tool: Tool) => void;
-  selectedTool: Tool | null;
-  closeToolDetail: () => void;
-  openTutorial: (tutorial: GuidedTutorial) => void;
-  selectedTutorial: GuidedTutorial | null;
-  closeTutorial: () => void;
-  
-  // Progress & persistence
-  completedLessons: string[];
-  toggleLessonComplete: (lessonId: string) => void;
-  favoriteTools: string[];
-  toggleFavoriteTool: (toolId: string) => void;
-  completedStudioSteps: Record<string, number[]>;
-  toggleStudioStep: (recipeId: string, stepNumber: number) => void;
-  
-  // Saved user data
-  savedPrompts: SavedPrompt[];
-  savePrompt: (title: string, prompt: string) => void;
-  deletePrompt: (id: string) => void;
-  savedPlans: GeneratedProjectPlan[];
-  savePlan: (plan: GeneratedProjectPlan) => void;
-  deletePlan: (id: string) => void;
-  clearAllUserData: () => void;
-  
-  // Active recipe for Build Studio
-  activeRecipeSlug: 'presentation' | 'documentation' | 'website' | 'creative-media' | 'learn-tool' | null;
-  setActiveRecipeSlug: (slug: 'presentation' | 'documentation' | 'website' | 'creative-media' | 'learn-tool' | null) => void;
-  
-  // Quick launcher query from home
-  launcherGoal: string;
-  setLauncherGoal: (goal: string) => void;
-  
-  // Toast notifications
-  toastMessage: string | null;
-  showToast: (msg: string) => void;
-}
-
-const STORAGE_KEY = 'skillnova_user_data_v1';
-
-const AppContext = createContext<AppContextType | undefined>(undefined);
+export type { TabType, AppContextType, SavedPrompt };
 
 const VALID_TABS: TabType[] = [
   'dashboard',
@@ -97,9 +31,32 @@ const getInitialTab = (): TabType => {
   return 'dashboard';
 };
 
+interface StoredUserData {
+  language?: SupportedLanguage;
+  level?: SkillLevel;
+  completedLessons?: string[];
+  favoriteTools?: string[];
+  completedStudioSteps?: Record<string, number[]>;
+  savedPrompts?: SavedPrompt[];
+  savedPlans?: GeneratedProjectPlan[];
+}
+
+const getInitialSavedData = (): StoredUserData | null => {
+  if (typeof window !== 'undefined') {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return JSON.parse(raw) as StoredUserData;
+    } catch (e) {
+      console.warn('Failed to parse saved user data from localStorage', e);
+    }
+  }
+  return null;
+};
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<SupportedLanguage>(siteConfig.defaultLanguage);
-  const [level, setLevelState] = useState<SkillLevel>('beginner');
+  const [initialData] = useState<StoredUserData | null>(getInitialSavedData);
+  const [language, setLanguageState] = useState<SupportedLanguage>(() => initialData?.language || siteConfig.defaultLanguage);
+  const [level, setLevelState] = useState<SkillLevel>(() => initialData?.level || 'beginner');
   const [activeTab, setActiveTabState] = useState<TabType>(getInitialTab);
 
   const setActiveTab = (tab: TabType) => {
@@ -119,34 +76,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [activeRecipeSlug, setActiveRecipeSlug] = useState<'presentation' | 'documentation' | 'website' | 'creative-media' | 'learn-tool' | null>('presentation');
   const [launcherGoal, setLauncherGoal] = useState<string>('');
   
-  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
-  const [favoriteTools, setFavoriteTools] = useState<string[]>([]);
-  const [completedStudioSteps, setCompletedStudioSteps] = useState<Record<string, number[]>>({});
-  const [savedPrompts, setSavedPrompts] = useState<SavedPrompt[]>([]);
-  const [savedPlans, setSavedPlans] = useState<GeneratedProjectPlan[]>([]);
+  const [completedLessons, setCompletedLessons] = useState<string[]>(() => Array.isArray(initialData?.completedLessons) ? initialData.completedLessons : []);
+  const [favoriteTools, setFavoriteTools] = useState<string[]>(() => Array.isArray(initialData?.favoriteTools) ? initialData.favoriteTools : []);
+  const [completedStudioSteps, setCompletedStudioSteps] = useState<Record<string, number[]>>(() => initialData?.completedStudioSteps || {});
+  const [savedPrompts, setSavedPrompts] = useState<SavedPrompt[]>(() => Array.isArray(initialData?.savedPrompts) ? initialData.savedPrompts : []);
+  const [savedPlans, setSavedPlans] = useState<GeneratedProjectPlan[]>(() => Array.isArray(initialData?.savedPlans) ? initialData.savedPlans : []);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [serverOnline, setServerOnline] = useState<boolean>(true);
 
-  // Load from local storage and backend API
+  // Hydrate from Full-Stack Backend Database
   useEffect(() => {
-    // 1. Initial localStorage load
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed.language) setLanguageState(parsed.language);
-        if (parsed.level) setLevelState(parsed.level);
-        if (Array.isArray(parsed.completedLessons)) setCompletedLessons(parsed.completedLessons);
-        if (Array.isArray(parsed.favoriteTools)) setFavoriteTools(parsed.favoriteTools);
-        if (parsed.completedStudioSteps) setCompletedStudioSteps(parsed.completedStudioSteps);
-        if (Array.isArray(parsed.savedPrompts)) setSavedPrompts(parsed.savedPrompts);
-        if (Array.isArray(parsed.savedPlans)) setSavedPlans(parsed.savedPlans);
-      }
-    } catch (e) {
-      console.warn('Failed to parse saved user data from localStorage', e);
-    }
-
-    // 2. Hydrate from Full-Stack Backend Database
     apiClient.getHealth().then(health => {
       if (health) {
         setServerOnline(true);
@@ -362,12 +301,4 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       {children}
     </AppContext.Provider>
   );
-};
-
-export const useApp = () => {
-  const context = useContext(AppContext);
-  if (!context) {
-    throw new Error('useApp must be used within an AppProvider');
-  }
-  return context;
 };

@@ -15,7 +15,7 @@ import {
   Bookmark,
   Eye
 } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import { buildRecipes } from '../data/recipes';
 import { BuildRecipe, StudioStep } from '../types';
 import confetti from 'canvas-confetti';

@@ -6,7 +6,7 @@ import {
   CheckCircle2, 
   AlertTriangle
 } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import { siteConfig } from '../config/siteConfig';
 
 interface DataPrivacyModalProps {

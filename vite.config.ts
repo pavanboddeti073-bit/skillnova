@@ -12,7 +12,12 @@ export default defineConfig({
     port: 5173,
     host: true,
     watch: {
-      ignored: ['**/data/**', '**/server/**']
+      ignored: [
+        /[\\/]data[\\/]/,
+        /[\\/]server[\\/]/,
+        '**/data/**',
+        '**/server/**'
+      ]
     },
     proxy: {
       '/api': {

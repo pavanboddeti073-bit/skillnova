@@ -14,7 +14,7 @@ import { verifiedCareerResources, roleRoadmaps } from '../data/careerResources';
 import { analyzeStudentResume } from '../services/resumeAnalyzer';
 import { apiClient } from '../services/api';
 import { ResumeAnalysis } from '../types';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 
 export const ResumeCareerHubView: React.FC = () => {
   const { language, showToast } = useApp();

@@ -6,9 +6,19 @@ import {
   Copy,
   Check
 } from 'lucide-react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import { askAiTutor } from '../services/aiTutor';
 import { ChatMessage } from '../types';
+
+const getNowTimestamp = (): string => {
+  return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+};
+
+let msgCounter = 0;
+const getUniqueMsgId = (prefix: string): string => {
+  msgCounter += 1;
+  return `${prefix}-${Date.now()}-${msgCounter}`;
+};
 
 export const AiTutorView: React.FC = () => {
   const { language, setLanguage, level, setLevel, showToast } = useApp();
@@ -54,10 +64,10 @@ Click one of the suggested topics below or type your question in English or Telu
     if (!text || isLoading) return;
 
     const userMsg: ChatMessage = {
-      id: 'msg-' + Date.now(),
+      id: getUniqueMsgId('msg-u'),
       role: 'user',
       content: text,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      timestamp: getNowTimestamp()
     };
 
     setMessages(prev => [...prev, userMsg]);
@@ -67,12 +77,12 @@ Click one of the suggested topics below or type your question in English or Telu
     try {
       const result = await askAiTutor(text, language, level, messages);
       const assistantMsg: ChatMessage = {
-        id: 'msg-' + (Date.now() + 1),
+        id: getUniqueMsgId('msg-a'),
         role: 'assistant',
         content: result.content,
         isDemo: result.isDemo,
         suggestedFollowUps: result.suggestedFollowUps,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        timestamp: getNowTimestamp()
       };
       setMessages(prev => [...prev, assistantMsg]);
     } catch (e) {
@@ -80,11 +90,11 @@ Click one of the suggested topics below or type your question in English or Telu
       setMessages(prev => [
         ...prev,
         {
-          id: 'msg-err-' + Date.now(),
+          id: getUniqueMsgId('msg-err'),
           role: 'assistant',
           content: 'An unexpected connection issue occurred. Please try asking again.',
           isDemo: true,
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          timestamp: getNowTimestamp()
         }
       ]);
     } finally {
@@ -136,12 +146,14 @@ Click one of the suggested topics below or type your question in English or Telu
 
           <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 p-0.5 text-xs">
             <button
+              type="button"
               onClick={() => setLanguage('en')}
               className={`px-2 py-1 rounded-md font-medium ${language === 'en' ? 'bg-white shadow-xs font-bold text-slate-900' : 'text-slate-500'}`}
             >
               EN
             </button>
             <button
+              type="button"
               onClick={() => setLanguage('te')}
               className={`px-2 py-1 rounded-md font-medium ${language === 'te' ? 'bg-white shadow-xs font-bold text-blue-700' : 'text-slate-500'}`}
             >

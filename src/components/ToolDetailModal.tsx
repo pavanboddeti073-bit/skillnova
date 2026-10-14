@@ -12,7 +12,7 @@ import {
   Calendar 
 } from 'lucide-react';
 import { Tool } from '../types';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 
 interface ToolDetailModalProps {
   tool: Tool;

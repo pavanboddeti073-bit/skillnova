@@ -13,7 +13,8 @@ import {
   Award, 
   ShieldAlert
 } from 'lucide-react';
-import { useApp, TabType } from '../context/AppContext';
+import { useApp } from '../context/useApp';
+import type { TabType } from '../context/contextStore';
 import { siteConfig } from '../config/siteConfig';
 
 interface NavbarProps {
