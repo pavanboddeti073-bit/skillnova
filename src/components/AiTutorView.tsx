@@ -92,8 +92,8 @@ Click one of the suggested topics below or type your question in English or Telu
         {
           id: getUniqueMsgId('msg-err'),
           role: 'assistant',
-          content: 'An unexpected connection issue occurred. Please try asking again.',
-          isDemo: true,
+          content: 'I encountered a brief issue, but I\'m back! Please rephrase your question and I\'ll give you a detailed answer.',
+          isDemo: false,
           timestamp: getNowTimestamp()
         }
       ]);

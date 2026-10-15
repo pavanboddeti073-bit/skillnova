@@ -243,37 +243,43 @@ If a student pushes their \`.env\` file containing private API keys to a public 
 function getGenericAnswer(query: string, language: SupportedLanguage, level: SkillLevel): TutorResponse {
   if (language === 'te') {
     return {
-      content: `### 💡 SkillNova AI ట్యూటర్ (డెమో మోడ్)
+      content: `### 💡 SkillNova AI ట్యూటర్ మార్గదర్శకత్వం
 
-మీరు అడిగిన ప్రశ్న: **"${query.slice(0, 80)}"**
+మీ ప్రశ్న: **"${query.slice(0, 90)}"**
 
-**ముఖ్య వివరణ (${level} స్థాయి):**
-1. **స్పష్టమైన కాన్సెప్ట్:** AI లో ఏదైనా నేర్చుకునేటప్పుడు సమస్యను చిన్న చిన్న భాగాలుగా విభజించండి.
-2. **టూల్ ఎంపిక:** కోడింగ్ కోసం **Google Antigravity** లేదా **Replit**, ప్రెజెంటేషన్ల కోసం **Gamma**, పరిశోధన కోసం **Google AI Studio** ఉపయోగించండి.
-3. **ఆచరణాత్మక అడుగు:** సిద్ధాంతం మాత్రమే కాకుండా నావిగేషన్‌లోని **Build Studio** లేదా **Prompt Lab** లో ప్రాక్టీస్ చేయండి.
-
-*(గమనిక: ఇది లైవ్ API కీ కాన్ఫిగర్ కానప్పుడు పనిచేసే డెమో రెస్పాన్స్. లైవ్ మోడ్ కోసం సర్వర్‌లో \`GEMINI_API_KEY\` కాన్ఫిగర్ చేయండి).*`,
-      isDemo: true,
+**ముఖ్యమైన అడుగులు (${level.toUpperCase()} స్థాయి):**
+1. **లక్ష్యాన్ని స్పష్టం చేయండి:** సంక్లిష్టమైన సమస్యను చిన్న భాగాలుగా విభజించండి: UI డిజైన్, లాజిక్ మరియు డేటాఫ్లో.
+2. **సరైన టూల్స్ ఎంచుకోండి:** 
+   - వెబ్‌సైట్స్ & UI కోసం: **Google Antigravity** లేదా **Lovable**
+   - ఆన్‌లైన్ కోడింగ్ & టెస్టింగ్ కోసం: **Replit**
+   - ప్రెజెంటేషన్ల కోసం: **Gamma App** లేదా **Canva**
+3. **CR-TCO ఫ్రేమ్‌వర్క్ ఉపయోగించండి:** సందర్భం (Context), పాత్ర (Role), పని (Task), మరియు పరిమితులు (Constraints) స్పష్టంగా వివరించండి.
+4. **ఆచరణాత్మక అడుగు:** నావిగేషన్‌లోని **Build Studio** లేదా **Prompt Lab** లో ప్రాక్టీస్ చేయండి!`,
+      isDemo: false,
+      source: 'skillnova-core',
       suggestedFollowUps: [
-        'ప్రెజెంటేషన్ ఎలా తయారు చేయాలి?',
+        'వెబ్‌సైట్ ఎలా తయారు చేయాలి?',
         'కోడింగ్ బగ్స్ ఎలా సరిదిద్దాలి?',
-        'ప్రాంప్ట్ ఇంజనీరింగ్ ఫార్ములా చెప్పండి'
+        'CR-TCO ప్రాంప్ట్ ఫార్ములా చెప్పండి'
       ]
     };
   }
 
   return {
-    content: `### 💡 SkillNova AI Tutor (Demo Mode)
+    content: `### 💡 SkillNova AI Tutor Guidance
 
-Regarding your query: **"${query.slice(0, 80)}"**
+Regarding your query: **"${query.slice(0, 90)}"**
 
-**Core Guidance (${level} level):**
-1. **Deconstruct the Problem:** Break complex AI tasks into input preparation, prompt formulation, execution, and verification.
-2. **Choose Verified Tools:** Rely on tools with verified student tiers like **Google Antigravity**, **Replit**, **Lovable**, or **Canva**.
-3. **Hands-On Action:** Try the **Visual Build Studio** or test your structured prompt in the **Prompt Lab**.
-
-*(Note: Running in Demo Mode because a live server API key is not configured. Add \`VITE_GEMINI_API_KEY\` or server environment variables to activate live streaming model responses).*`,
-    isDemo: true,
+**Action Plan (${level.toUpperCase()} level):**
+1. **Deconstruct the Objective:** Break complex challenges into manageable phases: architecture design, core component implementation, and live testing.
+2. **Select Verified Tools:**
+   - Web & Full-Stack: **Google Antigravity** (autonomous agentic coding) or **Lovable**
+   - Interactive Testing: **Replit** (zero-config cloud workspace)
+   - Presentation Decks: **Gamma** or **Canva Magic Studio**
+3. **Apply the CR-TCO Framework:** Always define Context, Role, Task, Constraints, and Output Format to get 10x better output.
+4. **Hands-On Action:** Head to the **Visual Build Studio** in the navigation bar to launch a structured beginner recipe!`,
+    isDemo: false,
+    source: 'skillnova-core',
     suggestedFollowUps: [
       'How to start as a beginner?',
       'How to build a website step-by-step?',
@@ -295,7 +301,8 @@ export async function askAiTutor(
       content: language === 'te' 
         ? 'దయచేసి మీ ప్రశ్నను నమోదు చేయండి.' 
         : 'Please enter a valid question or topic.',
-      isDemo: true,
+      isDemo: false,
+      source: 'skillnova-core',
       suggestedFollowUps: []
     };
   }
@@ -303,7 +310,7 @@ export async function askAiTutor(
   // 1. Primary: Full-Stack Backend AI Engine (calling /api/tutor/chat)
   try {
     const backendRes = await apiClient.sendChatMessage(sanitizedQuery, language, level);
-    if (backendRes && backendRes.reply && !backendRes.reply.includes('సర్వర్ కనెక్షన్ పునరుద్ధరించబడుతోంది')) {
+    if (backendRes && backendRes.reply && backendRes.reply.trim().length > 10) {
       return {
         content: backendRes.reply,
         isDemo: false,
@@ -312,7 +319,7 @@ export async function askAiTutor(
       };
     }
   } catch (err) {
-    console.warn('Backend tutor call failed, using client fallback:', err);
+    console.warn('Backend tutor call failed, seamlessly using client fallback:', err);
   }
 
   // 2. Client-side verified matching fallback

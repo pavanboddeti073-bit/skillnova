@@ -125,7 +125,7 @@ export const apiClient = {
     return null;
   },
 
-  async sendChatMessage(message: string, language: 'en' | 'te', level: string): Promise<ChatResponse> {
+  async sendChatMessage(message: string, language: 'en' | 'te', level: string): Promise<ChatResponse | null> {
     try {
       const res = await fetch(`${BASE_URL}/tutor/chat`, {
         method: 'POST',
@@ -136,17 +136,10 @@ export const apiClient = {
         return await res.json();
       }
     } catch (err) {
-      console.warn('Failed to reach backend chat endpoint, using fallback:', err);
+      console.warn('Backend chat unreachable, seamlessly using local engine:', err);
     }
 
-    return {
-      reply: language === 'te' 
-        ? 'సర్వర్ కనెక్షన్ పునరుద్ధరించబడుతోంది. దయచేసి మళ్లీ ప్రయత్నించండి.'
-        : 'Connecting to SkillNova backend server. Please try again in a moment.',
-      source: 'skillnova-core',
-      suggestedFollowUps: ['How do I start building?', 'Show me verified tools'],
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    };
+    return null;
   },
 
   async optimizePrompt(payload: {
