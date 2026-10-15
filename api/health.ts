@@ -11,7 +11,7 @@ export default function handler(req: any, res: any) {
     status: 'online',
     uptimeSeconds: Math.floor(process.uptime()),
     service: 'SkillNova Full-Stack API Engine',
-    version: '1.0.0',
+    version: '1.2.0',
     database: {
       status: 'connected',
       completedLessonsCount: 1,

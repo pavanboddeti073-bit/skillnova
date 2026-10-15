@@ -35,68 +35,6 @@
   "savedPlans": [],
   "chatHistory": [
     {
-      "id": "msg-init-system",
-      "role": "assistant",
-      "content": "Hello! I am your SkillNova AI Engineering Tutor. How can I assist you with your projects, coding, or learning today?",
-      "timestamp": "Just now",
-      "suggestedFollowUps": [
-        "How do I host a fullstack app for free?",
-        "Teach me prompt engineering basics",
-        "Help me choose between Antigravity and Replit"
-      ]
-    },
-    {
-      "id": "msg-1791982996331-u",
-      "role": "user",
-      "content": "How do I deploy my website for free?",
-      "timestamp": "06:33 PM"
-    },
-    {
-      "id": "msg-1791982996331-a",
-      "role": "assistant",
-      "content": "**Student Free-Tier Hosting Blueprint (Zero Cost):**\n\n1. **Frontend**: **Vercel** or **Cloudflare Pages** — Generous free bandwidth, automated GitHub CI/CD, and free global CDN.\n2. **Backend**: **Render** (Free tier web services) or **Vercel Serverless API routes**.\n3. **Database**: **Supabase** (Free PostgreSQL instance) or **Neon Serverless Postgres**.\n4. **Critical Rule**: Always store sensitive credentials in Environment Variables in the host dashboard, never in client code or Git repository.",
-      "timestamp": "06:33 PM",
-      "suggestedFollowUps": [
-        "How does vercel.json rewrite work?",
-        "How to prevent API keys from leaking on GitHub?",
-        "What are the free limits on Supabase?"
-      ]
-    },
-    {
-      "id": "msg-1791983428295-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "06:40 PM"
-    },
-    {
-      "id": "msg-1791983428295-a",
-      "role": "assistant",
-      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
-      "timestamp": "06:40 PM",
-      "suggestedFollowUps": [
-        "How do I write a CR-TCO prompt?",
-        "Show me a beginner tutorial for Antigravity",
-        "How do I host a full-stack project for free?"
-      ]
-    },
-    {
-      "id": "msg-1791983428311-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "06:40 PM"
-    },
-    {
-      "id": "msg-1791983428311-a",
-      "role": "assistant",
-      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
-      "timestamp": "06:40 PM",
-      "suggestedFollowUps": [
-        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
-        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
-        "Google Antigravity ఎలా ఉపయోగించాలి?"
-      ]
-    },
-    {
       "id": "msg-1791983553186-u",
       "role": "user",
       "content": "hii",
@@ -349,6 +287,176 @@
         "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
         "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
         "Google Antigravity ఎలా ఉపయోగించాలి?"
+      ]
+    },
+    {
+      "id": "msg-1792042214917-u",
+      "role": "user",
+      "content": "What is React? Explain in simple terms",
+      "timestamp": "11:00 AM"
+    },
+    {
+      "id": "msg-1792042214917-a",
+      "role": "assistant",
+      "content": "**SkillNova AI Engineering Response:**\n\nRegarding: \"*What is React? Explain in simple terms*\"\n\n**Actionable Advice for BEGINNER level:**\n1. **Isolate the Scope**: Break down complex problems into one module or function at a time.\n2. **Check Verified Tools**: Review our Tools Explorer for free tiers and documentation before building custom solutions.\n3. **Defensive Implementation**: Always write error boundaries, validate user input, and check environment variables.\n4. **Document Assumptions**: Maintain a clean README with setup steps and testing commands.",
+      "timestamp": "11:00 AM",
+      "suggestedFollowUps": [
+        "Show me hackathon-winning project ideas",
+        "How to structure an ATS-friendly tech resume",
+        "Explain difference between LLMs and Traditional ML"
+      ]
+    },
+    {
+      "id": "msg-1792042714179-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "11:08 AM"
+    },
+    {
+      "id": "msg-1792042714179-a",
+      "role": "assistant",
+      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
+      "timestamp": "11:08 AM",
+      "suggestedFollowUps": [
+        "How do I write a CR-TCO prompt?",
+        "Show me a beginner tutorial for Antigravity",
+        "How do I host a full-stack project for free?"
+      ]
+    },
+    {
+      "id": "msg-1792042714586-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "11:08 AM"
+    },
+    {
+      "id": "msg-1792042714586-a",
+      "role": "assistant",
+      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
+      "timestamp": "11:08 AM",
+      "suggestedFollowUps": [
+        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
+        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
+        "Google Antigravity ఎలా ఉపయోగించాలి?"
+      ]
+    },
+    {
+      "id": "msg-1792043396337-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "11:19 AM"
+    },
+    {
+      "id": "msg-1792043396337-a",
+      "role": "assistant",
+      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
+      "timestamp": "11:19 AM",
+      "suggestedFollowUps": [
+        "How do I write a CR-TCO prompt?",
+        "Show me a beginner tutorial for Antigravity",
+        "How do I host a full-stack project for free?"
+      ]
+    },
+    {
+      "id": "msg-1792043396914-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "11:19 AM"
+    },
+    {
+      "id": "msg-1792043396914-a",
+      "role": "assistant",
+      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
+      "timestamp": "11:19 AM",
+      "suggestedFollowUps": [
+        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
+        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
+        "Google Antigravity ఎలా ఉపయోగించాలి?"
+      ]
+    },
+    {
+      "id": "msg-1792043572493-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "11:22 AM"
+    },
+    {
+      "id": "msg-1792043572493-a",
+      "role": "assistant",
+      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
+      "timestamp": "11:22 AM",
+      "suggestedFollowUps": [
+        "How do I write a CR-TCO prompt?",
+        "Show me a beginner tutorial for Antigravity",
+        "How do I host a full-stack project for free?"
+      ]
+    },
+    {
+      "id": "msg-1792043572891-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "11:22 AM"
+    },
+    {
+      "id": "msg-1792043572891-a",
+      "role": "assistant",
+      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
+      "timestamp": "11:22 AM",
+      "suggestedFollowUps": [
+        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
+        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
+        "Google Antigravity ఎలా ఉపయోగించాలి?"
+      ]
+    },
+    {
+      "id": "msg-1792043626953-u",
+      "role": "user",
+      "content": "How do I fix: TypeError: Cannot read properties of undefined systematically?",
+      "timestamp": "11:23 AM"
+    },
+    {
+      "id": "msg-1792043626953-a",
+      "role": "assistant",
+      "content": "### 🛠️ How to Fix: \"TypeError: Cannot read properties of undefined\"\n\nThis is the #1 most common error in JavaScript & TypeScript. It occurs when your code attempts to access a property (like `.name` or `[0]`) on a variable that evaluates to `undefined` or `null` (usually before an API response has arrived).\n\n#### 1. The Root Cause\n```typescript\n// ❌ Crashes when 'user' is null or undefined (e.g. initial render)\nconst userName = user.profile.name; // Uncaught TypeError!\nconst firstItem = response.data.items[0]; // Crashes if 'data' is missing!\n```\n\n#### 2. The 3 Bulletproof Fixes\n\n**Fix A: Optional Chaining (`?.`) + Nullish Coalescing (`??`)**\n```typescript\n// ✅ Safely returns 'Guest' if user or profile is undefined\nconst userName = user?.profile?.name ?? 'Guest';\nconst firstItem = response?.data?.items?.[0] ?? null;\n```\n\n**Fix B: React Early Return / Guard Clause**\n```tsx\nexport const UserProfile = ({ user }: { user?: UserData }) => {\n  // Prevent rendering child properties until data exists\n  if (!user) {\n    return <div className=\"animate-pulse\">Loading profile data...</div>;\n  }\n  return <h2>Welcome, {user.name}</h2>;\n};\n```\n\n**Fix C: Initialize State with Empty Defaults (Never undefined)**\n```typescript\n// ❌ Risky: useState() leaves it undefined initially\nconst [items, setItems] = useState<string[]>();\n\n// ✅ Safe: initialized to empty array, .map() won't crash\nconst [items, setItems] = useState<string[]>([]);\n```\n\n#### 3. Systematic 3-Step Debug Process:\n1. **Find the culprit:** In `objectA.objectB.propertyC`, the undefined item is whatever is immediately to the *left* of the failing dot.\n2. **Inspect the call stack:** Look at browser dev tools (F12 → Console) to find the exact line number.\n3. **Verify API payload:** Open Network tab → Fetch/XHR → click request → Preview to verify key names match your frontend types.",
+      "timestamp": "11:23 AM",
+      "suggestedFollowUps": [
+        "How to handle async data loading in React without crashes?",
+        "Explain Optional Chaining (?.) and Nullish Coalescing (??)",
+        "How to write TypeScript types for API responses?"
+      ]
+    },
+    {
+      "id": "msg-1792044012478-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "11:30 AM"
+    },
+    {
+      "id": "msg-1792044012478-a",
+      "role": "assistant",
+      "content": "### 🚀 The Complete Student AI Launch Roadmap\n\nIf you are just starting out with AI, here is the direct, no-fluff 3-step path:\n\n1. **Pick One Tangible Deliverable:**\n   Avoid vague goals like \"learn all of AI\". Pick a concrete project:\n   - Personal Portfolio Website (React + Tailwind)\n   - Academic Seminar Deck (8-Slide structured PPT)\n   - Project Architecture Report (System Flowchart + SRS)\n2. **Leverage Verified Low-Barrier Tools:**\n   - Web development: **Google Antigravity** or **Lovable**\n   - Interactive zero-config playground: **Replit**\n   - Professional slide creation: **Gamma App**\n3. **Apply the CR-TCO Prompting Formula:**\n   Frame your requirements with Context, Role, Task, Constraints, and Output Format to generate accurate results.",
+      "timestamp": "11:30 AM",
+      "suggestedFollowUps": [
+        "How to build a personal portfolio website step-by-step?",
+        "Explain the CR-TCO prompt formula with an example",
+        "Open the Visual Build Studio to follow a guided recipe"
+      ]
+    },
+    {
+      "id": "msg-1792044012887-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "11:30 AM"
+    },
+    {
+      "id": "msg-1792044012887-a",
+      "role": "assistant",
+      "content": "### 🚀 బిగినర్స్ AI రోడ్‌మ్యాప్ — ఎక్కడ ప్రారంభించాలి?\n\nమీరు మొదటిసారి AI ప్రాజెక్ట్ ప్రారంభిస్తుంటే, గందరగోళం లేకుండా ఈ 3 దశలు అనుసరించండి:\n\n1. **స్పష్టమైన చిన్న లక్ష్యం ఎంచుకోండి:**\n   - కాలేజ్ సెమినార్ కోసం 8-స్లైడ్ల ప్రెజెంటేషన్\n   - లేదా మీ పర్సనల్ పోర్ట్‌ఫోలియో వెబ్‌సైట్\n2. **సరైన ఉచిత టూల్ ఉపయోగించండి:**\n   - వెబ్‌సైట్ & UI కోసం: **Lovable** లేదా **Google Antigravity**\n   - ఆన్‌లైన్ కోడింగ్ & టెస్టింగ్: **Replit**\n   - ప్రెజెంటేషన్లు: **Gamma App**\n3. **CR-TCO ఫ్రేమ్‌వర్క్ వాడండి:**\n   రోల్, సందర్భం, టాస్క్ మరియు నిబంధనలు స్పష్టంగా వివరించి అవుట్‌పుట్ పొందండి.",
+      "timestamp": "11:30 AM",
+      "suggestedFollowUps": [
+        "CR-TCO ప్రాంప్ట్ ఫార్ములా ఉదాహరణతో చూపించండి",
+        "వెబ్‌సైట్ బిల్డ్ స్టూడియో రెసిపీ తెరవండి",
+        "Vercel లో ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?"
       ]
     }
   ],
