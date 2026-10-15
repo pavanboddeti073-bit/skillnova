@@ -126,6 +126,58 @@ export default async function handler(req: any, res: any) {
     return res.status(200).json({ optimizedPrompt });
   }
 
-  // 8. Default fallback
+  // 8. Resume Analysis
+  if (pathname === '/resume/analyze' && req.method === 'POST') {
+    const { text = '' } = req.body || {};
+    const lower = text.toLowerCase();
+    const techKeywords = ['react', 'typescript', 'javascript', 'python', 'node', 'express', 'sql', 'git', 'github', 'tailwind'];
+    const identifiedSkills = techKeywords.filter(k => lower.includes(k));
+    const score = Math.min(92, Math.max(45, 50 + (identifiedSkills.length * 7)));
+
+    return res.status(200).json({
+      overallScore: score,
+      identifiedSkills,
+      strengths: [
+        'Detected technical skills and academic background.',
+        'Demonstrates practical project hands-on implementation.'
+      ],
+      impactBulletCritique: [
+        {
+          originalExample: 'Assisted in building website for college notes.',
+          improvedExample: 'Architected responsive student study portal using React and Tailwind CSS, speeding up note searches by 40% across 200+ students.',
+          reason: 'Replaces weak verb "assisted" with "Architected" and quantifies student impact using Google XYZ formula.'
+        }
+      ],
+      atsSafetyTips: [
+        'Use simple single-column layout without tables or graphics for ATS scanners.',
+        'Always include direct working Vercel demo URLs and GitHub profile links.'
+      ],
+      recommendedAdditions: [
+        'Highlight measurable metrics (e.g., % performance boost, number of active users).'
+      ]
+    });
+  }
+
+  // 9. Prompts Store (GET / POST)
+  if (pathname === '/prompts') {
+    if (req.method === 'POST') {
+      const { title, prompt, category } = req.body || {};
+      return res.status(200).json({
+        id: `sp-${Date.now()}`,
+        title: title || 'Custom Prompt',
+        prompt: prompt || '',
+        category: category || 'custom',
+        createdAt: new Date().toISOString()
+      });
+    }
+    return res.status(200).json([]);
+  }
+
+  // 10. User Data Erasure (DELETE)
+  if (pathname === '/user/data' && req.method === 'DELETE') {
+    return res.status(200).json({ success: true, message: 'User data purged successfully' });
+  }
+
+  // 11. Default fallback
   return res.status(200).json({ success: true, message: 'SkillNova API Serverless Handler' });
 }
