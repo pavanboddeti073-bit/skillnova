@@ -44,12 +44,14 @@ Ask me anything in **English or Telugu**!`,
 export const AiTutorView: React.FC = () => {
   const { language, setLanguage, level, setLevel, showToast } = useApp();
 
-  const [messages, setMessages] = useState<ChatMessage[]>([buildWelcomeMessage(language)]);
+  const [conversation, setConversation] = useState<ChatMessage[]>([]);
   const [inputQuery, setInputQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null);
   const [aiSource, setAiSource] = useState<string>('skillnova-core');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const messages = React.useMemo(() => [buildWelcomeMessage(language), ...conversation], [language, conversation]);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -58,15 +60,6 @@ export const AiTutorView: React.FC = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading, scrollToBottom]);
-
-  // Update welcome message when language changes
-  useEffect(() => {
-    setMessages(prev => {
-      const welcome = buildWelcomeMessage(language);
-      const rest = prev.filter(m => m.id !== 'msg-welcome');
-      return [welcome, ...rest];
-    });
-  }, [language]);
 
   const handleSendMessage = async (queryToSend?: string) => {
     const text = (queryToSend || inputQuery).trim();
@@ -79,7 +72,7 @@ export const AiTutorView: React.FC = () => {
       timestamp: getNowTimestamp()
     };
 
-    setMessages(prev => [...prev, userMsg]);
+    setConversation(prev => [...prev, userMsg]);
     setInputQuery('');
     setIsLoading(true);
 
@@ -95,10 +88,10 @@ export const AiTutorView: React.FC = () => {
         suggestedFollowUps: result.suggestedFollowUps,
         timestamp: getNowTimestamp()
       };
-      setMessages(prev => [...prev, assistantMsg]);
+      setConversation(prev => [...prev, assistantMsg]);
     } catch (e) {
       console.error('[SkillNova] Tutor error:', e);
-      setMessages(prev => [
+      setConversation(prev => [
         ...prev,
         {
           id: getUniqueMsgId('msg-err'),
@@ -123,7 +116,7 @@ export const AiTutorView: React.FC = () => {
   };
 
   const handleClearChat = () => {
-    setMessages([buildWelcomeMessage(language)]);
+    setConversation([]);
     setAiSource('skillnova-core');
     showToast(language === 'te' ? 'చాట్ క్లియర్ చేయబడింది' : 'Chat cleared');
   };
