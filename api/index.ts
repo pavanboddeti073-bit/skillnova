@@ -1,3 +1,5 @@
+import { resolveIntelligentAnswer } from '../src/services/knowledgeEngine.ts';
+
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
@@ -104,17 +106,13 @@ export default async function handler(req: any, res: any) {
       }
     }
 
-    // Core Intelligent Bilingual Response
-    const reply = language === 'te'
-      ? `నమస్కారం! నేను మీ **SkillNova AI ట్యూటర్**.\n\nమీ ప్రశ్న: "${message}"\n\nAI ప్రాజెక్ట్ ప్రారంభించడానికి ముఖ్యమైన 3 దశలు:\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి.\n2. **సరైన టూల్ ఎంచుకోండి**: వెబ్‌సైట్స్ కోసం Lovable/Antigravity, కోడింగ్ కోసం Replit.\n3. **CR-TCO ఫార్మాట్ ఉపయోగించండి**: రోల్, సందర్భం, టాస్క్, పరిమితులు ఇవ్వండి.`
-      : `Hello! I am your **SkillNova AI Student Tutor**.\n\nRegarding your question: "${message}"\n\nHere are 3 concrete steps to proceed:\n1. **Define a narrow deliverable**: Frame your project outcome in one simple sentence.\n2. **Pick the right tool**: Use **Google Antigravity** or **Lovable** for UI, and **Replit** for testing code.\n3. **Use the CR-TCO Prompting Formula**: Structure your prompts with Context, Role, Task, Constraints, and Output Format.`;
+    // Core Intelligent Multi-Domain Response
+    const coreResult = resolveIntelligentAnswer(message || '', language as any, level);
 
     return res.status(200).json({
-      reply,
+      reply: coreResult.content,
       source: 'skillnova-core',
-      suggestedFollowUps: language === 'te'
-        ? ['CR-TCO ప్రాంప్ట్ ఫార్ములా వివరించండి', 'కోడ్ ఉదాహరణ చూపించండి', 'బిగినర్‌గా ఎక్కడ ప్రారంభించాలి?']
-        : ['Explain the CR-TCO prompt formula', 'Show me a minimal code example', 'Where do I start as a beginner?'],
+      suggestedFollowUps: coreResult.suggestedFollowUps,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     });
   }
