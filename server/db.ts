@@ -4,7 +4,9 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DB_FILE = path.join(__dirname, '..', 'data', 'database.json');
+const DB_FILE = process.env.VERCEL
+  ? path.join('/tmp', 'database.json')
+  : path.join(__dirname, '..', 'data', 'database.json');
 
 export interface UserDatabase {
   profile: {
@@ -84,38 +86,35 @@ const defaultDatabase: UserDatabase = {
   resumeHistory: []
 };
 
-// Ensure data folder exists
-const dataDir = path.dirname(DB_FILE);
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
-}
-
-// Initialize database if not present
-if (!fs.existsSync(DB_FILE)) {
-  fs.writeFileSync(DB_FILE, JSON.stringify(defaultDatabase, null, 2), 'utf-8');
-}
+let memoryCache: UserDatabase = { ...defaultDatabase };
 
 export function readDb(): UserDatabase {
   try {
     if (!fs.existsSync(DB_FILE)) {
       writeDb(defaultDatabase);
-      return defaultDatabase;
+      return memoryCache;
     }
     const raw = fs.readFileSync(DB_FILE, 'utf-8');
-    return JSON.parse(raw) as UserDatabase;
+    memoryCache = JSON.parse(raw) as UserDatabase;
+    return memoryCache;
   } catch (err) {
-    console.error('Error reading database, resetting to default:', err);
-    return defaultDatabase;
+    console.error('Error reading database, using fallback:', err);
+    return memoryCache;
   }
 }
 
 export function writeDb(data: UserDatabase): void {
+  memoryCache = data;
   try {
+    const dataDir = path.dirname(DB_FILE);
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
     const tempFile = `${DB_FILE}.tmp`;
     fs.writeFileSync(tempFile, JSON.stringify(data, null, 2), 'utf-8');
     fs.renameSync(tempFile, DB_FILE);
   } catch (err) {
-    console.error('Error writing database:', err);
+    console.warn('Filesystem write failed, preserved in memory:', err);
   }
 }
 
