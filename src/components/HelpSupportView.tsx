@@ -5,15 +5,33 @@ import {
   Database,
   ExternalLink,
   CheckCircle2,
-  Send
+  Send,
+  Loader2
 } from 'lucide-react';
 import { useApp } from '../context/useApp';
+import { testSupabaseConnection, isSupabaseConfigured } from '../lib/supabase';
 
 export const HelpSupportView: React.FC = () => {
   const { showToast, language } = useApp();
   const [feedbackText, setFeedbackText] = useState('');
   const [feedbackEmail, setFeedbackEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [testingSupabase, setTestingSupabase] = useState(false);
+  const [supabaseResult, setSupabaseResult] = useState<{ connected: boolean; message: string; latencyMs?: number } | null>(null);
+
+  const handleTestSupabase = async () => {
+    setTestingSupabase(true);
+    setSupabaseResult(null);
+    try {
+      const res = await testSupabaseConnection();
+      setSupabaseResult(res);
+      showToast(res.connected ? 'Supabase connected successfully!' : 'Supabase check complete.');
+    } catch {
+      setSupabaseResult({ connected: false, message: 'Unexpected connection failure.' });
+    } finally {
+      setTestingSupabase(false);
+    }
+  };
 
   const handleFeedbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,15 +122,61 @@ export const HelpSupportView: React.FC = () => {
           <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-750 text-xs font-mono text-purple-600 dark:text-purple-400">
             VITE_SUPABASE_URL=https://...
           </div>
-          <a
-            href="https://supabase.com"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline"
-          >
-            <span>Open Supabase Console</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
+          <div className="flex items-center justify-between">
+            <a
+              href="https://supabase.com"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline"
+            >
+              <span>Open Supabase Console</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+
+            <button
+              type="button"
+              onClick={handleTestSupabase}
+              disabled={testingSupabase}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all cursor-pointer disabled:opacity-50"
+            >
+              {testingSupabase ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Testing...</span>
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Test Connection</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Test Status Output */}
+          {supabaseResult && (
+            <div className={`p-3 rounded-xl text-xs space-y-1 ${
+              supabaseResult.connected
+                ? 'bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200'
+                : 'bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200'
+            }`}>
+              <div className="font-bold flex items-center gap-1.5">
+                <span className={`w-2 h-2 rounded-full ${supabaseResult.connected ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+                <span>{supabaseResult.connected ? 'Supabase Connected' : 'Configuration Notice'}</span>
+                {supabaseResult.latencyMs !== undefined && (
+                  <span className="text-[10px] opacity-75">({supabaseResult.latencyMs}ms)</span>
+                )}
+              </div>
+              <p className="text-[11px] leading-relaxed opacity-90">{supabaseResult.message}</p>
+            </div>
+          )}
+
+          {!supabaseResult && isSupabaseConfigured && (
+            <div className="flex items-center gap-2 text-[11px] text-emerald-600 dark:text-emerald-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Credentials detected in environment</span>
+            </div>
+          )}
         </div>
 
       </div>

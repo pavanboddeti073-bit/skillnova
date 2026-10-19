@@ -15,6 +15,7 @@ import { analyzeStudentResume } from '../src/services/resumeAnalyzer.ts';
 import { siteConfig } from '../src/config/siteConfig.ts';
 import { courseCatalog } from '../src/data/courses.ts';
 import { practiceQuizzes } from '../src/data/quizzes.ts';
+import { isServerSupabaseConfigured, checkServerSupabaseHealth } from './supabase.ts';
 
 export const apiRouter = Router();
 
@@ -40,8 +41,12 @@ const getAuthUser = (req: Request): UserProfile | null => {
 // ====================================================================
 // 1. HEALTH & SYSTEM INFO
 // ====================================================================
-apiRouter.get('/health', (_req: Request, res: Response) => {
+apiRouter.get('/health', async (_req: Request, res: Response) => {
   const db = readDb();
+  const supabaseHealth = isServerSupabaseConfigured
+    ? await checkServerSupabaseHealth()
+    : { connected: false, message: 'Supabase credentials not set in .env' };
+
   res.json({
     status: 'online',
     uptimeSeconds: Math.floor(process.uptime()),
@@ -55,9 +60,13 @@ apiRouter.get('/health', (_req: Request, res: Response) => {
       bookmarksCount: db.bookmarks.length,
       chatHistoryCount: db.chatHistory.length
     },
+    supabase: {
+      configured: isServerSupabaseConfigured,
+      ...supabaseHealth
+    },
     aiEngine: {
       hasExternalGeminiKey: Boolean(process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY),
-      provider: (process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY) ? 'Google Gemini 1.5 Cloud' : 'SkillNova Mega14 Knowledge Engine'
+      provider: (process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY) ? 'Google Gemini 3.5 Cloud' : 'SkillNova Mega14 Knowledge Engine'
     }
   });
 });

@@ -1,4 +1,177 @@
 {
+  "users": [
+    {
+      "id": "usr-student-demo",
+      "email": "learner@skillnova.dev",
+      "passwordHash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+      "fullName": "Pavan Manikanta",
+      "bio": "Computer Science Scholar & AI Engineer",
+      "learningInterests": [
+        "Artificial Intelligence",
+        "Programming & Web Dev",
+        "Cloud Computing"
+      ],
+      "learningLevel": "beginner",
+      "explanationDepth": "standard",
+      "dailyGoalMinutes": 30,
+      "theme": "light",
+      "streakDays": 4,
+      "totalLearningMinutes": 120,
+      "createdAt": "2026-10-19T13:58:51.173Z"
+    }
+  ],
+  "sessions": [
+    {
+      "token": "session-demo-token-12345",
+      "userId": "usr-student-demo",
+      "expiresAt": "2026-11-18T13:58:51.174Z"
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "enr-1",
+      "userId": "usr-student-demo",
+      "courseId": "course-ai-foundations",
+      "progressPercent": 35,
+      "completed": false,
+      "enrolledAt": "2026-10-19T13:58:51.174Z",
+      "lastAccessedAt": "2026-10-19T13:58:51.174Z"
+    },
+    {
+      "id": "enr-2",
+      "userId": "usr-student-demo",
+      "courseId": "course-react-fullstack",
+      "progressPercent": 20,
+      "completed": false,
+      "enrolledAt": "2026-10-19T13:58:51.174Z",
+      "lastAccessedAt": "2026-10-19T13:58:51.174Z"
+    }
+  ],
+  "lessonProgress": [
+    {
+      "id": "prog-1",
+      "userId": "usr-student-demo",
+      "courseId": "course-ai-foundations",
+      "lessonId": "lesson-tokens-prediction",
+      "completed": true,
+      "completedAt": "2026-10-19T13:58:51.174Z"
+    }
+  ],
+  "quizAttempts": [
+    {
+      "id": "att-1",
+      "userId": "usr-student-demo",
+      "quizId": "quiz-ai-llm-basics",
+      "score": 4,
+      "totalQuestions": 4,
+      "passed": true,
+      "completedAt": "2026-10-19T13:58:51.174Z"
+    }
+  ],
+  "notes": [
+    {
+      "id": "note-1",
+      "userId": "usr-student-demo",
+      "title": "LLM Temperature Rules of Thumb",
+      "content": "For deterministic coding and math, set temperature between 0.0 and 0.2. For brainstorming and creative writing, set temperature between 0.7 and 1.0.",
+      "tags": [
+        "AI",
+        "Prompting",
+        "BestPractices"
+      ],
+      "createdAt": "2026-10-19T13:58:51.174Z",
+      "updatedAt": "2026-10-19T13:58:51.174Z"
+    },
+    {
+      "id": "note-2",
+      "userId": "usr-student-demo",
+      "title": "React 19 Immutability Checklist",
+      "content": "Never use arr.push() or obj.prop = val. Always use setArr(prev => [...prev, item]) and setObj(prev => ({...prev, prop: val})).",
+      "tags": [
+        "React",
+        "TypeScript",
+        "Frontend"
+      ],
+      "createdAt": "2026-10-19T13:58:51.174Z",
+      "updatedAt": "2026-10-19T13:58:51.174Z"
+    }
+  ],
+  "bookmarks": [
+    {
+      "id": "bm-1",
+      "userId": "usr-student-demo",
+      "itemType": "course",
+      "itemId": "course-ai-foundations",
+      "title": "Generative AI Foundations & LLM Architecture",
+      "createdAt": "2026-10-19T13:58:51.174Z"
+    },
+    {
+      "id": "bm-2",
+      "userId": "usr-student-demo",
+      "itemType": "tool",
+      "itemId": "google-antigravity",
+      "title": "Google Antigravity IDE",
+      "createdAt": "2026-10-19T13:58:51.174Z"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "ach-1",
+      "userId": "usr-student-demo",
+      "badgeId": "first-lesson",
+      "title": "First Step Taken",
+      "description": "Completed your very first SkillNova Mega14 interactive lesson.",
+      "icon": "Sparkles",
+      "unlockedAt": "2026-10-19T13:58:51.174Z"
+    },
+    {
+      "id": "ach-2",
+      "userId": "usr-student-demo",
+      "badgeId": "perfect-quiz",
+      "title": "Knowledge Master",
+      "description": "Achieved 100% on a SkillNova practice knowledge check quiz.",
+      "icon": "Award",
+      "unlockedAt": "2026-10-19T13:58:51.174Z"
+    },
+    {
+      "id": "ach-3",
+      "userId": "usr-student-demo",
+      "badgeId": "streak-3",
+      "title": "Consistency Champion",
+      "description": "Maintained a 3-day consecutive learning streak.",
+      "icon": "Flame",
+      "unlockedAt": "2026-10-19T13:58:51.174Z"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "conv-init-1",
+      "userId": "usr-student-demo",
+      "title": "Debugging TypeError: Cannot read properties of undefined",
+      "mode": "step_by_step",
+      "language": "en",
+      "messages": [
+        {
+          "id": "msg-c1",
+          "role": "user",
+          "content": "How do I fix: TypeError: Cannot read properties of undefined systematically?",
+          "timestamp": "10:30 AM"
+        },
+        {
+          "id": "msg-c2",
+          "role": "assistant",
+          "content": "### 🛠️ Systematic Fix for TypeError: Cannot read properties of undefined\n\n1. **Root Cause**: Attempting property access on null or undefined.\n2. **Solution**: Use Optional Chaining (`user?.profile?.name`) and Nullish Coalescing (`?? \"Guest\"`).",
+          "timestamp": "10:30 AM",
+          "suggestedFollowUps": [
+            "Explain Nullish Coalescing vs OR",
+            "How to handle loading states in React"
+          ]
+        }
+      ],
+      "createdAt": "2026-10-19T13:58:51.174Z",
+      "updatedAt": "2026-10-19T13:58:51.174Z"
+    }
+  ],
   "profile": {
     "language": "en",
     "level": "beginner",
@@ -34,227 +207,6 @@
   ],
   "savedPlans": [],
   "chatHistory": [
-    {
-      "id": "msg-1791983553186-u",
-      "role": "user",
-      "content": "hii",
-      "timestamp": "06:42 PM"
-    },
-    {
-      "id": "msg-1791983553186-a",
-      "role": "assistant",
-      "content": "**SkillNova AI Engineering Response:**\n\nRegarding: \"*hii*\"\n\n**Actionable Advice for BEGINNER level:**\n1. **Isolate the Scope**: Break down complex problems into one module or function at a time.\n2. **Check Verified Tools**: Review our Tools Explorer for free tiers and documentation before building custom solutions.\n3. **Defensive Implementation**: Always write error boundaries, validate user input, and check environment variables.\n4. **Document Assumptions**: Maintain a clean README with setup steps and testing commands.",
-      "timestamp": "06:42 PM",
-      "suggestedFollowUps": [
-        "Show me hackathon-winning project ideas",
-        "How to structure an ATS-friendly tech resume",
-        "Explain difference between LLMs and Traditional ML"
-      ]
-    },
-    {
-      "id": "msg-1791983569662-u",
-      "role": "user",
-      "content": "Where do I start as a beginner?",
-      "timestamp": "06:42 PM"
-    },
-    {
-      "id": "msg-1791983569662-a",
-      "role": "assistant",
-      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
-      "timestamp": "06:42 PM",
-      "suggestedFollowUps": [
-        "How do I write a CR-TCO prompt?",
-        "Show me a beginner tutorial for Antigravity",
-        "How do I host a full-stack project for free?"
-      ]
-    },
-    {
-      "id": "msg-1791983762482-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "06:46 PM"
-    },
-    {
-      "id": "msg-1791983762482-a",
-      "role": "assistant",
-      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
-      "timestamp": "06:46 PM",
-      "suggestedFollowUps": [
-        "How do I write a CR-TCO prompt?",
-        "Show me a beginner tutorial for Antigravity",
-        "How do I host a full-stack project for free?"
-      ]
-    },
-    {
-      "id": "msg-1791983762494-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "06:46 PM"
-    },
-    {
-      "id": "msg-1791983762494-a",
-      "role": "assistant",
-      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
-      "timestamp": "06:46 PM",
-      "suggestedFollowUps": [
-        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
-        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
-        "Google Antigravity ఎలా ఉపయోగించాలి?"
-      ]
-    },
-    {
-      "id": "msg-1791983785813-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "06:46 PM"
-    },
-    {
-      "id": "msg-1791983785813-a",
-      "role": "assistant",
-      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
-      "timestamp": "06:46 PM",
-      "suggestedFollowUps": [
-        "How do I write a CR-TCO prompt?",
-        "Show me a beginner tutorial for Antigravity",
-        "How do I host a full-stack project for free?"
-      ]
-    },
-    {
-      "id": "msg-1791983785828-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "06:46 PM"
-    },
-    {
-      "id": "msg-1791983785828-a",
-      "role": "assistant",
-      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
-      "timestamp": "06:46 PM",
-      "suggestedFollowUps": [
-        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
-        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
-        "Google Antigravity ఎలా ఉపయోగించాలి?"
-      ]
-    },
-    {
-      "id": "msg-1791985341945-u",
-      "role": "user",
-      "content": "How do I start building a website?",
-      "timestamp": "07:12 PM"
-    },
-    {
-      "id": "msg-1791985341945-a",
-      "role": "assistant",
-      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
-      "timestamp": "07:12 PM",
-      "suggestedFollowUps": [
-        "How do I write a CR-TCO prompt?",
-        "Show me a beginner tutorial for Antigravity",
-        "How do I host a full-stack project for free?"
-      ]
-    },
-    {
-      "id": "msg-1791985851928-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "07:20 PM"
-    },
-    {
-      "id": "msg-1791985851928-a",
-      "role": "assistant",
-      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
-      "timestamp": "07:20 PM",
-      "suggestedFollowUps": [
-        "How do I write a CR-TCO prompt?",
-        "Show me a beginner tutorial for Antigravity",
-        "How do I host a full-stack project for free?"
-      ]
-    },
-    {
-      "id": "msg-1791985851946-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "07:20 PM"
-    },
-    {
-      "id": "msg-1791985851946-a",
-      "role": "assistant",
-      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
-      "timestamp": "07:20 PM",
-      "suggestedFollowUps": [
-        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
-        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
-        "Google Antigravity ఎలా ఉపయోగించాలి?"
-      ]
-    },
-    {
-      "id": "msg-1791985926769-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "07:22 PM"
-    },
-    {
-      "id": "msg-1791985926769-a",
-      "role": "assistant",
-      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
-      "timestamp": "07:22 PM",
-      "suggestedFollowUps": [
-        "How do I write a CR-TCO prompt?",
-        "Show me a beginner tutorial for Antigravity",
-        "How do I host a full-stack project for free?"
-      ]
-    },
-    {
-      "id": "msg-1791985926786-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "07:22 PM"
-    },
-    {
-      "id": "msg-1791985926786-a",
-      "role": "assistant",
-      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
-      "timestamp": "07:22 PM",
-      "suggestedFollowUps": [
-        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
-        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
-        "Google Antigravity ఎలా ఉపయోగించాలి?"
-      ]
-    },
-    {
-      "id": "msg-1792034584542-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "08:53 AM"
-    },
-    {
-      "id": "msg-1792034584542-a",
-      "role": "assistant",
-      "content": "**4 Concrete Steps to Start as an AI Beginner:**\n\n1. **Define a narrow deliverable**: Frame your idea into a 1-sentence outcome (e.g., \"A student attendance calculator with export to PDF\").\n2. **Select the appropriate tool for your level (beginner):**\n   - Rapid UI/Frontend: **Lovable** or **Bolt.new**\n   - Autonomous coding & tests: **Google Antigravity**\n   - Quick backend & hosting: **Replit Agent**\n3. **Use Structured Prompting (CR-TCO)**: Never just ask \"build me an app\". Specify Role, Context, Task, Constraints, and Output Format.\n4. **Deploy early**: Ship to **Vercel** or **GitHub Pages** so you have a live link within 24 hours.",
-      "timestamp": "08:53 AM",
-      "suggestedFollowUps": [
-        "How do I write a CR-TCO prompt?",
-        "Show me a beginner tutorial for Antigravity",
-        "How do I host a full-stack project for free?"
-      ]
-    },
-    {
-      "id": "msg-1792034584572-u",
-      "role": "user",
-      "content": "where do i start as a beginner?",
-      "timestamp": "08:53 AM"
-    },
-    {
-      "id": "msg-1792034584572-a",
-      "role": "assistant",
-      "content": "**AI ప్రాజెక్ట్‌ను ప్రారంభించడానికి 4 ప్రాథమిక దశలు:**\n\n1. **లక్ష్యాన్ని స్పష్టం చేయండి**: మీరు ఏమి నిర్మించాలనుకుంటున్నారో 1 వాక్యంలో రాయండి (ఉదా: స్టూడెంట్ పోర్ట్‌ఫోలియో లేదా నోట్స్ షేరింగ్ యాప్).\n2. **సరైన టూల్ ఎంచుకోండి**:\n   - వెబ్‌సైట్స్ & UI కోసం: **Lovable** లేదా **v0**\n   - పూర్తి యాప్స్ & బ్యాకెండ్ కోసం: **Google Antigravity** లేదా **Replit Agent**\n3. **CR-TCO ఫార్మాట్‌లో ప్రాంప్ట్ రాయండి**: రోల్, సందర్భం, టాస్క్, నిబంధనలు మరియు అవుట్‌పుట్ ఫార్మాట్ పేర్కొనండి.\n4. **మొదటి వెర్షన్ టెస్ట్ చేయండి**: గిట్‌హబ్‌కు కోడ్ పుష్ చేసి **Vercel** లో ఉచితంగా హోస్ట్ చేయండి.",
-      "timestamp": "08:53 AM",
-      "suggestedFollowUps": [
-        "CR-TCO ప్రాంప్ట్ ఎలా రాయాలి?",
-        "ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?",
-        "Google Antigravity ఎలా ఉపయోగించాలి?"
-      ]
-    },
     {
       "id": "msg-1792037209172-u",
       "role": "user",
@@ -457,6 +409,223 @@
         "CR-TCO ప్రాంప్ట్ ఫార్ములా ఉదాహరణతో చూపించండి",
         "వెబ్‌సైట్ బిల్డ్ స్టూడియో రెసిపీ తెరవండి",
         "Vercel లో ఉచిత హోస్టింగ్ ఎలా సెటప్ చేయాలి?"
+      ]
+    },
+    {
+      "id": "msg-1792418459272-u",
+      "role": "user",
+      "content": "What is Tokenization in LLMs?",
+      "timestamp": "07:30 PM"
+    },
+    {
+      "id": "msg-1792418459272-a",
+      "role": "assistant",
+      "timestamp": "07:30 PM",
+      "suggestedFollowUps": [
+        "How to fine-tune a Hugging Face transformer model?",
+        "How does Retrieval Augmented Generation (RAG) work?",
+        "How to serve a Python ML model with FastAPI?"
+      ]
+    },
+    {
+      "id": "msg-1792418468064-u",
+      "role": "user",
+      "content": "What is Tokenization in LLMs?",
+      "timestamp": "07:31 PM"
+    },
+    {
+      "id": "msg-1792418468064-a",
+      "role": "assistant",
+      "timestamp": "07:31 PM",
+      "suggestedFollowUps": [
+        "How to fine-tune a Hugging Face transformer model?",
+        "How does Retrieval Augmented Generation (RAG) work?",
+        "How to serve a Python ML model with FastAPI?"
+      ]
+    },
+    {
+      "id": "msg-1792418558367-u",
+      "role": "user",
+      "content": "What is Tokenization in LLMs?",
+      "timestamp": "07:32 PM"
+    },
+    {
+      "id": "msg-1792418558367-a",
+      "role": "assistant",
+      "timestamp": "07:32 PM",
+      "suggestedFollowUps": [
+        "How to fine-tune a Hugging Face transformer model?",
+        "How does Retrieval Augmented Generation (RAG) work?",
+        "How to serve a Python ML model with FastAPI?"
+      ]
+    },
+    {
+      "id": "msg-1792418570143-u",
+      "role": "user",
+      "content": "What is Tokenization in LLMs?",
+      "timestamp": "07:32 PM"
+    },
+    {
+      "id": "msg-1792418570143-a",
+      "role": "assistant",
+      "timestamp": "07:32 PM",
+      "suggestedFollowUps": [
+        "How to fine-tune a Hugging Face transformer model?",
+        "How does Retrieval Augmented Generation (RAG) work?",
+        "How to serve a Python ML model with FastAPI?"
+      ]
+    },
+    {
+      "id": "msg-1792418641093-u",
+      "role": "user",
+      "content": "What is Tokenization in LLMs?",
+      "timestamp": "07:34 PM"
+    },
+    {
+      "id": "msg-1792418641093-a",
+      "role": "assistant",
+      "content": "### 🐍 Python & Machine Learning (AI/ML) Architecture\n\nModern AI applications leverage Python's robust scientific computing ecosystem:\n\n#### 1. The Core Stack:\n- **Data Wrangling:** `pandas` (DataFrames) and `numpy` (vectorized multidimensional arrays).\n- **Classical ML:** `scikit-learn` for regression, random forests, and SVMs.\n- **Deep Learning & Transformers:** `PyTorch` and `Hugging Face Transformers` for pretrained LLMs and embeddings.\n- **Model Serving:** `FastAPI` for asynchronous, lightweight REST model serving.\n\n#### 2. Avoiding Student Pitfalls:\n- **Data Leakage:** Always fit your scalers (`StandardScaler`) on training data only, never on the full dataset before splitting.\n- **Overfitting:** Monitor validation loss alongside training loss. If validation loss climbs while training loss drops, introduce dropout or regularization.\n- **Reproducibility:** Always set random seeds: `torch.manual_seed(42)` and `np.random.seed(42)`.",
+      "timestamp": "07:34 PM",
+      "suggestedFollowUps": [
+        "How to fine-tune a Hugging Face transformer model?",
+        "How does Retrieval Augmented Generation (RAG) work?",
+        "How to serve a Python ML model with FastAPI?"
+      ]
+    },
+    {
+      "id": "msg-1792418814732-u",
+      "role": "user",
+      "content": "What is Tokenization in LLMs?",
+      "timestamp": "07:36 PM"
+    },
+    {
+      "id": "msg-1792418814732-a",
+      "role": "assistant",
+      "content": "Hello! I am your **SkillNova Mega14 AI Tutor**. As a senior software architect and university professor, I'm thrilled to help you master this fundamental concept in Artificial Intelligence. Let'",
+      "timestamp": "07:36 PM",
+      "suggestedFollowUps": [
+        "Show me a minimal working code example",
+        "What are common pitfalls and debugging tips?",
+        "Quiz me on this concept with 3 questions"
+      ]
+    },
+    {
+      "id": "msg-1792418847589-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "07:37 PM"
+    },
+    {
+      "id": "msg-1792418847589-a",
+      "role": "assistant",
+      "content": "### 🚀 The Complete Student AI Launch Roadmap\n\nIf you are just starting out with AI, here is the direct, no-fluff 3-step path:\n\n1. **Pick One Tangible Deliverable:**\n   Avoid vague goals like \"learn all of AI\". Pick a concrete project:\n   - Personal Portfolio Website (React + Tailwind)\n   - Academic Seminar Deck (8-Slide structured PPT)\n   - Project Architecture Report (System Flowchart + SRS)\n2. **Leverage Verified Low-Barrier Tools:**\n   - Web development: **Google Antigravity** or **Lovable**\n   - Interactive zero-config playground: **Replit**\n   - Professional slide creation: **Gamma App**\n3. **Apply the CR-TCO Prompting Formula:**\n   Frame your requirements with Context, Role, Task, Constraints, and Output Format to generate accurate results.",
+      "timestamp": "07:37 PM",
+      "suggestedFollowUps": [
+        "How to build a personal portfolio website step-by-step?",
+        "Explain the CR-TCO prompt formula with an example",
+        "Open the Visual Build Studio to follow a guided recipe"
+      ]
+    },
+    {
+      "id": "msg-1792418854433-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "07:37 PM"
+    },
+    {
+      "id": "msg-1792418854433-a",
+      "role": "assistant",
+      "content": "లు & పొరపాట్లు)*\n        *   Mistake 1: Trying to learn multiple languages at once (ఒకేసారి అనేక భాషలు నేర్చుకోవడం).\n        *   Mistake",
+      "timestamp": "07:37 PM",
+      "suggestedFollowUps": [
+        "దీనికి ప్రాక్టికల్ కోడ్ ఉదాహరణ చూపించండి",
+        "దీనిలో సాధారణంగా చేసే తప్పులు ఏమిటి?",
+        "నన్ను ఈ టాపిక్‌పై క్విజ్ చేయండి"
+      ]
+    },
+    {
+      "id": "msg-1792418952451-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "07:39 PM"
+    },
+    {
+      "id": "msg-1792418952451-a",
+      "role": "assistant",
+      "content": "Welcome to the world of software engineering! I am **SkillNova Mega14**, your AI Tutor, senior software architect, and university professor. I am thrilled to guide you on this exciting journey. \n\nStarting out can feel overwhelming because of the vast amount of information available, but with the right structure, you will build real skills faster than you think. Let's break down your starting path step by step.\n\n---\n\n### 🎯",
+      "timestamp": "07:39 PM",
+      "suggestedFollowUps": [
+        "Show me a minimal working code example",
+        "What are common pitfalls and debugging tips?",
+        "Quiz me on this concept with 3 questions"
+      ]
+    },
+    {
+      "id": "msg-1792418963566-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "07:39 PM"
+    },
+    {
+      "id": "msg-1792418963566-a",
+      "role": "assistant",
+      "content": " Problem Solving)*\n            *   LeetCode లేదా HackerRank లో బిగినర్ లెవెల్ సమస్యలను పరిష్కరించండి.\n        *   *Step 5: Git & GitHub నేర్చు",
+      "timestamp": "07:39 PM",
+      "suggestedFollowUps": [
+        "దీనికి ప్రాక్టికల్ కోడ్ ఉదాహరణ చూపించండి",
+        "దీనిలో సాధారణంగా చేసే తప్పులు ఏమిటి?",
+        "నన్ను ఈ టాపిక్‌పై క్విజ్ చేయండి"
+      ]
+    },
+    {
+      "id": "msg-1792419057365-u",
+      "role": "user",
+      "content": "What is Tokenization in LLMs?",
+      "timestamp": "07:40 PM"
+    },
+    {
+      "id": "msg-1792419057365-a",
+      "role": "assistant",
+      "content": "Vercel AI SDK):* Companies optimize prompt engineering to reduce token usage and save thousands of dollars on API costs.\n        *   *Multilingual Processing (Meta Llama / Google Gemini):",
+      "timestamp": "07:40 PM",
+      "suggestedFollowUps": [
+        "Show me a minimal working code example",
+        "What are common pitfalls and debugging tips?",
+        "Quiz me on this concept with 3 questions"
+      ]
+    },
+    {
+      "id": "msg-1792420614903-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "08:06 PM"
+    },
+    {
+      "id": "msg-1792420614903-a",
+      "role": "assistant",
+      "content": "Welcome to the world of software engineering! As your SkillNova AI Tutor, I am thrilled to guide you. Every senior architect and principal engineer started exactly where you are standing today.\n\nHere is your practical, step-by-step master plan to begin your software development journey.\n\n---\n\n### 🎯 Topic Title & Summary\n**The Fundamentals of Learning to Code: A Practical Beginner’s Roadmap**\nStarting as a beginner in software development involves choosing one beginner-friendly programming language, mastering core logic building blocks, and applying your knowledge through small, real-world projects.\n\n---\n\n### 💡 Simple Definition & Why It Matters\nLearning to code means learning how to give precise, step-by-step instructions to a computer to solve problems automatically. \n\n**Why It Matters:** \nSoftware powers almost everything in modern life—from banking apps to spacecraft. By mastering the fundamentals early, you build a high-income, creative skill set that lets you build software products from scratch and solve real-world problems at scale.\n\n---\n\n### 🪜 Step-by-Step Breakdown\n\nTo start effectively without feeling overwhelmed, follow these **four practical phases**:\n\n```\n[Phase 1: Choose 1 Language] ➔ [Phase 2: Core Logic] ➔ [Phase 3: Essential Tools] ➔ [Phase 4: Small Projects]\n```\n\n#### Phase 1: Pick One Beginner-Friendly Language\nDo not try to learn everything at once. Start with **Python** (great for general programming, data, and backend) or **JavaScript** (essential for web development).\n\nHere is what your very first line of Python code looks like:\n\n```python\n# Print a welcome message to the console\nprint(\"Hello, World! I am officially a programmer.\")\n```\n\n#### Phase 2: Learn the 4 Core Building Blocks\nEvery programming language uses four fundamental concepts to build applications:\n\n```python\n# 1. Variables (Storing Data)\nuser_name = \"Alex\"\nuser_age = 20\n\n# 2. Conditionals (Making Decisions)\nif user_age >= 18:\n    status = \"Adult\"\nelse:\n    status = \"Minor\"\n\n# 3. Loops (Repeating Tasks)\nfor count in range(3):\n    print(f\"Loop run number {count + 1}\")\n\n# 4. Functions (Reusable Blocks of Code)\ndef greet_user(name):\n    return f\"Welcome back, {name}!\"\n\n# Output the result using our function\nprint(greet_user(user_name))\n```\n\n#### Phase 3: Set Up Your Development Environment\nInstall two essential, industry-standard tools:\n1. **VS Code (Visual Studio Code)**: The free code editor used by millions of professional developers.\n2. **Git & GitHub**: Tools used to save, track changes, and store your project code online.\n\n#### Phase 4: Build Micro-Projects\nStop reading tutorials and start building right away:\n*   **Project 1**: A simple command-line calculator.\n*   **Project 2**: A digital interactive quiz.\n*   **Project 3**: A simple task tracker (To-Do List).\n\n---\n\n### ⚙️ Key Terminology\n\n*   **Programming Language**: A structured set of rules and instructions used to instruct a computer to perform specific tasks.\n*   **",
+      "timestamp": "08:06 PM",
+      "suggestedFollowUps": [
+        "Show me a minimal working code example",
+        "What are common pitfalls and debugging tips?",
+        "Quiz me on this concept with 3 questions"
+      ]
+    },
+    {
+      "id": "msg-1792420624034-u",
+      "role": "user",
+      "content": "where do i start as a beginner?",
+      "timestamp": "08:07 PM"
+    },
+    {
+      "id": "msg-1792420624034-a",
+      "role": "assistant",
+      "content": ":**\n        *   *Takeaway:* రోజుకి 1-2 గంటలు ప్రాక్టీస్ చేస్తూ, ఒకే లాంగ్వేజ్‌పై దృష్టి పెట్టండి.",
+      "timestamp": "08:07 PM",
+      "suggestedFollowUps": [
+        "దీనికి ప్రాక్టికల్ కోడ్ ఉదాహరణ చూపించండి",
+        "దీనిలో సాధారణంగా చేసే తప్పులు ఏమిటి?",
+        "నన్ను ఈ టాపిక్‌పై క్విజ్ చేయండి"
       ]
     }
   ],

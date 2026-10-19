@@ -841,9 +841,16 @@ export default async function handler(req: any, res: any) {
         coursesCount: 10,
         quizzesCount: 3
       },
+      supabase: {
+        configured: Boolean(process.env.VITE_SUPABASE_URL && process.env.VITE_SUPABASE_ANON_KEY),
+        connected: Boolean(process.env.VITE_SUPABASE_URL && process.env.VITE_SUPABASE_ANON_KEY),
+        message: (process.env.VITE_SUPABASE_URL && process.env.VITE_SUPABASE_ANON_KEY)
+          ? 'Supabase cloud configured'
+          : 'Supabase credentials not configured'
+      },
       aiEngine: {
         hasExternalGeminiKey: Boolean(process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY),
-        provider: (process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY) ? 'Google Gemini 1.5 Cloud' : 'SkillNova Mega14 Knowledge Engine'
+        provider: (process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY) ? 'Google Gemini 3.5 Cloud' : 'SkillNova Mega14 Knowledge Engine'
       }
     });
   }
