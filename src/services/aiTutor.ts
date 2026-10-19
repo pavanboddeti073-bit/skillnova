@@ -28,22 +28,29 @@ Provide structured, practical guidance with examples and actionable steps. Never
 
     const prompt = `${systemPrompt}\n\nStudent Question: ${userQuery}`;
 
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ role: 'user', parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.7, maxOutputTokens: 900 }
-        })
-      }
-    );
+    const candidateModels = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.8-flash'];
+    for (const model of candidateModels) {
+      try {
+        const res = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ role: 'user', parts: [{ text: prompt }] }],
+              generationConfig: { temperature: 0.7, maxOutputTokens: 900 }
+            })
+          }
+        );
 
-    if (res.ok) {
-      const data = await res.json();
-      const text: string | undefined = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (text && text.trim().length > 20) return text.trim();
+        if (res.ok) {
+          const data = await res.json();
+          const text: string | undefined = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text && text.trim().length > 20) return text.trim();
+        }
+      } catch {
+        // try next model
+      }
     }
   } catch (e) {
     console.warn('[SkillNova] Direct Gemini call failed:', e);

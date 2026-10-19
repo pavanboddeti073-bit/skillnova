@@ -83,28 +83,41 @@ Structure your response cleanly using GitHub-flavored markdown:
 
 Never invent fake tools or inaccurate syntax. If Telugu is requested, write fluent, culturally natural Telugu.`;
 
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  { text: `${systemInstruction}\n\nStudent Query: ${queryClean}` }
-                ]
-              }
-            ],
-            generationConfig: {
-              temperature: focus === 'theory' ? 0.2 : 0.6,
-              maxOutputTokens: depth === 'detailed' ? 1800 : 1000
-            }
-          })
-        }
-      );
+      const candidateModels = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.8-flash'];
+      let response: Response | null = null;
 
-      if (response.ok) {
+      for (const modelName of candidateModels) {
+        try {
+          const res = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${GEMINI_KEY}`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents: [
+                  {
+                    parts: [
+                      { text: `${systemInstruction}\n\nStudent Query: ${queryClean}` }
+                    ]
+                  }
+                ],
+                generationConfig: {
+                  temperature: focus === 'theory' ? 0.2 : 0.6,
+                  maxOutputTokens: depth === 'detailed' ? 1800 : 1000
+                }
+              })
+            }
+          );
+          if (res.ok) {
+            response = res;
+            break;
+          }
+        } catch {
+          // try next model
+        }
+      }
+
+      if (response && response.ok) {
         const data = await response.json();
         const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
         if (text) {
@@ -124,11 +137,11 @@ Never invent fake tools or inaccurate syntax. If Telugu is requested, write flue
   }
 
   // Authoritative multi-domain knowledge engine
-  const fallback = resolveIntelligentAnswer(queryClean, language, level);
+  const fallback = resolveIntelligentAnswer(queryClean, language as any, level);
   return {
-    content: fallback.reply,
-    source: 'skillnova-core',
-    suggestedFollowUps: fallback.suggestedFollowUps
+    content: fallback.content || (fallback as any).reply || '',
+    source: fallback.source || 'skillnova-core',
+    suggestedFollowUps: fallback.suggestedFollowUps || []
   };
 }
 

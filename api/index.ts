@@ -966,26 +966,40 @@ export default async function handler(req: any, res: any) {
 
     if (GEMINI_KEY && !GEMINI_KEY.includes('your_') && GEMINI_KEY.length > 20) {
       try {
-        const geminiRes = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              contents: [{
-                role: 'user',
-                parts: [{
-                  text: `You are SkillNova Mega14 AI Tutor. Mode: ${mode}, Level: ${level}, Depth: ${depth}, Focus: ${focus}, Language: ${language === 'te' ? 'Telugu' : 'English'}.\nQuestion: ${message}\nFormat with clean markdown: Title, Definition, Steps, Key Terms, Examples, Common Mistakes, Quick Quiz.`
-                }]
-              }],
-              generationConfig: {
-                temperature: focus === 'theory' ? 0.2 : 0.6,
-                maxOutputTokens: depth === 'detailed' ? 1800 : 1000
+        const candidateModels = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.8-flash'];
+        let geminiRes: Response | null = null;
+
+        for (const modelName of candidateModels) {
+          try {
+            const res = await fetch(
+              `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${GEMINI_KEY}`,
+              {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  contents: [{
+                    role: 'user',
+                    parts: [{
+                      text: `You are SkillNova Mega14 AI Tutor. Mode: ${mode}, Level: ${level}, Depth: ${depth}, Focus: ${focus}, Language: ${language === 'te' ? 'Telugu' : 'English'}.\nQuestion: ${message}\nFormat with clean markdown: Title, Definition, Steps, Key Terms, Examples, Common Mistakes, Quick Quiz.`
+                    }]
+                  }],
+                  generationConfig: {
+                    temperature: focus === 'theory' ? 0.2 : 0.6,
+                    maxOutputTokens: depth === 'detailed' ? 1800 : 1000
+                  }
+                })
               }
-            })
+            );
+            if (res.ok) {
+              geminiRes = res;
+              break;
+            }
+          } catch {
+            // try next model
           }
-        );
-        if (geminiRes.ok) {
+        }
+
+        if (geminiRes && geminiRes.ok) {
           const gemData = await geminiRes.json();
           const reply = gemData.candidates?.[0]?.content?.parts?.[0]?.text;
           if (reply) {
