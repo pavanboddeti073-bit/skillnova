@@ -2,8 +2,19 @@
 
 @layer base {
   :root {
-    --primary: 221.2 83.2% 53.3%;
+    --primary: 243 75% 59%; /* Indigo-600 */
     --primary-foreground: 210 40% 98%;
+    --bg-base: #f8fafc;
+    --text-base: #0f172a;
+    --card-base: #ffffff;
+    --border-base: #e2e8f0;
+  }
+
+  .dark {
+    --bg-base: #090d16;
+    --text-base: #f8fafc;
+    --card-base: #111827;
+    --border-base: #1f2937;
   }
 
   body {
@@ -11,6 +22,9 @@
     min-height: 100vh;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-base);
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 }
 
@@ -31,12 +45,48 @@ html {
   background: #cbd5e1;
   border-radius: 9999px;
 }
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
 /* Accessible focus ring */
 *:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid #6366f1;
   outline-offset: 2px;
+}
+
+/* Brand Background and Glows */
+.brand-mesh-gradient {
+  background: radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+              radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.12) 0%, transparent 45%),
+              radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
+              radial-gradient(circle at 75% 75%, rgba(244, 63, 94, 0.08) 0%, transparent 40%);
+}
+
+.dark .brand-mesh-gradient {
+  background: radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.25) 0%, transparent 45%),
+              radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.20) 0%, transparent 50%),
+              radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.18) 0%, transparent 55%),
+              radial-gradient(circle at 75% 75%, rgba(244, 63, 94, 0.12) 0%, transparent 40%);
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+.animate-float {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.04); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
 }

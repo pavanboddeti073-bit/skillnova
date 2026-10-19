@@ -15,20 +15,73 @@ export interface AIChatResult {
   suggestedFollowUps: string[];
 }
 
+export type TutorLearningMode =
+  | 'explain_concept'
+  | 'explain_beginner'
+  | 'deep_dive'
+  | 'step_by_step'
+  | 'real_world_examples'
+  | 'quiz_me'
+  | 'practice_hints'
+  | 'review_answer'
+  | 'summarize'
+  | 'study_notes'
+  | 'explain_code'
+  | 'learning_roadmap'
+  | 'compare_concepts'
+  | 'exam_prep'
+  | 'analogies';
+
 export async function askTutor(
   userQuery: string,
   language: 'en' | 'te' = 'en',
-  level: string = 'beginner'
+  level: string = 'beginner',
+  mode: string = 'explain_concept',
+  depth: string = 'standard',
+  focus: string = 'practical'
 ): Promise<AIChatResult> {
   const queryClean = userQuery.trim();
 
   // Try live Gemini API if key is present
   if (GEMINI_KEY && !GEMINI_KEY.includes('your_') && GEMINI_KEY.length > 20) {
     try {
-      const systemInstruction = `You are SkillNova AI Tutor, a friendly, encouraging senior software engineer and mentor for college students and beginners.
-Language requested: ${language === 'te' ? 'Telugu (తెలుగు)' : 'English'}.
-User level: ${level}.
-Provide clear, structured, practical guidance with examples and actionable steps. Never invent tools or fake pricing. If asked in Telugu, answer fluently in Telugu.`;
+      const modeInstructions: Record<string, string> = {
+        explain_concept: 'Explain the core concept clearly and thoroughly.',
+        explain_beginner: 'Explain like I am a complete beginner using intuitive, simple everyday analogies.',
+        deep_dive: 'Provide an exhaustive deep-dive with internal mechanics, tradeoffs, and edge cases.',
+        step_by_step: 'Break down problem solving into numbered sequential steps with before/after code.',
+        real_world_examples: 'Focus heavily on concrete production use cases and industry implementations.',
+        quiz_me: 'Test the student with 3 thought-provoking questions, hiding answers until they attempt.',
+        practice_hints: 'Provide progressive subtle hints without giving away the full solution immediately.',
+        review_answer: 'Critique and review the provided code or answer, noting bugs, style, and optimizations.',
+        summarize: 'Provide a concise, high-impact bulleted summary of this topic.',
+        study_notes: 'Generate structured markdown study notes with definitions, key tables, and takeaways.',
+        explain_code: 'Explain the provided code snippet line-by-line with diagrams where useful.',
+        learning_roadmap: 'Create a milestone-based sequential learning roadmap from zero to production ready.',
+        compare_concepts: 'Compare the two concepts in a structured comparison table with pros, cons, and recommendations.',
+        exam_prep: 'Highlight high-frequency college exam questions, viva questions, and formulas.',
+        analogies: 'Explain the entire technical topic through creative, memorable real-world metaphors.'
+      };
+
+      const selectedModeInstruction = modeInstructions[mode] || modeInstructions.explain_concept;
+
+      const systemInstruction = `You are SkillNova Mega14 AI Tutor, a friendly, encouraging, and authoritative senior software architect and university professor.
+Language: ${language === 'te' ? 'Telugu (తెలుగు)' : 'English'}.
+Student Skill Level: ${level} (Beginner, Intermediate, Advanced).
+Explanation Depth: ${depth} (Short, Standard, Detailed).
+Focus Area: ${focus} (Theory, Practical Examples, Exam Preparation).
+Learning Mode: ${mode} -> ${selectedModeInstruction}
+
+Structure your response cleanly using GitHub-flavored markdown:
+1. 🎯 **Topic Title & Summary**: 1 clear sentence overview.
+2. 💡 **Simple Definition & Why It Matters**: Why the student should care.
+3. 🪜 **Step-by-Step Breakdown**: Practical explanation or code blocks.
+4. ⚙️ **Key Terminology**: Definitions of important jargon.
+5. 🌍 **Real-World Engineering Application**: How leading teams (Google, Vercel, Meta) use this.
+6. ⚠️ **Common Mistakes & Misconceptions**: Pitfalls to avoid.
+7. 📝 **Key Takeaways & Quick Quiz**: 1-2 knowledge-check questions.
+
+Never invent fake tools or inaccurate syntax. If Telugu is requested, write fluent, culturally natural Telugu.`;
 
       const response = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
@@ -39,13 +92,13 @@ Provide clear, structured, practical guidance with examples and actionable steps
             contents: [
               {
                 parts: [
-                  { text: `${systemInstruction}\n\nStudent Question: ${queryClean}` }
+                  { text: `${systemInstruction}\n\nStudent Query: ${queryClean}` }
                 ]
               }
             ],
             generationConfig: {
-              temperature: 0.7,
-              maxOutputTokens: 1000
+              temperature: focus === 'theory' ? 0.2 : 0.6,
+              maxOutputTokens: depth === 'detailed' ? 1800 : 1000
             }
           })
         }
@@ -56,8 +109,8 @@ Provide clear, structured, practical guidance with examples and actionable steps
         const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
         if (text) {
           const followUps = language === 'te'
-            ? ['తదుపరి దశలు ఏమిటి?', 'దీనికి కోడ్ ఉదాహరణ ఇవ్వండి', 'ఇది ఎక్కడ డిప్లాయ్ చేయాలి?']
-            : ['What are the next implementation steps?', 'Can you show a code snippet?', 'How do I test and deploy this?'];
+            ? ['దీనికి ప్రాక్టికల్ కోడ్ ఉదాహరణ చూపించండి', 'దీనిలో సాధారణంగా చేసే తప్పులు ఏమిటి?', 'నన్ను ఈ టాపిక్‌పై క్విజ్ చేయండి']
+            : ['Show me a minimal working code example', 'What are common pitfalls and debugging tips?', 'Quiz me on this concept with 3 questions'];
           return {
             content: text,
             source: 'gemini-api',
@@ -66,96 +119,39 @@ Provide clear, structured, practical guidance with examples and actionable steps
         }
       }
     } catch (err) {
-      console.warn('Gemini API request failed, falling back to SkillNova Core AI engine:', err);
+      console.warn('Gemini cloud API unreachable, falling back to SkillNova Mega14 engine:', err);
     }
   }
 
-  // Fallback to SkillNova Knowledge Engine
-  const core = resolveIntelligentAnswer(queryClean, language, level);
+  // Authoritative multi-domain knowledge engine
+  const fallback = resolveIntelligentAnswer(queryClean, language, level);
   return {
-    content: core.content,
+    content: fallback.reply,
     source: 'skillnova-core',
-    suggestedFollowUps: core.suggestedFollowUps
+    suggestedFollowUps: fallback.suggestedFollowUps
   };
 }
 
-export function optimizePrompt(input: {
-  role?: string;
-  context: string;
-  task: string;
-  constraints?: string;
-  outputFormat?: string;
-  language?: string;
-}): string {
-  const role = input.role?.trim() || 'Senior Full-Stack Engineer and System Architect';
-  const context = input.context.trim() || 'Building a modern student web application';
-  const task = input.task.trim() || 'Implement this feature with complete error handling';
-  const constraints = input.constraints?.trim() || 'Must use modern TypeScript, zero security leaks, accessible UI (WCAG AA)';
-  const outputFormat = input.outputFormat?.trim() || 'Clean, formatted code with explanatory markdown notes and test cases';
-
-  return `[ROLE]: ${role}
-
-[CONTEXT]:
-${context}
-
-[TASK]:
-${task}
-
-[CONSTRAINTS & QUALITY CHECKS]:
-- ${constraints}
-- Handle edge cases, undefined inputs, and asynchronous rejections defensively.
-- Maintain readability and clean code structure.
-
-[OUTPUT FORMAT]:
-${outputFormat}
-
-[SUCCESS CRITERIA]:
-The solution must compile cleanly with 0 type errors, run reliably, and include clear execution instructions.`;
+export async function optimizePrompt(
+  draftPrompt: string,
+  targetTask: string,
+  level: string = 'beginner'
+): Promise<string> {
+  return `[ROLE]: Senior Software Engineer & AI Mentor\n[CONTEXT]: Working on ${targetTask} (Target Level: ${level})\n[TASK]: ${draftPrompt}\n[CONSTRAINTS]: Follow modern clean code standards, provide before/after examples, explain time/space complexity.\n[OUTPUT FORMAT]: Step-by-step markdown with runnable code snippets.`;
 }
 
-export function generateProjectPlan(goal: string, skillLevel: string = 'beginner', hoursAvailable: number = 24) {
-  const goalClean = goal.trim() || 'Student Web Application';
-  
+export async function generateProjectPlan(
+  topic: string,
+  level: string = 'beginner'
+): Promise<any> {
   return {
-    id: `plan-${Date.now()}`,
-    goalSummary: goalClean,
-    skillLevel,
-    estimatedHours: hoursAvailable,
-    createdAt: new Date().toISOString(),
-    recommendedStack: [
-      { name: 'Google Antigravity / Replit', role: 'Autonomous AI Development & Editing' },
-      { name: 'React 19 + TypeScript + Tailwind v4', role: 'Modern Responsive User Interface' },
-      { name: 'Vercel / GitHub Pages', role: 'Zero-Cost Global Production Hosting' }
-    ],
+    title: `${topic} - Full-Stack Engineering Roadmap`,
+    overview: `A complete, modular project implementation plan for ${topic} tailored for ${level} developers.`,
     milestones: [
-      {
-        step: 1,
-        title: 'Project Architecture & Setup',
-        duration: '1-2 hours',
-        tasks: ['Initialize Git repository with .gitignore', 'Setup Vite + Tailwind CSS + TypeScript', 'Create site configuration and types'],
-        prompt: `Create a clean Vite React TypeScript project for: "${goalClean}". Include responsive Tailwind styling and basic navigation.`
-      },
-      {
-        step: 2,
-        title: 'Core Business Logic & State',
-        duration: '4-8 hours',
-        tasks: ['Build primary user journeys', 'Connect persistent storage layer (API/localStorage)', 'Implement edge-case validation'],
-        prompt: `Implement the primary feature for "${goalClean}". Ensure robust error handling, loading states, and accessible controls.`
-      },
-      {
-        step: 3,
-        title: 'Testing, Polishing & Multilingual Support',
-        duration: '2-4 hours',
-        tasks: ['Run automated verification suite', 'Audit contrast for WCAG AA', 'Verify mobile responsiveness'],
-        prompt: `Review this codebase for "${goalClean}". Optimize contrast, fix layout overflow on mobile, and add test cases.`
-      },
-      {
-        step: 4,
-        title: 'Deployment & Hackathon Presentation',
-        duration: '1-2 hours',
-        tasks: ['Configure SPA rewrite in vercel.json', 'Deploy to Vercel and test live URL', 'Record 90-second working demo'],
-        prompt: `Prepare deployment configuration for Vercel and generate a 90-second judge presentation script for "${goalClean}".`
-      }
+      { step: 1, title: 'Architecture & Schema Design', duration: '2 Days', output: 'Data models & system diagram' },
+      { step: 2, title: 'API & Business Logic Scaffolding', duration: '3 Days', output: 'REST/Serverless routes' },
+      { step: 3, title: 'Responsive UI & State Integration', duration: '3 Days', output: 'React 19 UI with Tailwind' },
+      { step: 4, title: 'Testing, Security Audit & Cloud Deploy', duration: '2 Days', output: 'Vercel / GitHub Actions CI/CD' }
     ]
   };
 }

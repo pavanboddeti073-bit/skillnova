@@ -18,18 +18,18 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  name: "SkillNova",
-  tagline: "From 'I have an idea' to a real result—step by step, with visual references, copyable prompts, and explanations in your preferred language.",
-  taglineTe: "'నాకు ఒక ఆలోచన ఉంది కానీ ఎలా ప్రారంభించాలో తెలియదు' నుండి నిజమైన ఫలితం వరకు—దశలవారీగా, దృశ్య సూచనలు, కాపీ చేయగల ప్రాంప్ట్‌లు మరియు మీ భాషలో వివరణలతో.",
-  shortDescription: "Student-first AI learning, visual build studio, and creation launchpad.",
-  logoText: "SkillNova",
+  name: "SkillNova Mega14",
+  tagline: "Unlock Your Potential. Learn Smarter with AI.",
+  taglineTe: "మీ సామర్థ్యాన్ని వెలికితీయండి. AIతో మరింత తెలివిగా నేర్చుకోండి.",
+  shortDescription: "Your personal AI learning companion for mastering skills, understanding complex concepts, practicing confidently, and achieving your goals.",
+  logoText: "SkillNova Mega14",
   defaultLanguage: "en",
   supportedLanguages: [
     { code: "en", name: "English", nativeName: "English", flag: "🌐" },
     { code: "te", name: "Telugu", nativeName: "తెలుగు", flag: "🇮🇳" },
   ],
-  primaryColor: "#2563eb", // blue-600
+  primaryColor: "#4f46e5", // indigo-600
   contactEmail: "support@skillnova.dev",
-  githubUrl: "https://github.com",
-  version: "1.0.0-mvp",
+  githubUrl: "https://github.com/pavanboddeti073-bit/skillnova",
+  version: "2.0.0-mega14",
 };

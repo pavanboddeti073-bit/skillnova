@@ -125,12 +125,19 @@ export const apiClient = {
     return null;
   },
 
-  async sendChatMessage(message: string, language: 'en' | 'te', level: string): Promise<ChatResponse | null> {
+  async sendChatMessage(
+    message: string,
+    language: 'en' | 'te',
+    level: string,
+    mode: string = 'explain_concept',
+    depth: string = 'standard',
+    focus: string = 'practical'
+  ): Promise<ChatResponse | null> {
     try {
       const res = await fetch(`${BASE_URL}/tutor/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, language, level })
+        body: JSON.stringify({ message, language, level, mode, depth, focus })
       });
       if (res.ok) {
         return await res.json();

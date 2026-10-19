@@ -58,7 +58,10 @@ export async function askAiTutor(
   userQuery: string,
   language: SupportedLanguage = 'en',
   level: SkillLevel = 'beginner',
-  _history: ChatMessage[] = []
+  _history: ChatMessage[] = [],
+  mode: string = 'explain_concept',
+  depth: string = 'standard',
+  focus: string = 'practical'
 ): Promise<TutorResponse> {
   const sanitizedQuery = userQuery.trim().slice(0, 2000);
   if (!sanitizedQuery) {
@@ -93,7 +96,7 @@ export async function askAiTutor(
 
   // ─── Path 2: Full-Stack Backend API (local dev or Vercel serverless) ──────
   try {
-    const backendRes = await apiClient.sendChatMessage(sanitizedQuery, language, level);
+    const backendRes = await apiClient.sendChatMessage(sanitizedQuery, language, level, mode, depth, focus);
     if (backendRes && backendRes.reply && backendRes.reply.trim().length > 10) {
       return {
         content: backendRes.reply,

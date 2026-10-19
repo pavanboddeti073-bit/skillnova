@@ -1,249 +1,203 @@
-import React, { useState } from 'react';
-import { 
-  Sparkles, 
-  Layers, 
-  Wrench, 
-  GraduationCap, 
-  Terminal, 
-  Compass, 
-  Bot, 
-  Briefcase, 
-  Menu, 
-  X, 
-  Award, 
-  ShieldAlert
+import {
+  Menu,
+  Sun,
+  Moon,
+  Sparkles,
+  Bot,
+  Flame
 } from 'lucide-react';
 import { useApp } from '../context/useApp';
 import type { TabType } from '../context/contextStore';
 import { siteConfig } from '../config/siteConfig';
 
 interface NavbarProps {
-  onOpenPrivacyModal: () => void;
+  onToggleSidebar: () => void;
+  onOpenPrivacyModal?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenPrivacyModal }) => {
-  const { 
-    language, 
-    setLanguage, 
-    level, 
-    setLevel, 
-    activeTab, 
-    setActiveTab, 
-    completedLessons,
-    favoriteTools,
-    serverOnline
+export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
+  const {
+    language,
+    setLanguage,
+    activeTab,
+    setActiveTab,
+    theme,
+    toggleTheme,
+    user,
+    isAuthenticated,
+    setShowAuthModal,
+    setAuthModalMode
   } = useApp();
-
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const navItems: Array<{ id: TabType; labelEn: string; labelTe: string; icon: React.ReactNode; badge?: string }> = [
-    { id: 'dashboard', labelEn: 'Home', labelTe: 'హోమ్', icon: <Sparkles className="w-4 h-4" /> },
-    { id: 'studio', labelEn: 'Visual Studio', labelTe: 'విజువల్ స్టూడియో', icon: <Layers className="w-4 h-4" />, badge: 'Core' },
-    { id: 'wizard', labelEn: 'Project Wizard', labelTe: 'ప్రాజెక్ట్ విజార్డ్', icon: <Compass className="w-4 h-4" /> },
-    { id: 'tools', labelEn: 'AI Tools', labelTe: 'AI టూల్స్', icon: <Wrench className="w-4 h-4" /> },
-    { id: 'tutorials', labelEn: 'Guided School', labelTe: 'గైడెడ్ స్కూల్', icon: <Terminal className="w-4 h-4" /> },
-    { id: 'prompt-lab', labelEn: 'Prompt Lab', labelTe: 'ప్రాంప్ట్ ల్యాబ్', icon: <Terminal className="w-4 h-4" /> },
-    { id: 'academy', labelEn: 'Academy', labelTe: 'అకాడమీ', icon: <GraduationCap className="w-4 h-4" /> },
-    { id: 'tutor', labelEn: 'AI Tutor', labelTe: 'AI ట్యూటర్', icon: <Bot className="w-4 h-4" /> },
-    { id: 'career', labelEn: 'Career & Resume', labelTe: 'కెరీర్ & రెజ్యూమ్', icon: <Briefcase className="w-4 h-4" /> },
-  ];
 
   const handleNavClick = (tab: TabType) => {
     setActiveTab(tab);
-    setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const totalProgressCount = completedLessons.length + favoriteTools.length;
-
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
-          {/* Logo & Brand */}
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleNavClick('dashboard')}>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-              <Sparkles className="w-5 h-5 animate-pulse" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-xl text-slate-900 tracking-tight">{siteConfig.name}</span>
-                <span className="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
-                  Student Edition
-                </span>
+          {/* Left: Sidebar Toggle & Brand Logo */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onToggleSidebar}
+              className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer"
+              aria-label="Toggle navigation menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+
+            <div
+              className="flex items-center gap-3 cursor-pointer select-none"
+              onClick={() => handleNavClick('dashboard')}
+            >
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-cyan-400 flex items-center justify-center text-white shadow-md shadow-indigo-500/25">
+                <Sparkles className="w-5 h-5 animate-pulse" />
               </div>
-              <p className="text-xs text-slate-500 hidden sm:block">
-                {language === 'te' ? 'ఆలోచన నుండి ఫలితం వరకు' : 'From Idea to Working Result'}
-              </p>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-extrabold text-lg sm:text-xl text-slate-900 dark:text-white tracking-tight">
+                    {siteConfig.name}
+                  </span>
+                  <span className="text-[10px] font-black tracking-wider uppercase px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-xs">
+                    AI Platform
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">
+                  {language === 'te' ? 'మీ వ్యక్తిగత AI లెర్నింగ్ కంపానియన్' : 'Your Personal AI Learning Companion'}
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1" aria-label="Main Navigation">
-            {navItems.map((item) => {
-              const isActive = activeTab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all relative ${
-                    isActive
-                      ? 'bg-blue-50 text-blue-700 font-semibold shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                  }`}
-                >
-                  {item.icon}
-                  <span>{language === 'te' ? item.labelTe : item.labelEn}</span>
-                  {item.badge && (
-                    <span className="text-[9px] font-bold uppercase px-1.5 py-0.2 rounded bg-amber-100 text-amber-800">
-                      {item.badge}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </nav>
-
-          {/* Right Controls: Language, Level, Progress, Mobile Toggle */}
-          <div className="flex items-center gap-2">
-            
-            {/* Full-Stack API Status */}
-            <div 
-              title={serverOnline ? "SkillNova Backend Engine: Online" : "SkillNova Backend Engine: Connecting..."}
-              className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border transition-all ${
-                serverOnline 
-                  ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
-                  : 'bg-amber-50 text-amber-800 border-amber-200'
+          {/* Center Quick Navigation Links (Desktop) */}
+          <nav className="hidden md:flex items-center gap-1">
+            <button
+              onClick={() => handleNavClick('dashboard')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'dashboard'
+                  ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
-              <span className={`w-2 h-2 rounded-full ${serverOnline ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
-              <span>{serverOnline ? 'Full-Stack' : 'Connecting'}</span>
-            </div>
-
-            {/* Progress Badge */}
-            <div 
-              title={`${completedLessons.length} lessons completed, ${favoriteTools.length} tools saved`}
-              className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-medium border border-blue-200"
+              Dashboard
+            </button>
+            <button
+              onClick={() => handleNavClick('courses')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'courses'
+                  ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
             >
-              <Award className="w-3.5 h-3.5 text-blue-600" />
-              <span>{totalProgressCount} XP</span>
-            </div>
+              Courses
+            </button>
+            <button
+              onClick={() => handleNavClick('tutor')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                activeTab === 'tutor'
+                  ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              <Bot className="w-3.5 h-3.5 text-indigo-500" />
+              <span>AI Tutor</span>
+            </button>
+            <button
+              onClick={() => handleNavClick('quizzes')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'quizzes'
+                  ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              Quizzes
+            </button>
+            <button
+              onClick={() => handleNavClick('welcome')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'welcome'
+                  ? 'bg-purple-50 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              About
+            </button>
+          </nav>
 
+          {/* Right Action Controls: Language, Theme, Level, Auth */}
+          <div className="flex items-center gap-2">
+            
             {/* Language Switcher */}
-            <div className="relative inline-flex items-center rounded-lg border border-slate-200 bg-slate-50 p-0.5">
+            <div className="flex items-center rounded-xl bg-slate-100 dark:bg-slate-800 p-1 border border-slate-200 dark:border-slate-700">
               <button
                 onClick={() => setLanguage('en')}
-                className={`px-2 py-1 text-xs font-medium rounded-md transition-all ${
+                className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
                   language === 'en'
-                    ? 'bg-white text-slate-900 shadow-xs font-semibold'
-                    : 'text-slate-500 hover:text-slate-800'
+                    ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-xs'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
                 }`}
-                aria-label="Switch to English"
               >
                 EN
               </button>
               <button
                 onClick={() => setLanguage('te')}
-                className={`px-2 py-1 text-xs font-medium rounded-md transition-all ${
+                className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
                   language === 'te'
-                    ? 'bg-white text-blue-700 shadow-xs font-semibold'
-                    : 'text-slate-500 hover:text-slate-800'
+                    ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-xs'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
                 }`}
-                aria-label="తెలుగు భాషకు మార్చండి"
               >
                 తెలుగు
               </button>
             </div>
 
-            {/* Level Selector */}
-            <select
-              value={level}
-              onChange={(e) => setLevel(e.target.value as any)}
-              className="hidden sm:block text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white text-slate-700 font-medium focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
-              aria-label="Student Experience Level"
-            >
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
-            </select>
-
-            {/* Privacy & Data Settings */}
+            {/* Theme Toggle Button */}
             <button
-              onClick={onOpenPrivacyModal}
-              title="Privacy, Data & Transparency"
-              className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
-              aria-label="Privacy & Data Transparency Settings"
+              onClick={toggleTheme}
+              className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer"
+              aria-label="Toggle light/dark theme"
             >
-              <ShieldAlert className="w-4 h-4" />
+              {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
             </button>
 
-            {/* Mobile Hamburger Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg"
-              aria-label="Toggle navigation menu"
-              aria-expanded={mobileMenuOpen}
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            {/* Authentication Action or Profile Avatar */}
+            {isAuthenticated && user ? (
+              <button
+                onClick={() => handleNavClick('settings')}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 hover:border-indigo-400 transition-all cursor-pointer"
+              >
+                <div className="w-6 h-6 rounded-lg bg-indigo-600 text-white font-bold text-xs flex items-center justify-center">
+                  {user.fullName.charAt(0)}
+                </div>
+                <span className="text-xs font-bold text-indigo-900 dark:text-indigo-200 hidden sm:inline">
+                  {user.fullName.split(' ')[0]}
+                </span>
+                <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+              </button>
+            ) : (
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => { setShowAuthModal(true); setAuthModalMode('login'); }}
+                  className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => { setShowAuthModal(true); setAuthModalMode('signup'); }}
+                  className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
+
           </div>
+
         </div>
       </div>
-
-      {/* Mobile Navigation Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-6 space-y-1 shadow-xl animate-in slide-in-from-top-2 duration-150">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-2">
-            <span className="text-xs font-semibold uppercase text-slate-400">Navigation</span>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-600">Level:</span>
-              <select
-                value={level}
-                onChange={(e) => setLevel(e.target.value as any)}
-                className="text-xs border border-slate-200 rounded px-2 py-0.5 bg-white text-slate-700 font-medium"
-              >
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-1.5">
-            {navItems.map((item) => {
-              const isActive = activeTab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`flex items-center gap-2 p-2.5 rounded-lg text-xs font-medium text-left transition-colors ${
-                    isActive
-                      ? 'bg-blue-50 text-blue-700 font-semibold'
-                      : 'text-slate-700 hover:bg-slate-50'
-                  }`}
-                >
-                  {item.icon}
-                  <span className="truncate">{language === 'te' ? item.labelTe : item.labelEn}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span>Completed XP: {totalProgressCount}</span>
-            <button
-              onClick={() => {
-                onOpenPrivacyModal();
-                setMobileMenuOpen(false);
-              }}
-              className="text-blue-600 font-medium hover:underline"
-            >
-              Data Privacy & Reset
-            </button>
-          </div>
-        </div>
-      )}
     </header>
   );
 };

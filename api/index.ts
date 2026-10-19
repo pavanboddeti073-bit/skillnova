@@ -833,23 +833,92 @@ export default async function handler(req: any, res: any) {
     return res.status(200).json({
       status: 'online',
       uptimeSeconds: Math.floor(process.uptime()),
-      service: 'SkillNova Full-Stack API Engine',
-      version: '1.2.0',
+      service: 'SkillNova Mega14 Full-Stack API Engine',
+      version: '2.0.0-mega14',
       database: {
         status: 'connected',
-        completedLessonsCount: 1,
-        favoriteToolsCount: 3,
-        savedPromptsCount: 1,
-        chatHistoryCount: 5
+        usersCount: 1,
+        coursesCount: 10,
+        quizzesCount: 3
       },
       aiEngine: {
         hasExternalGeminiKey: Boolean(process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY),
-        provider: (process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY) ? 'Google Gemini 1.5 Cloud' : 'SkillNova Core'
+        provider: (process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY) ? 'Google Gemini 1.5 Cloud' : 'SkillNova Mega14 Knowledge Engine'
       }
     });
   }
 
-  // 2. User Progress
+  // 2. Auth: Signup
+  if (pathname === '/auth/signup' && req.method === 'POST') {
+    const { email, fullName, learningInterests, learningLevel } = req.body || {};
+    const safeUser = {
+      id: `usr-${Date.now().toString(36)}`,
+      email: email || 'learner@skillnova.dev',
+      fullName: fullName || 'SkillNova Learner',
+      learningInterests: learningInterests || ['Artificial Intelligence', 'Programming & Web Dev'],
+      learningLevel: learningLevel || 'beginner',
+      explanationDepth: 'standard',
+      dailyGoalMinutes: 30,
+      theme: 'light',
+      streakDays: 1,
+      totalLearningMinutes: 0,
+      createdAt: new Date().toISOString()
+    };
+    return res.status(201).json({
+      user: safeUser,
+      token: `token-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+      message: 'Account created successfully. Welcome to SkillNova Mega14!'
+    });
+  }
+
+  // 3. Auth: Login
+  if (pathname === '/auth/login' && req.method === 'POST') {
+    const { email } = req.body || {};
+    const safeUser = {
+      id: 'usr-student-demo',
+      email: email || 'learner@skillnova.dev',
+      fullName: 'Pavan Manikanta',
+      learningInterests: ['Artificial Intelligence', 'Programming & Web Dev'],
+      learningLevel: 'beginner',
+      explanationDepth: 'standard',
+      dailyGoalMinutes: 30,
+      theme: 'light',
+      streakDays: 4,
+      totalLearningMinutes: 120,
+      createdAt: new Date().toISOString()
+    };
+    return res.status(200).json({
+      user: safeUser,
+      token: `token-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+      message: `Welcome back, ${safeUser.fullName}!`
+    });
+  }
+
+  // 4. Auth: Me
+  if (pathname === '/auth/me') {
+    return res.status(200).json({
+      user: {
+        id: 'usr-student-demo',
+        email: 'learner@skillnova.dev',
+        fullName: 'Pavan Manikanta',
+        learningInterests: ['Artificial Intelligence', 'Programming & Web Dev'],
+        learningLevel: 'beginner',
+        explanationDepth: 'standard',
+        dailyGoalMinutes: 30,
+        theme: 'light',
+        streakDays: 4,
+        totalLearningMinutes: 120,
+        createdAt: new Date().toISOString()
+      }
+    });
+  }
+
+  // 5. Auth: Logout
+  if (pathname === '/auth/logout' && req.method === 'POST') {
+    return res.status(200).json({ success: true, message: 'Logged out successfully.' });
+  }
+
+  // 6. User Progress
   if (pathname === '/user/progress') {
     return res.status(200).json({
       profile: {
@@ -858,23 +927,30 @@ export default async function handler(req: any, res: any) {
         theme: 'light',
         updatedAt: new Date().toISOString()
       },
-      completedLessons: ['lesson-ai-fundamentals'],
+      completedLessons: ['lesson-tokens-prediction', 'lesson-ai-fundamentals'],
       quizScores: {
-        'lesson-ai-fundamentals': { score: 3, total: 3, completedAt: new Date().toISOString() }
+        'lesson-tokens-prediction': { score: 1, total: 1, completedAt: new Date().toISOString() },
+        'quiz-ai-llm-basics': { score: 4, total: 4, completedAt: new Date().toISOString() }
       },
       favoriteTools: ['google-antigravity', 'replit', 'lovable'],
       completedStudioSteps: ['recipe-website-step-1'],
-      savedPromptsCount: 1,
-      savedPlansCount: 0
+      savedPromptsCount: 2,
+      savedPlansCount: 1,
+      notesCount: 2,
+      bookmarksCount: 2,
+      achievements: [
+        { id: 'ach-1', badgeId: 'first-lesson', title: 'First Step Taken', description: 'Completed your first lesson.', icon: 'Sparkles' },
+        { id: 'ach-2', badgeId: 'streak-3', title: 'Consistency Champion', description: 'Maintained a 3-day learning streak.', icon: 'Flame' }
+      ]
     });
   }
 
-  // 3. User Profile Update
+  // 7. User Profile Update
   if (pathname === '/user/profile' && req.method === 'POST') {
     return res.status(200).json({ success: true });
   }
 
-  // 4. Toggle Favorite
+  // 8. Toggle Favorite
   if (pathname === '/user/favorites/toggle' && req.method === 'POST') {
     const { toolId } = req.body || {};
     return res.status(200).json({
@@ -883,14 +959,9 @@ export default async function handler(req: any, res: any) {
     });
   }
 
-  // 5. Toggle Studio Step
-  if (pathname === '/user/studio-step/toggle' && req.method === 'POST') {
-    return res.status(200).json({ success: true });
-  }
-
-  // 6. AI Tutor Chat
+  // 9. AI Tutor Chat
   if (pathname === '/tutor/chat' && req.method === 'POST') {
-    const { message, language = 'en', level = 'beginner' } = req.body || {};
+    const { message, language = 'en', level = 'beginner', mode = 'explain_concept', depth = 'standard', focus = 'practical' } = req.body || {};
     const GEMINI_KEY = process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY;
 
     if (GEMINI_KEY && !GEMINI_KEY.includes('your_') && GEMINI_KEY.length > 20) {
@@ -901,7 +972,16 @@ export default async function handler(req: any, res: any) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              contents: [{ role: 'user', parts: [{ text: `${message}\n(Respond in ${language === 'te' ? 'Telugu' : 'English'} for a ${level} level student)` }] }]
+              contents: [{
+                role: 'user',
+                parts: [{
+                  text: `You are SkillNova Mega14 AI Tutor. Mode: ${mode}, Level: ${level}, Depth: ${depth}, Focus: ${focus}, Language: ${language === 'te' ? 'Telugu' : 'English'}.\nQuestion: ${message}\nFormat with clean markdown: Title, Definition, Steps, Key Terms, Examples, Common Mistakes, Quick Quiz.`
+                }]
+              }],
+              generationConfig: {
+                temperature: focus === 'theory' ? 0.2 : 0.6,
+                maxOutputTokens: depth === 'detailed' ? 1800 : 1000
+              }
             })
           }
         );
@@ -912,7 +992,9 @@ export default async function handler(req: any, res: any) {
             return res.status(200).json({
               reply,
               source: 'gemini-api',
-              suggestedFollowUps: ['Show me code example', 'Explain simpler', 'Give me a quiz'],
+              suggestedFollowUps: language === 'te'
+                ? ['దీనికి ప్రాక్టికల్ కోడ్ ఉదాహరణ చూపించండి', 'దీనిలో సాధారణంగా చేసే తప్పులు ఏమిటి?', 'నన్ను ఈ టాపిక్‌పై క్విజ్ చేయండి']
+                : ['Show me a minimal working code example', 'What are common pitfalls and debugging tips?', 'Quiz me on this concept with 3 questions'],
               timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             });
           }
@@ -933,65 +1015,6 @@ export default async function handler(req: any, res: any) {
     });
   }
 
-  // 7. Prompt Optimization
-  if (pathname === '/prompts/optimize' && req.method === 'POST') {
-    const { role = 'Student', context = '', task = '', constraints = '', outputFormat = 'Step-by-step instructions' } = req.body || {};
-    const optimizedPrompt = `[ROLE]: ${role}\n[CONTEXT]: ${context}\n[TASK]: ${task}\n[CONSTRAINTS]: ${constraints || 'Clear for beginners, actionable, zero hallucination'}\n[OUTPUT FORMAT]: ${outputFormat}`;
-    return res.status(200).json({ optimizedPrompt });
-  }
-
-  // 8. Resume Analysis
-  if (pathname === '/resume/analyze' && req.method === 'POST') {
-    const { text = '' } = req.body || {};
-    const lower = text.toLowerCase();
-    const techKeywords = ['react', 'typescript', 'javascript', 'python', 'node', 'express', 'sql', 'git', 'github', 'tailwind'];
-    const identifiedSkills = techKeywords.filter(k => lower.includes(k));
-    const score = Math.min(92, Math.max(45, 50 + (identifiedSkills.length * 7)));
-
-    return res.status(200).json({
-      overallScore: score,
-      identifiedSkills,
-      strengths: [
-        'Detected technical skills and academic background.',
-        'Demonstrates practical project hands-on implementation.'
-      ],
-      impactBulletCritique: [
-        {
-          originalExample: 'Assisted in building website for college notes.',
-          improvedExample: 'Architected responsive student study portal using React and Tailwind CSS, speeding up note searches by 40% across 200+ students.',
-          reason: 'Replaces weak verb "assisted" with "Architected" and quantifies student impact using Google XYZ formula.'
-        }
-      ],
-      atsSafetyTips: [
-        'Use simple single-column layout without tables or graphics for ATS scanners.',
-        'Always include direct working Vercel demo URLs and GitHub profile links.'
-      ],
-      recommendedAdditions: [
-        'Highlight measurable metrics (e.g., % performance boost, number of active users).'
-      ]
-    });
-  }
-
-  // 9. Prompts Store (GET / POST)
-  if (pathname === '/prompts') {
-    if (req.method === 'POST') {
-      const { title, prompt, category } = req.body || {};
-      return res.status(200).json({
-        id: `sp-${Date.now()}`,
-        title: title || 'Custom Prompt',
-        prompt: prompt || '',
-        category: category || 'custom',
-        createdAt: new Date().toISOString()
-      });
-    }
-    return res.status(200).json([]);
-  }
-
-  // 10. User Data Erasure (DELETE)
-  if (pathname === '/user/data' && req.method === 'DELETE') {
-    return res.status(200).json({ success: true, message: 'User data purged successfully' });
-  }
-
-  // 11. Default fallback
-  return res.status(200).json({ success: true, message: 'SkillNova API Serverless Handler' });
+  // 10. Default fallback
+  return res.status(200).json({ success: true, message: 'SkillNova Mega14 API Serverless Handler' });
 }

@@ -1,165 +1,142 @@
-# SkillNova — Student-First AI Learning & Creation Platform
+# SkillNova Mega14 — Complete AI Learning Platform
 
-> **Full-Stack Application** — React 19 + TypeScript + Vite + Tailwind v4 + Express Node.js Backend + Persistent Database
-
-SkillNova helps students go from *"I have an idea but don't know how to start"* to a real, working result — step by step, with visual references, copyable prompts, live full-stack AI generation, and explanations in English or Telugu.
+> **Unlock Your Potential. Learn Smarter with AI.**  
+> *Your personal AI learning companion for mastering skills, understanding complex concepts, practicing confidently, and achieving your goals.*
 
 ---
 
-## ⚡ Quick Start (Full-Stack)
+## 🚀 Overview of SkillNova Mega14
+
+**SkillNova Mega14** is a modern, responsive, full-stack AI learning platform built with:
+- **Frontend:** React 19, TypeScript, Tailwind CSS, Lucide Icons, Canvas Confetti
+- **Backend:** Express 5 / Node.js + Vercel Serverless Function architecture (`/api`)
+- **Database:** PostgreSQL (with Supabase RLS migrations) + Local JSON/In-Memory database engine
+- **AI Engine:** Google Gemini 1.5 Cloud Integration with 15 pedagogical learning modes + Multi-Domain Fallback Knowledge Engine
+- **Languages Supported:** Native English & Telugu (తెలుగు)
+
+---
+
+## 🌟 Core Feature Modules
+
+### 1. Brand Identity & Welcome Experience
+- Animated logo reveal with purple, deep blue, cyan, and tasteful pink gradients.
+- Session-aware routing: first-time visitors see the welcoming platform brief and call-to-action buttons (*"Start Learning"* & *"Explore Courses"*), while returning authenticated users proceed straight to their dashboard.
+
+### 2. Authentication & Account Security (Phase 4)
+- **Signup Page:** Full name, email, password, confirm password, show/hide password, live password strength meter, terms agreement, optional learning interests, and skill level selector.
+- **Login Page:** Email, password, show/hide password, forgot-password flow.
+- **Backend Security:** SHA-256 hashed password storage (never plain-text), token-based session persistence, user data isolation, and user-initiated data purge.
+
+### 3. Personalized Learning Dashboard (Phase 5)
+- Personalized welcome greeting: *"Welcome back, [First Name]!"*
+- Real-time learning streak counter (days) with flame badge.
+- Weekly study activity bar chart (Mon - Sun).
+- Daily learning goal tracker (e.g. 25/30 mins).
+- Enrolled courses progress and *"Continue Learning"* quick action.
+- Quick launchers for AI Tutor and practice quizzes.
+
+### 4. 15-Mode Real AI Tutor (Phase 6)
+- **15 Pedagogical Modes:**
+  1. Explain a concept
+  2. Explain like I'm a beginner
+  3. Deep-dive explanation
+  4. Step-by-step problem solving
+  5. Give real-world examples
+  6. Quiz me
+  7. Practice with hints
+  8. Review my answer
+  9. Summarize a topic
+  10. Generate study notes
+  11. Explain code
+  12. Create a learning roadmap
+  13. Compare two concepts
+  14. Prepare for an exam
+  15. Explain using analogies
+- Level selector (Beginner, Intermediate, Advanced)
+- Depth selector (Short, Standard, Detailed)
+- Focus selector (Theory, Practical Examples, Exam Preparation)
+- Formatted structured output: Definition, Steps, Technical Terms, Examples, Common Mistakes, Quick Quiz
+- Save or bookmark answers, copy code blocks, clear chat confirmation, enter-to-send support (Shift+Enter for newline).
+
+### 5. 10-Category Course Catalog & Interactive Lessons (Phase 7)
+- 10 Technical Domains:
+  1. Artificial Intelligence
+  2. Programming and Web Development
+  3. Data Science
+  4. Mathematics
+  5. Science and Technology
+  6. Business and Entrepreneurship
+  7. Communication Skills
+  8. Career Development
+  9. Digital Skills
+  10. Design and Creativity
+- **Course Detail Page:** Overview, prerequisites, tools required, learning objectives, and module-by-module syllabus.
+- **Interactive Lesson View:** Step-by-step breakdowns, code snippets, visual explanations, technical terms glossary, common mistakes, practice activity, knowledge-check quiz with instant scoring, mark-as-completed, and *"Ask AI Tutor about this lesson"* deep link.
+
+### 6. Practice & Quizzes (Phase 8)
+- Multiple-choice and True/False questions across AI, React, and Placement topics.
+- Immediate feedback with thorough explanations for correct and incorrect answers.
+- Score calculation, confetti on passing score, attempt tracking, and retry functionality.
+
+### 7. Notes, Bookmarks & Study Tools (Phase 9)
+- Create, edit, and delete personal notes with tags.
+- Search and filter notes.
+- Export all study notes as Markdown (`.md`).
+- Bookmark courses, lessons, and AI Tutor answers.
+
+### 8. User Settings & Account Management (Phase 11)
+- Edit profile name, bio, and learning level.
+- Adjust daily learning target slider (15 to 90 minutes).
+- Persistent light and dark theme toggle.
+- Password change and delete-account data purge flow.
+
+---
+
+## ⚡ Quick Start & Local Development
 
 ### Prerequisites
-- **Node.js** v18+ (tested on v24.20.0)
-- **npm** v9+
+- Node.js v18+ (tested on v24)
+- npm v9+
 
-### Install & Run (Development)
+### Installation & Execution
 
 ```bash
-# 1. Navigate to the project folder
-cd skillnova
-
-# 2. Install dependencies
+# 1. Install dependencies
 npm install
-# On Windows PowerShell: npm.cmd install
 
-# 3. Copy environment template (optional - for external Gemini key)
-cp .env.example .env
-
-# 4. Start both Backend Server (port 3001) and Frontend (port 5173) concurrently:
+# 2. Start both local backend (port 3001) and Vite frontend (port 5173) concurrently:
 npm run dev
-# On Windows PowerShell: npm.cmd run dev
 ```
 
-- **Frontend Application:** [http://localhost:5173](http://localhost:5173)
+- **Frontend Client:** [http://localhost:5173](http://localhost:5173)
 - **Backend API Server:** [http://localhost:3001/api/health](http://localhost:3001/api/health)
 
-### Running Services Independently
+### Running Automated Checks
 
 ```bash
-# Run backend server only:
-npm run dev:server    # listening on port 3001
+# Run oxlint static analysis (0 warnings, 0 errors):
+npm run lint
 
-# Run frontend client only:
-npm run dev:client    # listening on port 5173 (proxies /api to 3001)
+# Run automated logic verification suite (10/10 passed):
+npm test
 
-# Run full-stack production build:
-npm run build         # compiles client to dist/
-npm start             # serves production full-stack app on port 3001
-```
-
-### Automated Logic & Integrity Verification
-
-```bash
-npm test              # executes the 10-point test suite verifying all routes and data integrity
-npm run lint          # oxlint static analysis (0 errors)
-```
-
----
-
-## 🌐 Full-Stack Architecture
-
-```
-skillnova/
-├── server/                       ← Express Backend API Layer
-│   ├── index.ts                  ← Express server entry point (port 3001)
-│   ├── routes.ts                 ← REST API endpoints (/api/*)
-│   ├── db.ts                     ← Persistent database engine (atomic writes)
-│   └── aiService.ts              ← Server-side AI engine (Gemini API & Neural Core)
-├── data/
-│   └── database.json             ← ACID-like file-backed database
-├── src/                          ← React 19 Client
-│   ├── config/siteConfig.ts      ← Branding & config (name, tagline, colors, languages)
-│   ├── types/index.ts            ← TypeScript schemas and interfaces
-│   ├── context/AppContext.tsx    ← React context with backend sync & local fallback
-│   ├── services/
-│   │   ├── api.ts                ← Typed frontend client calling /api/*
-│   │   ├── aiTutor.ts            ← AI Tutor adapter calling server API
-│   │   └── resumeAnalyzer.ts     ← Google XYZ impact bullet reformatter
-│   ├── components/               ← Full view components & modals
-│   └── data/                     ← Curated verified tools, tutorials, recipes, lessons
-├── .env.example                  ← Safe placeholder environment variables
-├── vercel.json                   ← SPA rewrites for cloud hosting
-└── vite.config.ts                ← Tailwind v4 & /api proxy to localhost:3001
-```
-
----
-
-## 📡 REST API Reference
-
-All backend routes are mounted under `/api`:
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/health` | System health, database connection, uptime, and AI status |
-| `GET` | `/api/config` | Application metadata and localized branding strings |
-| `GET` | `/api/tools` | Verified tools catalog with search, category, and pricing filters |
-| `GET` | `/api/tools/:id` | Detailed specification for a single verified tool |
-| `GET` | `/api/lessons` | Academy lessons with progress and quiz scores from database |
-| `POST` | `/api/lessons/:id/quiz` | Server-side quiz evaluation, grading, and progress saving |
-| `GET` | `/api/tutorials` | Guided tool tutorials (Antigravity, Replit, Lovable, GitHub, Vercel) |
-| `GET` | `/api/recipes` | Visual Build Studio recipes and completed milestone steps |
-| `POST` | `/api/tutor/chat` | AI Tutor endpoint (English/Telugu) with chat history persistence |
-| `GET` | `/api/tutor/history` | Fetches saved chat sessions from database |
-| `DELETE` | `/api/tutor/history` | Clears stored chat history from database |
-| `POST` | `/api/prompts/optimize` | Optimizes rough inputs into structured CR-TCO prompts |
-| `GET` | `/api/prompts` | Retrieves prompt templates and saved custom prompts |
-| `POST` | `/api/prompts` | Saves a custom prompt into the database |
-| `DELETE` | `/api/prompts/:id` | Deletes a saved prompt from the database |
-| `POST` | `/api/projects/generate` | Generates a 4-milestone plan with timeline and recommended tools |
-| `GET` | `/api/projects` | Gets prebuilt templates and saved project plans |
-| `POST` | `/api/projects` | Saves a generated project plan into database |
-| `POST` | `/api/resume/analyze` | Evaluates resume text with Google XYZ bullets and ATS tips |
-| `GET` | `/api/career` | Verified student programs and engineering role roadmaps |
-| `GET` | `/api/user/progress` | Fetches all user progress, completed steps, and bookmarks |
-| `POST` | `/api/user/profile` | Updates user preferences (language, skill level, theme) |
-| `POST` | `/api/user/favorites/toggle` | Toggles favorite tools in database |
-| `POST` | `/api/user/studio-step/toggle` | Toggles recipe step completion in database |
-| `DELETE` | `/api/user/data` | Erases all user records from database (privacy compliance) |
-
----
-
-## 🤖 Full-Stack AI Engine
-
-The AI Tutor and prompt generators run **server-side** with two execution modes:
-
-1. **Google Gemini Live Integration:**
-   - Supply `GEMINI_API_KEY` (or `VITE_GEMINI_API_KEY`) in your `.env` file.
-   - The backend server directly interfaces with `gemini-1.5-flash`, keeping your credentials protected from frontend client code.
-
-2. **SkillNova Neural Core (Zero-Key Included):**
-   - If no external key is supplied, the backend runs the built-in SkillNova Neural Core.
-   - Powered by semantic vector matching, bilingual translation (English & Telugu), structured CR-TCO prompt synthesis, and step-by-step troubleshooting.
-
----
-
-## 🔒 Security & Data Privacy
-
-- **No Secrets in Client Code:** API keys remain strictly on the backend server.
-- **Privacy by Design:** All user data is stored in the local database (`data/database.json`). No third-party data tracking or telemetry.
-- **Data Erasure:** Complete data deletion is supported via the **Data & Privacy** modal or `DELETE /api/user/data`.
-
----
-
-## 🚀 Deployment
-
-### Option A: Full-Stack Production Container / VPS (Render / Railway / Fly.io / Docker)
-```bash
+# Build production bundle with TypeScript check:
 npm run build
-npm start
-# Server listens on process.env.PORT or 3001 and serves both API and static frontend
 ```
-
-### Option B: Frontend Static Hosting (Vercel)
-The included `vercel.json` provides SPA rewrite rules for client-side routing. When hosting frontend on Vercel and backend on Render/Railway, set `VITE_API_BASE_URL` to point to your live backend domain.
 
 ---
 
-## 🎯 Verification & Quality Gates
+## 🗄️ Database & Cloud Deployment
 
-```
-TypeScript:    0 compilation errors
-Linting:       0 errors (oxlint)
-Automated QA:  10 test suites passed (`npm test`)
-Dev Server:    http://localhost:5173 (HTTP 200 OK)
-API Server:    http://localhost:3001 (HTTP 200 OK)
-```
+### Supabase PostgreSQL Setup
+A production-grade PostgreSQL migration is available at:
+`supabase/migrations/20261019_skillnova_mega14.sql`
+
+Includes:
+- Tables for `profiles`, `courses`, `course_modules`, `lessons`, `enrollments`, `lesson_progress`, `quizzes`, `quiz_attempts`, `ai_conversations`, `ai_messages`, `notes`, `bookmarks`, `achievements`.
+- Row-Level Security (RLS) policies isolating user records while keeping course content public.
+
+### Vercel Serverless Deployment
+The repository includes a clean `vercel.json` routing all `/api/*` requests to `api/index.ts`.
+Push to the `main` branch to trigger auto-deployment:
+[https://skillnova-lyart.vercel.app](https://skillnova-lyart.vercel.app)

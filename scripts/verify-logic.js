@@ -15,7 +15,7 @@ console.log('--- RUNNING SKILLNOVA LOGIC VERIFICATION SUITE ---');
 // 1. Site Config Integrity
 console.log('✓ Checking Site Configuration...');
 assert.strictEqual(typeof siteConfig.name, 'string');
-assert.strictEqual(siteConfig.name, 'SkillNova');
+assert.strictEqual(siteConfig.name, 'SkillNova Mega14');
 assert.ok(siteConfig.supportedLanguages.length >= 2);
 console.log('  -> SiteConfig verified.');
 
