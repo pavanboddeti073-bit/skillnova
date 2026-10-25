@@ -224,6 +224,7 @@ export interface ChatMessage {
   content: string;
   language?: SupportedLanguage;
   isDemo?: boolean;
+  modelUsed?: string;
   timestamp: string;
   suggestedFollowUps?: string[];
 }

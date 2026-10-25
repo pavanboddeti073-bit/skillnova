@@ -81,7 +81,7 @@ export const ToolsExplorerView: React.FC = () => {
       </div>
 
       {/* Filter and Search Bar Controls */}
-      <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+      <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
         
         {/* Search Input */}
         <div className="relative">
@@ -95,12 +95,12 @@ export const ToolsExplorerView: React.FC = () => {
                 ? "టూల్ పేరు లేదా పని ద్వారా వెతకండి (ఉదా: Antigravity, Gamma, Slides, React)..."
                 : "Search tools by name, use case, or feature (e.g., Antigravity, Gamma, Ollama, Slides)..."
             }
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+            className="w-full pl-10 pr-12 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden transition-all"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-3 text-xs text-slate-400 hover:text-slate-600"
+              className="absolute right-3.5 top-3 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
             >
               Clear
             </button>
@@ -117,8 +117,8 @@ export const ToolsExplorerView: React.FC = () => {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                   selectedCategory === cat.id
-                    ? 'bg-blue-600 text-white font-semibold'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    ? 'bg-indigo-600 text-white font-semibold'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                 }`}
               >
                 {language === 'te' ? cat.labelTe : cat.labelEn}
@@ -128,14 +128,14 @@ export const ToolsExplorerView: React.FC = () => {
         </div>
 
         {/* Secondary Filters: Pricing Tier & Toggles */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-1.5">
-              <span className="text-slate-500 font-medium">Pricing:</span>
+              <span className="text-slate-500 dark:text-slate-400 font-medium">Pricing:</span>
               <select
                 value={selectedPricing}
                 onChange={(e) => setSelectedPricing(e.target.value)}
-                className="border border-slate-200 rounded-lg px-2 py-1 bg-white text-slate-700 font-medium"
+                className="border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:outline-hidden"
               >
                 <option value="all">All Tiers</option>
                 <option value="Open Source">Open Source</option>
@@ -144,22 +144,22 @@ export const ToolsExplorerView: React.FC = () => {
               </select>
             </div>
 
-            <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 font-medium select-none">
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 dark:text-slate-300 font-medium select-none">
               <input
                 type="checkbox"
                 checked={onlyOpenSource}
                 onChange={(e) => setOnlyOpenSource(e.target.checked)}
-                className="rounded text-blue-600 focus:ring-blue-500"
+                className="rounded text-indigo-600 focus:ring-indigo-500"
               />
               <span>100% Open Source Only</span>
             </label>
 
-            <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 font-medium select-none">
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 dark:text-slate-300 font-medium select-none">
               <input
                 type="checkbox"
                 checked={onlyBeginner}
                 onChange={(e) => setOnlyBeginner(e.target.checked)}
-                className="rounded text-blue-600 focus:ring-blue-500"
+                className="rounded text-indigo-600 focus:ring-indigo-500"
               />
               <span>Beginner Friendly Only</span>
             </label>

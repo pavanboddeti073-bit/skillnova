@@ -391,7 +391,7 @@ export const CodingPracticeView: React.FC = () => {
                 onChange={e => setUserCode(e.target.value)}
                 rows={14}
                 spellCheck={false}
-                className="w-full p-4 font-mono text-xs sm:text-sm bg-slate-900 text-slate-100 placeholder:text-slate-600 focus:outline-none resize-none leading-relaxed selection:bg-indigo-600/60"
+                className="w-full p-4 font-mono text-xs sm:text-sm !bg-slate-950 !text-emerald-300 placeholder:text-slate-600 focus:outline-none resize-none leading-relaxed selection:bg-indigo-600/60 !caret-emerald-400"
               />
             </div>
 

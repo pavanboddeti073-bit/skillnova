@@ -207,7 +207,8 @@ export const HowAiWorksView: React.FC = () => {
               value={tokenInput}
               onChange={e => setTokenInput(e.target.value)}
               rows={4}
-              className="w-full p-2.5 text-xs font-mono rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              placeholder="Paste or write text to estimate tokens..."
+              className="w-full p-2.5 text-xs font-mono rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 caret-indigo-600 dark:caret-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
             />
 
             <div className="grid grid-cols-3 gap-2 text-center text-xs">

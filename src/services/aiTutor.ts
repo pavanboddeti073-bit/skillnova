@@ -6,6 +6,7 @@ export interface TutorResponse {
   content: string;
   isDemo: boolean;
   source?: string;
+  modelUsed?: string;
   suggestedFollowUps: string[];
 }
 
@@ -91,8 +92,9 @@ export async function askAiTutor(
     if (backendRes && backendRes.reply && backendRes.reply.trim().length > 10) {
       return {
         content: backendRes.reply,
-        isDemo: false,
+        isDemo: backendRes.source === 'skillnova-core' && !backendRes.modelUsed,
         source: backendRes.source,
+        modelUsed: backendRes.modelUsed || (backendRes.source === 'meta-api' ? 'Meta Muse Spark 1.3' : backendRes.source === 'ollama-local' ? 'Ollama Local' : 'SkillNova AI Engine'),
         suggestedFollowUps: backendRes.suggestedFollowUps ?? []
       };
     }
@@ -108,6 +110,7 @@ export async function askAiTutor(
         content: geminiReply,
         isDemo: false,
         source: 'gemini-api',
+        modelUsed: 'Google Gemini 3.5 Cloud',
         suggestedFollowUps: language === 'te'
           ? ['తదుపరి దశలు ఏమిటి?', 'కోడ్ ఉదాహరణ చూపించండి', 'ఇది ఎలా deploy చేయాలి?']
           : ['What are the next implementation steps?', 'Show me a code example', 'How do I test and deploy this?']
@@ -123,6 +126,7 @@ export async function askAiTutor(
     content: core.content,
     isDemo: false,
     source: 'skillnova-core',
+    modelUsed: 'SkillNova Core Deterministic Engine',
     suggestedFollowUps: core.suggestedFollowUps
   };
 }

@@ -151,14 +151,14 @@ ${qualityChecks}`;
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Column: Form Fields (6 Cols) */}
-        <div className="lg:col-span-6 p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-slate-800">
+        <div className="lg:col-span-6 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-slate-800 dark:text-white">
               Prompt Specification Fields
             </h2>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-400 hover:text-slate-700 flex items-center gap-1"
+              className="text-xs text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center gap-1 cursor-pointer"
             >
               <RotateCcw className="w-3 h-3" />
               <span>Reset Fields</span>
@@ -167,7 +167,7 @@ ${qualityChecks}`;
 
           <div className="space-y-3.5 text-xs">
             <div>
-              <label className="font-bold text-slate-700 block mb-1">
+              <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">
                 1. Role & Persona (Who is the model pretending to be?)
               </label>
               <input
@@ -175,12 +175,12 @@ ${qualityChecks}`;
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 placeholder="e.g. Senior Staff Software Engineer / Presentation Coach"
-                className="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
+                className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden transition-all"
               />
             </div>
 
             <div>
-              <label className="font-bold text-slate-700 block mb-1">
+              <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">
                 2. Context & User Reality (What is your scenario?)
               </label>
               <input
@@ -188,12 +188,12 @@ ${qualityChecks}`;
                 value={context}
                 onChange={(e) => setContext(e.target.value)}
                 placeholder="e.g. 3rd-year CS student preparing for tomorrow's hackathon demo"
-                className="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
+                className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden transition-all"
               />
             </div>
 
             <div>
-              <label className="font-bold text-slate-700 block mb-1">
+              <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">
                 3. Core Task (What exact thing must be created?)
               </label>
               <textarea
@@ -201,12 +201,12 @@ ${qualityChecks}`;
                 value={task}
                 onChange={(e) => setTask(e.target.value)}
                 placeholder="e.g. Create an 8-slide presentation outline on Microservices Architecture"
-                className="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
+                className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden transition-all resize-none"
               />
             </div>
 
             <div>
-              <label className="font-bold text-slate-700 block mb-1">
+              <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">
                 4. Constraints & Guardrails (What must it NOT do?)
               </label>
               <input
@@ -214,12 +214,12 @@ ${qualityChecks}`;
                 value={constraints}
                 onChange={(e) => setConstraints(e.target.value)}
                 placeholder="e.g. Under 200 words, no ungrounded jargon, max 3 bullets per slide"
-                className="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
+                className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden transition-all"
               />
             </div>
 
             <div>
-              <label className="font-bold text-slate-700 block mb-1">
+              <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">
                 5. Desired Output Format (What shape should the text take?)
               </label>
               <input
@@ -227,12 +227,12 @@ ${qualityChecks}`;
                 value={outputFormat}
                 onChange={(e) => setOutputFormat(e.target.value)}
                 placeholder="e.g. Markdown table followed by 3 actionable bullet points"
-                className="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
+                className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden transition-all"
               />
             </div>
 
             <div>
-              <label className="font-bold text-slate-700 block mb-1">
+              <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">
                 6. Quality Checks & Verification (How will you verify?)
               </label>
               <input
@@ -240,7 +240,7 @@ ${qualityChecks}`;
                 value={qualityChecks}
                 onChange={(e) => setQualityChecks(e.target.value)}
                 placeholder="e.g. Are citations included? Does code compile without undefined variables?"
-                className="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
+                className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden transition-all"
               />
             </div>
           </div>

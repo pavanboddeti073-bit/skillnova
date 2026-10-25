@@ -142,14 +142,14 @@ Sentiment Analyzer (Python)
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Input Box (5 Cols) */}
-            <div className="lg:col-span-5 p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-800">
+            <div className="lg:col-span-5 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-white">
                   Paste Resume Plain Text
                 </span>
                 <button
                   onClick={handleLoadSample}
-                  className="text-xs text-blue-600 font-semibold hover:underline"
+                  className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold hover:underline cursor-pointer"
                 >
                   Load Sample
                 </button>
@@ -160,7 +160,7 @@ Sentiment Analyzer (Python)
                 value={resumeInput}
                 onChange={(e) => setResumeInput(e.target.value)}
                 placeholder="Paste the text from your resume here (Education, Projects, Skills, Experience)..."
-                className="w-full p-3.5 rounded-xl border border-slate-200 font-mono text-xs focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                className="w-full p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-mono text-xs focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden transition-all"
               />
 
               <div className="flex items-center gap-2">

@@ -5,7 +5,8 @@ import {
   Copy,
   Check,
   Bookmark,
-  Trash2
+  Trash2,
+  Sparkles
 } from 'lucide-react';
 import { useApp } from '../context/useApp';
 import { askAiTutor } from '../services/aiTutor';
@@ -118,7 +119,8 @@ export const AiTutorView: React.FC = () => {
         id: getUniqueMsgId('msg-a'),
         role: 'assistant',
         content: result.content,
-        isDemo: false,
+        isDemo: Boolean(result.isDemo),
+        modelUsed: result.modelUsed || (result.source === 'meta-muse' ? 'Meta Muse Spark 1.3' : result.source === 'ollama' ? 'Ollama Local' : 'SkillNova AI Engine'),
         suggestedFollowUps: result.suggestedFollowUps,
         timestamp: getNowTimestamp()
       };
@@ -295,6 +297,21 @@ export const AiTutorView: React.FC = () => {
                       : 'bg-slate-50 dark:bg-slate-850 border border-slate-200/80 dark:border-slate-750 text-slate-800 dark:text-slate-100 shadow-xs'
                   }`}
                 >
+                  {!isUser && (
+                    <div className="flex items-center gap-2 pb-1 text-[11px] font-semibold">
+                      {msg.isDemo ? (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+                          Interactive Demo Mode
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20">
+                          <Sparkles className="w-3 h-3 text-indigo-500" />
+                          <span>{msg.modelUsed || 'Meta Muse Spark 1.3'}</span>
+                        </span>
+                      )}
+                    </div>
+                  )}
+
                   <div className="whitespace-pre-wrap font-sans">
                     {msg.content}
                   </div>
@@ -383,7 +400,7 @@ export const AiTutorView: React.FC = () => {
                 onKeyDown={handleKeyDown}
                 placeholder="Ask about coding, errors, algorithms, React, Python, or college seminars... (Shift+Enter for newline)"
                 rows={2}
-                className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs sm:text-sm focus:outline-hidden focus:border-indigo-500 resize-none transition-all"
+                className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs sm:text-sm focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 caret-indigo-600 dark:caret-indigo-400 resize-none transition-all shadow-inner"
               />
             </div>
 

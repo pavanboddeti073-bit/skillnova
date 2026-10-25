@@ -305,7 +305,7 @@ export const CodePlaygroundView: React.FC = () => {
             onChange={e => setCode(e.target.value)}
             rows={18}
             spellCheck={false}
-            className="w-full p-4 font-mono text-xs sm:text-sm bg-slate-900 text-slate-100 placeholder:text-slate-600 focus:outline-none resize-none leading-relaxed selection:bg-indigo-600/60"
+            className="w-full p-4 font-mono text-xs sm:text-sm !bg-slate-950 !text-emerald-300 placeholder:text-slate-600 focus:outline-none resize-none leading-relaxed selection:bg-indigo-600/60 !caret-emerald-400"
             placeholder="Write your code here..."
           />
 
@@ -320,7 +320,7 @@ export const CodePlaygroundView: React.FC = () => {
                 value={stdin}
                 onChange={e => setStdin(e.target.value)}
                 placeholder="Optional input parameters..."
-                className="w-full px-3 py-1.5 text-xs font-mono rounded bg-slate-900 border border-slate-800 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full px-3 py-1.5 text-xs font-mono rounded !bg-slate-900 border border-slate-800 !text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 !caret-indigo-400"
               />
             </div>
           )}

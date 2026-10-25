@@ -259,7 +259,7 @@ export const DashboardView: React.FC = () => {
                 value={inputIdea}
                 onChange={e => setInputIdea(e.target.value)}
                 placeholder="What project do you want to build today?"
-                className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-hidden focus:border-cyan-400 focus:bg-white/15 transition-all"
+                className="flex-1 px-4 py-3 rounded-xl !bg-slate-900/70 border border-white/20 !text-white placeholder:text-slate-400 text-sm focus:outline-hidden focus:border-cyan-400 focus:!bg-slate-900/90 caret-cyan-400 transition-all shadow-inner"
               />
               <button
                 type="submit"

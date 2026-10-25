@@ -242,11 +242,11 @@ export const ProjectWizardView: React.FC = () => {
 
       {/* Wizard Form Steps */}
       {stepIndex < 4 ? (
-        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6 max-w-2xl mx-auto">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 max-w-2xl mx-auto">
           
           {/* Progress Indicator */}
-          <div className="flex items-center justify-between pb-4 border-b border-slate-100 text-xs">
-            <span className="font-bold text-blue-600">Question {stepIndex + 1} of 4</span>
+          <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 text-xs">
+            <span className="font-bold text-indigo-600 dark:text-indigo-400">Question {stepIndex + 1} of 4</span>
             <span className="text-slate-400">Step: {
               stepIndex === 0 ? 'Goal & Output' :
               stepIndex === 1 ? 'Skill Level & Language' :
@@ -258,10 +258,10 @@ export const ProjectWizardView: React.FC = () => {
           {stepIndex === 0 && (
             <div className="space-y-4 animate-in fade-in-50">
               <div className="space-y-1">
-                <label className="text-sm font-bold text-slate-900 block">
+                <label className="text-sm font-bold text-slate-900 dark:text-white block">
                   What do you want to create?
                 </label>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Explain your project idea in everyday conversational language.
                 </p>
               </div>
@@ -271,18 +271,19 @@ export const ProjectWizardView: React.FC = () => {
                 value={formData.goal}
                 onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
                 placeholder="e.g. Build an AI-assisted campus lost & found board with image upload and instant search..."
-                className="w-full p-3.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                className="w-full p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden transition-all"
               />
 
               <div className="space-y-1 pt-1">
-                <label className="text-xs font-bold text-slate-700 block">
+                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block">
                   Desired Output Deliverable:
                 </label>
                 <input
                   type="text"
                   value={formData.desiredOutput}
                   onChange={(e) => setFormData({ ...formData, desiredOutput: e.target.value })}
-                  className="w-full p-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                  placeholder="e.g. Full-stack Web App with REST API"
+                  className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden transition-all"
                 />
               </div>
             </div>
@@ -438,15 +439,16 @@ export const ProjectWizardView: React.FC = () => {
                 ))}
               </div>
 
-              <div className="space-y-1 pt-2 border-t border-slate-100">
-                <label className="text-xs font-bold text-slate-700 block">
+              <div className="space-y-1 pt-2 border-t border-slate-100 dark:border-slate-800">
+                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block">
                   Target Deadline:
                 </label>
                 <input
                   type="text"
                   value={formData.deadline}
                   onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
-                  className="w-full p-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                  placeholder="e.g. 2 weeks / End of semester"
+                  className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden transition-all"
                 />
               </div>
             </div>

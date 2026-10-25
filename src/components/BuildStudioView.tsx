@@ -432,7 +432,7 @@ export const BuildStudioView: React.FC = () => {
                   value={effectivePrompt}
                   onChange={(e) => setCustomPromptEdits({ ...customPromptEdits, [activeStep.stepNumber]: e.target.value })}
                   rows={6}
-                  className="w-full p-4 font-mono text-xs bg-slate-900 text-slate-100 rounded-xl border border-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                  className="w-full p-4 font-mono text-xs !bg-slate-950 !text-emerald-300 rounded-xl border border-slate-700 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-hidden !caret-emerald-400"
                 />
               ) : (
                 <div className="p-4 rounded-xl bg-slate-900 text-slate-100 font-mono text-xs sm:text-xs leading-relaxed whitespace-pre-wrap border border-slate-800 selection:bg-blue-500 selection:text-white">
