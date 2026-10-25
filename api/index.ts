@@ -1,3 +1,6 @@
+import { Buffer } from 'node:buffer';
+import process from 'node:process';
+
 export interface KnowledgeResponse {
   content: string;
   source: 'gemini-api' | 'skillnova-core';

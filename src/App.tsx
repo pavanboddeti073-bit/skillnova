@@ -115,10 +115,100 @@ const MainContent: React.FC = () => {
   );
 };
 
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  override componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('SkillNova Caught UI Error:', error, errorInfo);
+  }
+
+  handleReset = () => {
+    try {
+      localStorage.removeItem('skillnova_active_tab');
+      sessionStorage.clear();
+    } catch {
+      // ignore
+    }
+    this.setState({ hasError: false, error: null });
+    window.location.href = '/#dashboard';
+    window.location.reload();
+  };
+
+  handleHardReset = () => {
+    try {
+      localStorage.clear();
+      sessionStorage.clear();
+    } catch {
+      // ignore
+    }
+    window.location.href = '/';
+    window.location.reload();
+  };
+
+  override render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-slate-950 text-slate-100 p-6">
+          <div className="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl text-center space-y-4">
+            <div className="w-14 h-14 mx-auto rounded-full bg-violet-500/20 text-violet-400 flex items-center justify-center font-bold text-2xl">
+              ⚠️
+            </div>
+            <h1 className="text-xl font-bold text-white">Application Recovery</h1>
+            <p className="text-sm text-slate-400">
+              SkillNova encountered an unexpected rendering error. You can restore the application safely below.
+            </p>
+            {this.state.error?.message && (
+              <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg text-xs font-mono text-rose-400 text-left overflow-auto max-h-32">
+                {this.state.error.message}
+              </div>
+            )}
+            <div className="flex flex-col gap-2 pt-2">
+              <button
+                type="button"
+                onClick={this.handleReset}
+                className="w-full py-2.5 px-4 bg-violet-600 hover:bg-violet-700 text-white rounded-xl font-medium transition cursor-pointer"
+              >
+                Restore to Dashboard
+              </button>
+              <button
+                type="button"
+                onClick={this.handleHardReset}
+                className="w-full py-2 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs transition cursor-pointer"
+              >
+                Reset All Local Cache & Reload
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
 export default function App() {
   return (
-    <AppProvider>
-      <MainContent />
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <MainContent />
+      </AppProvider>
+    </ErrorBoundary>
   );
 }

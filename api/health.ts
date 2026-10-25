@@ -1,3 +1,6 @@
+import { Buffer } from 'node:buffer';
+import process from 'node:process';
+
 const EMBEDDED_KEY = Buffer.from('QVEuQWI4Uk42TFZuWlJ1UWo4Y2dUdzktazdlaTJqUktLLUg5RFQ0Y1A3YWMxbGJodGk0ekE=', 'base64').toString('utf-8');
 const ACTIVE_KEY = process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY || EMBEDDED_KEY;
 
