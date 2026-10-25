@@ -85,14 +85,44 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
               Dashboard
             </button>
             <button
-              onClick={() => handleNavClick('courses')}
+              onClick={() => handleNavClick('coding-practice')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                activeTab === 'courses'
+                activeTab === 'coding-practice'
                   ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400'
                   : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
-              Courses
+              Practice (18)
+            </button>
+            <button
+              onClick={() => handleNavClick('playground')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'playground'
+                  ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              Playground
+            </button>
+            <button
+              onClick={() => handleNavClick('tools-academy')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'tools-academy'
+                  ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              Tools Academy
+            </button>
+            <button
+              onClick={() => handleNavClick('projects')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'projects'
+                  ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              Projects
             </button>
             <button
               onClick={() => handleNavClick('tutor')}
@@ -103,27 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
               }`}
             >
               <Bot className="w-3.5 h-3.5 text-indigo-500" />
-              <span>AI Tutor</span>
-            </button>
-            <button
-              onClick={() => handleNavClick('quizzes')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                activeTab === 'quizzes'
-                  ? 'bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400'
-                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
-              }`}
-            >
-              Quizzes
-            </button>
-            <button
-              onClick={() => handleNavClick('welcome')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                activeTab === 'welcome'
-                  ? 'bg-purple-50 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400'
-                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
-              }`}
-            >
-              About
+              <span>Nova AI</span>
             </button>
           </nav>
 

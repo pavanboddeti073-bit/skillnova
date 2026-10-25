@@ -125,6 +125,74 @@ verifiedCareerResources.forEach(cr => {
 });
 console.log(`  -> ${verifiedCareerResources.length} verified student career opportunities checked.`);
 
+// 11. 18-Category Coding Practice Engine Integrity
+console.log('✓ Checking 18-Category Coding Practice Engine...');
+import { practiceProblems, practiceCategories } from '../src/data/practiceProblems.ts';
+assert.ok(practiceCategories.length === 18, `Expected 18 categories, found ${practiceCategories.length}`);
+assert.ok(practiceProblems.length >= 8, `Expected at least 8 problems, found ${practiceProblems.length}`);
+practiceProblems.forEach(p => {
+  assert.ok(p.id, 'Problem missing ID');
+  assert.ok(p.title, 'Problem missing title');
+  assert.ok(p.starterCode.length > 5, `Problem ${p.id} starter code too short`);
+  assert.ok(p.visibleTests.length >= 1, `Problem ${p.id} has no visible test cases`);
+  assert.ok(p.hints.length >= 2, `Problem ${p.id} has fewer than 2 progressive hints`);
+  assert.ok(p.referenceSolution.length > 10, `Problem ${p.id} missing reference solution`);
+});
+console.log(`  -> ${practiceProblems.length} practice problems across 18 categories and 5 difficulty tiers verified.`);
+
+// 12. Developer Tools Academy (10 Tools, 8-Stage Progression)
+console.log('✓ Checking Developer Tools Academy (10 Tools, 8-Stage Progression)...');
+import { developerToolsCourses } from '../src/data/developerToolsAcademy.ts';
+assert.strictEqual(developerToolsCourses.length, 10, `Expected exactly 10 tool courses, found ${developerToolsCourses.length}`);
+developerToolsCourses.forEach(dt => {
+  assert.ok(dt.id, 'Tool missing ID');
+  assert.strictEqual(dt.stages.length, 8, `Tool ${dt.id} must have exactly 8 stages, found ${dt.stages.length}`);
+  assert.ok(dt.commonMistakes.length >= 2, `Tool ${dt.id} has fewer than 2 common mistakes`);
+  assert.ok(dt.portfolioProjectDeliverable.length > 5, `Tool ${dt.id} missing portfolio project deliverable`);
+});
+console.log(`  -> All 10 developer tools verified with mandatory 8-stage interactive lesson progression.`);
+
+// 13. Real-World Project Studio
+console.log('✓ Checking Real-World Project Studio...');
+import { portfolioProjects } from '../src/data/projectStudio.ts';
+assert.ok(portfolioProjects.length >= 3, 'Expected at least 3 portfolio projects');
+portfolioProjects.forEach(proj => {
+  assert.ok(proj.id, 'Project missing ID');
+  assert.ok(proj.milestones.length >= 4, `Project ${proj.id} has fewer than 4 milestones`);
+  assert.ok(proj.securityChecklist.length >= 3, `Project ${proj.id} missing security checklist`);
+});
+console.log(`  -> ${portfolioProjects.length} guided portfolio project blueprints verified.`);
+
+// 14. Systems & How AI Works Lessons
+console.log('✓ Checking How AI Works Systems Lessons...');
+import { howAiWorksLessons } from '../src/data/howAiWorks.ts';
+assert.strictEqual(howAiWorksLessons.length, 4, `Expected 4 systems lessons, found ${howAiWorksLessons.length}`);
+howAiWorksLessons.forEach(hl => {
+  assert.ok(hl.interactiveDiagramMermaid.length > 20, `Lesson ${hl.id} missing interactive mermaid diagram`);
+  assert.ok(hl.deepDiveMarkdown.length > 50, `Lesson ${hl.id} deep dive markdown too short`);
+  assert.ok(hl.quickQuiz.options.length >= 3, `Lesson ${hl.id} missing quiz options`);
+  assert.ok(hl.plainLanguageExplanation.length > 30, `Lesson ${hl.id} plain language explanation too short`);
+});
+console.log(`  -> 4 deep architectural lessons (Weights, Tokens, Request Lifecycle, Sandbox) verified.`);
+
+// 15. Safe Code Execution Sandbox Integration Test
+console.log('✓ Checking Safe Sandbox Code Execution Engine...');
+import { executeCode } from '../server/codeRunner.ts';
+const sandboxTest = await executeCode({
+  code: 'function add(a, b) { return a + b; }',
+  language: 'javascript',
+  visibleTests: [
+    { id: 't1', input: 'add(2, 3)', expectedOutput: '5', description: '2 + 3 = 5' }
+  ],
+  hiddenTests: [
+    { id: 'h1', input: 'add(-1, 1)', expectedOutput: '0', description: '-1 + 1 = 0', isHidden: true }
+  ]
+});
+assert.strictEqual(sandboxTest.status, 'passed', `Sandbox test failed: ${sandboxTest.stderr}`);
+assert.strictEqual(sandboxTest.testsPassed, 2);
+assert.ok(sandboxTest.executionTimeMs >= 0);
+console.log(`  -> JavaScript/TypeScript sandbox passed both visible and hidden test assertions in ${sandboxTest.executionTimeMs}ms.`);
+
 console.log('\n=============================================');
 console.log('🎉 ALL AUTOMATED VERIFICATION CHECKS PASSED!');
 console.log('=============================================\n');

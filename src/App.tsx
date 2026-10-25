@@ -14,6 +14,13 @@ import { DataPrivacyModal } from './components/DataPrivacyModal';
 // Brand New Core Views for SkillNova Mega14
 import { WelcomeExperience } from './components/WelcomeExperience';
 import { DashboardView } from './components/DashboardView';
+import { CodingPracticeView } from './components/CodingPracticeView';
+import { CodePlaygroundView } from './components/CodePlaygroundView';
+import { DevToolsAcademyView } from './components/DevToolsAcademyView';
+import { ProjectStudioView } from './components/ProjectStudioView';
+import { HowAiWorksView } from './components/HowAiWorksView';
+import { LearningPathsView } from './components/LearningPathsView';
+import { ModelSettingsView } from './components/ModelSettingsView';
 import { CoursesView } from './components/CoursesView';
 import { MyLearningView } from './components/MyLearningView';
 import { AiTutorView } from './components/AiTutorView';
@@ -58,6 +65,13 @@ const MainContent: React.FC = () => {
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
           {activeTab === 'welcome' && <WelcomeExperience />}
           {activeTab === 'dashboard' && <DashboardView />}
+          {activeTab === 'coding-practice' && <CodingPracticeView />}
+          {activeTab === 'playground' && <CodePlaygroundView />}
+          {activeTab === 'tools-academy' && <DevToolsAcademyView />}
+          {activeTab === 'projects' && <ProjectStudioView />}
+          {activeTab === 'how-it-works' && <HowAiWorksView />}
+          {activeTab === 'learning-paths' && <LearningPathsView />}
+          {activeTab === 'model-settings' && <ModelSettingsView />}
           {activeTab === 'courses' && <CoursesView />}
           {activeTab === 'my-learning' && <MyLearningView />}
           {activeTab === 'tutor' && <AiTutorView />}

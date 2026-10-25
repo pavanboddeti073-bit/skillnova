@@ -68,7 +68,8 @@ export async function askAiTutor(
   _history: ChatMessage[] = [],
   mode: string = 'explain_concept',
   depth: string = 'standard',
-  focus: string = 'practical'
+  focus: string = 'practical',
+  providerId?: string
 ): Promise<TutorResponse> {
   const sanitizedQuery = userQuery.trim().slice(0, 2000);
   if (!sanitizedQuery) {
@@ -84,7 +85,22 @@ export async function askAiTutor(
     };
   }
 
-  // ─── Path 1: Direct Gemini API from browser (fastest, best quality) ───────
+  // ─── Path 1: Full-Stack Backend API (Meta Model API, Ollama, Gemini, Core) ──
+  try {
+    const backendRes = await apiClient.sendChatMessage(sanitizedQuery, language, level, mode, depth, focus, providerId);
+    if (backendRes && backendRes.reply && backendRes.reply.trim().length > 10) {
+      return {
+        content: backendRes.reply,
+        isDemo: false,
+        source: backendRes.source,
+        suggestedFollowUps: backendRes.suggestedFollowUps ?? []
+      };
+    }
+  } catch (err) {
+    console.warn('[SkillNova] Backend API unavailable, trying direct:', err);
+  }
+
+  // ─── Path 2: Direct Gemini API from browser fallback ───────────────────────
   try {
     const geminiReply = await callGeminiDirectly(sanitizedQuery, language, level);
     if (geminiReply) {
@@ -98,22 +114,7 @@ export async function askAiTutor(
       };
     }
   } catch (err) {
-    console.warn('[SkillNova] Direct Gemini failed, trying backend:', err);
-  }
-
-  // ─── Path 2: Full-Stack Backend API (local dev or Vercel serverless) ──────
-  try {
-    const backendRes = await apiClient.sendChatMessage(sanitizedQuery, language, level, mode, depth, focus);
-    if (backendRes && backendRes.reply && backendRes.reply.trim().length > 10) {
-      return {
-        content: backendRes.reply,
-        isDemo: false,
-        source: backendRes.source,
-        suggestedFollowUps: backendRes.suggestedFollowUps ?? []
-      };
-    }
-  } catch (err) {
-    console.warn('[SkillNova] Backend API unavailable, using client engine:', err);
+    console.warn('[SkillNova] Direct Gemini failed:', err);
   }
 
   // ─── Path 3: Comprehensive Multi-Domain Engine Fallback ───────────────────

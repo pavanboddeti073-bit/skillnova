@@ -17,6 +17,10 @@ import {
   Briefcase,
   ChevronRight,
   LogOut,
+  Code2,
+  FolderGit2,
+  Cpu,
+  Route,
   Flame,
   Sun,
   Moon
@@ -36,23 +40,30 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     user,
     isAuthenticated,
     logout,
-    setShowAuthModal,
-    setAuthModalMode,
+    language,
     theme,
     toggleTheme,
-    language
+    setShowAuthModal,
+    setAuthModalMode
   } = useApp();
 
   const primaryNavItems: Array<{ id: TabType; labelEn: string; labelTe: string; icon: React.ReactNode; badge?: string }> = [
     { id: 'dashboard', labelEn: 'Dashboard', labelTe: 'డ్యాష్‌బోర్డ్', icon: <LayoutDashboard className="w-4 h-4" /> },
-    { id: 'courses', labelEn: 'Explore Courses', labelTe: 'కోర్సులను అన్వేషించండి', icon: <Compass className="w-4 h-4" />, badge: '10 Cats' },
+    { id: 'coding-practice', labelEn: 'Coding Practice', labelTe: 'కోడింగ్ ప్రాక్టీస్', icon: <Code2 className="w-4 h-4" />, badge: '18 Cats' },
+    { id: 'playground', labelEn: 'Code Playground', labelTe: 'కోడ్ ప్లేగ్రౌండ్', icon: <Terminal className="w-4 h-4" />, badge: 'Live VM' },
+    { id: 'tools-academy', labelEn: 'Developer Tools', labelTe: 'డెవలపర్ టూల్స్', icon: <Wrench className="w-4 h-4" />, badge: '10 Tools' },
+    { id: 'projects', labelEn: 'Real-World Projects', labelTe: 'రియల్-వరల్డ్ ప్రాజెక్ట్‌లు', icon: <FolderGit2 className="w-4 h-4" />, badge: 'Studio' },
+    { id: 'tutor', labelEn: 'AI Coding Mentor', labelTe: 'నోవా AI మెంటర్', icon: <Bot className="w-4 h-4" />, badge: 'Nova AI' },
+    { id: 'learning-paths', labelEn: 'Learning Paths', labelTe: 'కెరీర్ పాత్‌లు', icon: <Route className="w-4 h-4" /> },
+    { id: 'how-it-works', labelEn: 'How AI Works', labelTe: 'సిస్టమ్స్ ఆర్కిటెక్చర్', icon: <Cpu className="w-4 h-4" /> },
+    { id: 'model-settings', labelEn: 'Model & AI Registry', labelTe: 'మోడల్ రిజిస్ట్రీ', icon: <Sparkles className="w-4 h-4" />, badge: 'Meta API' },
+    { id: 'courses', labelEn: 'Explore Courses', labelTe: 'కోర్సులను అన్వేషించండి', icon: <Compass className="w-4 h-4" /> },
+    { id: 'quizzes', labelEn: 'Practice Quizzes', labelTe: 'ప్రాక్టీస్ & క్విజ్‌లు', icon: <CheckSquare className="w-4 h-4" /> },
     { id: 'my-learning', labelEn: 'My Learning', labelTe: 'నా కోర్సులు', icon: <GraduationCap className="w-4 h-4" /> },
-    { id: 'tutor', labelEn: 'AI Tutor', labelTe: 'AI ట్యూటర్', icon: <Bot className="w-4 h-4" />, badge: '15 Modes' },
-    { id: 'quizzes', labelEn: 'Practice & Quizzes', labelTe: 'ప్రాక్టీస్ & క్విజ్‌లు', icon: <CheckSquare className="w-4 h-4" /> },
-    { id: 'notes', labelEn: 'Notes & Bookmarks', labelTe: 'నోట్స్ & బుక్‌మార్క్స్', icon: <Bookmark className="w-4 h-4" /> },
     { id: 'progress', labelEn: 'Learning Progress', labelTe: 'నేర్చుకున్న ప్రగతి', icon: <TrendingUp className="w-4 h-4" /> },
     { id: 'achievements', labelEn: 'Achievements', labelTe: 'విజయాలు & బ్యాడ్జీలు', icon: <Award className="w-4 h-4" /> },
-    { id: 'settings', labelEn: 'Settings', labelTe: 'సెట్టింగ్‌లు', icon: <Settings className="w-4 h-4" /> },
+    { id: 'notes', labelEn: 'Notes & Bookmarks', labelTe: 'నోట్స్ & బుక్‌మార్క్స్', icon: <Bookmark className="w-4 h-4" /> },
+    { id: 'settings', labelEn: 'Account Settings', labelTe: 'సెట్టింగ్‌లు', icon: <Settings className="w-4 h-4" /> },
     { id: 'help', labelEn: 'Help & Support', labelTe: 'సహాయం & గైడ్', icon: <HelpCircle className="w-4 h-4" /> },
   ];
 

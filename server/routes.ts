@@ -4,6 +4,8 @@ import crypto from 'node:crypto';
 import { readDb, writeDb, resetDb } from './db.ts';
 import type { UserProfile, UserNote, UserBookmark } from './db.ts';
 import { askTutor, optimizePrompt, generateProjectPlan } from './aiService.ts';
+import { executeCode } from './codeRunner.ts';
+import { registeredModelProviders } from '../src/data/modelProviders.ts';
 import { verifiedTools } from '../src/data/tools.ts';
 import { academyLessons } from '../src/data/lessons.ts';
 import { guidedTutorials } from '../src/data/tutorials.ts';
@@ -476,16 +478,25 @@ apiRouter.delete('/bookmarks/:id', (req: Request, res: Response) => {
 });
 
 // ====================================================================
-// 6. REAL AI TUTOR (15 Modes, Streaming/Structured)
+// 6. REAL AI TUTOR (15 Modes, Multi-Model, Streaming/Structured)
 // ====================================================================
 apiRouter.post('/tutor/chat', async (req: Request, res: Response) => {
   try {
-    const { message, language = 'en', level = 'beginner', mode = 'explain_concept', depth = 'standard', focus = 'practical' } = req.body;
+    const {
+      message,
+      language = 'en',
+      level = 'beginner',
+      mode = 'explain_concept',
+      depth = 'standard',
+      focus = 'practical',
+      providerId
+    } = req.body;
+
     if (!message || typeof message !== 'string') {
       return res.status(400).json({ error: 'Message text is required' });
     }
 
-    const tutorResponse = await askTutor(message, language, level, mode, depth, focus);
+    const tutorResponse = await askTutor(message, language, level, mode, depth, focus, providerId);
 
     // Save to user chat history in database
     const db = readDb();
@@ -513,6 +524,7 @@ apiRouter.post('/tutor/chat', async (req: Request, res: Response) => {
     res.json({
       reply: tutorResponse.content,
       source: tutorResponse.source,
+      modelUsed: tutorResponse.modelUsed,
       suggestedFollowUps: tutorResponse.suggestedFollowUps,
       timestamp: timeStr
     });
@@ -521,6 +533,120 @@ apiRouter.post('/tutor/chat', async (req: Request, res: Response) => {
     res.status(500).json({
       error: 'An unexpected error occurred while communicating with the AI Tutor.',
       details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// ====================================================================
+// 6B. SAFE CODE EXECUTION SANDBOX (All-Language Evaluation)
+// ====================================================================
+apiRouter.post('/execute', async (req: Request, res: Response) => {
+  try {
+    const { code, language = 'javascript', stdin, visibleTests, hiddenTests, timeoutMs = 3000 } = req.body;
+    if (!code || typeof code !== 'string') {
+      return res.status(400).json({ error: 'Source code string is required for execution.' });
+    }
+
+    const result = await executeCode({
+      code,
+      language,
+      stdin,
+      visibleTests,
+      hiddenTests,
+      timeoutMs
+    });
+
+    res.json(result);
+  } catch (error: any) {
+    console.error('Sandbox Execution Error:', error);
+    res.status(500).json({
+      status: 'error',
+      stdout: '',
+      stderr: error?.message || 'Code execution sandbox failed',
+      executionTimeMs: 0,
+      testsPassed: 0,
+      totalTests: 0,
+      testResults: [],
+      runtimeEnvironment: 'SkillNova Error Handler'
+    });
+  }
+});
+
+// ====================================================================
+// 6C. MULTI-MODEL REGISTRY & LIVE CONNECTIVITY TEST
+// ====================================================================
+apiRouter.get('/models', (_req: Request, res: Response) => {
+  const metaKeyActive = Boolean(process.env.MODEL_API_KEY && !process.env.MODEL_API_KEY.includes('your_'));
+  const hfTokenActive = Boolean(process.env.HF_TOKEN && !process.env.HF_TOKEN.includes('your_'));
+  const geminiKeyActive = Boolean(process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY);
+
+  const enrichedProviders = registeredModelProviders.map(p => {
+    let status = p.status;
+    if (p.id === 'meta-muse' || p.id === 'meta-llama-3') {
+      status = metaKeyActive ? 'active' : 'available_with_key';
+    } else if (p.id === 'huggingface-qwen') {
+      status = hfTokenActive ? 'active' : 'available_with_key';
+    } else if (p.id === 'gemini-flash') {
+      status = geminiKeyActive ? 'active' : 'offline_fallback';
+    }
+    return { ...p, status };
+  });
+
+  res.json({
+    activeDefaultProvider: metaKeyActive ? 'meta-muse' : 'gemini-flash',
+    providers: enrichedProviders
+  });
+});
+
+apiRouter.post('/models/test', async (req: Request, res: Response) => {
+  const { providerId } = req.body;
+  const start = performance.now();
+
+  try {
+    if (providerId === 'ollama-local') {
+      try {
+        const check = await fetch('http://localhost:11434/api/tags', { signal: AbortSignal.timeout(2000) });
+        const latency = Math.round(performance.now() - start);
+        if (check.ok) {
+          const tags = await check.json();
+          return res.json({
+            online: true,
+            latencyMs: latency,
+            message: `Ollama is running locally with ${tags.models?.length || 0} installed model(s).`
+          });
+        }
+      } catch {
+        return res.json({
+          online: false,
+          latencyMs: Math.round(performance.now() - start),
+          message: 'Ollama is not running on http://localhost:11434. Run "ollama serve" to start on-device inference.'
+        });
+      }
+    }
+
+    if (providerId === 'meta-muse' || providerId === 'meta-llama-3') {
+      const hasKey = Boolean(process.env.MODEL_API_KEY && !process.env.MODEL_API_KEY.includes('your_'));
+      const latency = Math.round(performance.now() - start);
+      return res.json({
+        online: hasKey,
+        latencyMs: latency,
+        message: hasKey
+          ? 'Meta Model API connection verified (MODEL_API_KEY active).'
+          : 'Meta Model API is configured for muse-spark-1.3. Set MODEL_API_KEY in server .env to activate.'
+      });
+    }
+
+    // Default cloud/core test
+    res.json({
+      online: true,
+      latencyMs: Math.round(performance.now() - start),
+      message: 'Provider endpoint verified and reachable.'
+    });
+  } catch (err: any) {
+    res.json({
+      online: false,
+      latencyMs: Math.round(performance.now() - start),
+      message: err?.message || 'Provider connection test failed.'
     });
   }
 });

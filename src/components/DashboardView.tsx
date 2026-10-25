@@ -6,12 +6,12 @@ import {
   BookOpen,
   CheckCircle2,
   Bot,
-  CheckSquare,
-  Target,
   Play,
   Layers,
   Layout,
-  ChevronRight
+  Target,
+  ChevronRight,
+  Code2
 } from 'lucide-react';
 import { useApp } from '../context/useApp';
 import { courseCatalog } from '../data/courses';
@@ -84,18 +84,25 @@ export const DashboardView: React.FC = () => {
 
           <div className="flex flex-wrap items-center gap-3">
             <button
-              onClick={() => setActiveTab('tutor')}
+              onClick={() => setActiveTab('coding-practice')}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer"
             >
-              <Bot className="w-4 h-4" />
-              <span>{language === 'te' ? 'AI ట్యూటర్ అడగండి' : 'Ask AI Tutor'}</span>
+              <Code2 className="w-4 h-4" />
+              <span>{language === 'te' ? 'కోడింగ్ ప్రాక్టీస్' : 'Coding Practice (18 Cats)'}</span>
             </button>
             <button
-              onClick={() => setActiveTab('quizzes')}
+              onClick={() => setActiveTab('tutor')}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm border border-white/20 transition-all cursor-pointer"
             >
-              <CheckSquare className="w-4 h-4 text-cyan-300" />
-              <span>{language === 'te' ? 'క్విజ్ ప్రాక్టీస్' : 'Practice Quiz'}</span>
+              <Bot className="w-4 h-4" />
+              <span>{language === 'te' ? 'AI ట్యూటర్' : 'Nova AI Mentor'}</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('tools-academy')}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm border border-white/20 transition-all cursor-pointer"
+            >
+              <Layers className="w-4 h-4 text-cyan-300" />
+              <span>{language === 'te' ? 'డెవలపర్ టూల్స్' : 'Dev Tools Academy'}</span>
             </button>
           </div>
         </div>

@@ -11,6 +11,13 @@ export type { TabType, AppContextType, SavedPrompt, UserProfileData, NoteItem, B
 const VALID_TABS: TabType[] = [
   'welcome',
   'dashboard',
+  'coding-practice',
+  'playground',
+  'tools-academy',
+  'projects',
+  'how-it-works',
+  'learning-paths',
+  'model-settings',
   'courses',
   'my-learning',
   'tutor',
@@ -183,7 +190,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [launcherGoal, setLauncherGoal] = useState<string>('');
 
-  const showToast = useCallback((msg: string) => {
+  const showToast = useCallback((msg: string, _type?: 'info' | 'success' | 'warning' | 'error') => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3800);
   }, []);

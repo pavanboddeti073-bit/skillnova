@@ -6,6 +6,13 @@ import type { PracticeQuiz } from '../data/quizzes.ts';
 export type TabType = 
   | 'welcome'
   | 'dashboard'
+  | 'coding-practice'
+  | 'playground'
+  | 'tools-academy'
+  | 'projects'
+  | 'how-it-works'
+  | 'learning-paths'
+  | 'model-settings'
   | 'courses'
   | 'my-learning'
   | 'tutor'
@@ -147,7 +154,7 @@ export interface AppContextType {
   
   // Toast notifications
   toastMessage: string | null;
-  showToast: (msg: string) => void;
+  showToast: (msg: string, type?: 'info' | 'success' | 'warning' | 'error') => void;
   
   // Project Launcher Goal
   launcherGoal: string;

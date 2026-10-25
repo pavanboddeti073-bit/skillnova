@@ -37,7 +37,8 @@ export interface UserProgressData {
 
 export interface ChatResponse {
   reply: string;
-  source: 'gemini-api' | 'skillnova-core';
+  source: 'meta-api' | 'ollama-local' | 'huggingface' | 'gemini-api' | 'skillnova-core';
+  modelUsed?: string;
   suggestedFollowUps: string[];
   timestamp: string;
 }
@@ -131,13 +132,14 @@ export const apiClient = {
     level: string,
     mode: string = 'explain_concept',
     depth: string = 'standard',
-    focus: string = 'practical'
+    focus: string = 'practical',
+    providerId?: string
   ): Promise<ChatResponse | null> {
     try {
       const res = await fetch(`${BASE_URL}/tutor/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, language, level, mode, depth, focus })
+        body: JSON.stringify({ message, language, level, mode, depth, focus, providerId })
       });
       if (res.ok) {
         return await res.json();
@@ -147,6 +149,30 @@ export const apiClient = {
     }
 
     return null;
+  },
+
+  async getModels() {
+    try {
+      const res = await fetch(`${BASE_URL}/models`);
+      if (res.ok) return await res.json();
+    } catch {
+      // offline
+    }
+    return null;
+  },
+
+  async testModelConnection(providerId: string): Promise<{ online: boolean; latencyMs: number; message: string }> {
+    try {
+      const res = await fetch(`${BASE_URL}/models/test`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ providerId })
+      });
+      if (res.ok) return await res.json();
+    } catch (err: any) {
+      return { online: false, latencyMs: 0, message: err?.message || 'Connection failed' };
+    }
+    return { online: false, latencyMs: 0, message: 'Provider unreachable' };
   },
 
   async optimizePrompt(payload: {
